@@ -122,7 +122,7 @@ rule prepare_genes_index:
         """
         cat {input} >{output.fa}
         rm -f `dirname {output.index}`/`basename {output.index} ".CT.1.ht2"`.*.ht2
-        ~/tools/hisat2/hisat-3n-build -p 12 --base-change C,T {output.fa} {params.index}
+        /home/milefer7/opt/hisat-3n/hisat-3n-build -p 12 --base-change C,T {output.fa} {params.index}
         """
 
 
