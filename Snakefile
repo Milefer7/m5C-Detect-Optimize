@@ -15,7 +15,7 @@ BIN = config["path"]
 REF = config["reference"]
 
 CUSTOMIZED_GENES = [os.path.expanduser(i) for i in config.get("customized_genes", [])]
-WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3"]
+WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3", "adapter"]
 MARKDUP = config.get("markdup", False)
 
 
