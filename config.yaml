@@ -25,13 +25,16 @@ library: TAKARAV3
 # reference genome and index
 reference:
   contamination:
-    fa: ~/reference/genome/contamination/contamination.fa
+#    fa: ~/reference/genome/contamination/contamination.fa
+    fa: ../data/ref/GCA_000819615.1_ViralProj14015_genomic.fna
     hisat3n: ~/reference/index/hisat3n/contamination/contamination
   genes:
-    fa: ~/reference/genome/Homo_sapiens.GRCh38.sncRNA.fa
+#    fa: ~/reference/genome/Homo_sapiens.GRCh38.sncRNA.fa
+    fa: ../data/ref/GRCh38.p14.genome.fa
     hisat3n: ~/reference/index/hisat3n/Homo_sapiens.GRCh38.sncRNA/Homo_sapiens.GRCh38.sncRNA
   genome:
-    fa: ~/reference/genome/Homo_sapiens.GRCh38.genome.fa
+#    fa: ~/reference/genome/Homo_sapiens.GRCh38.genome.fa
+    fa: ../data/ref/GCF_000001405.40_GRCh38.p14_genomic.fna
     hisat3n: ~/reference/index/hisat3n/Homo_sapiens.GRCh38.genome/Homo_sapiens.GRCh38.genome
 
 # Sample name should be indentical and listed in the 2nd level of the yaml file
