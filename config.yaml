@@ -20,7 +20,7 @@ library: TAKARAV3
 #   - a.fa
 #   - b.fa
 # library: INLINE
-# makedup: false
+# makedup: false 
 
 # reference genome and index
 reference:
@@ -30,11 +30,11 @@ reference:
     hisat3n: /home/milefer7/myRes/m5C-UBSseq/data/ref/index/hisat3n/contamination/contamination
   genes:
 #    fa: ~/reference/genome/Homo_sapiens.GRCh38.sncRNA.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq/data/ref/GRCh38.p14.genome.fa
+    fa: /home/milefer7/myRes/m5C-UBSseq/data/ref/gencode.v47.lncRNA_transcripts.fa
     hisat3n: /home/milefer7/myRes/m5C-UBSseq/data/ref/index/hisat3n/Homo_sapiens.GRCh38.sncRNA/Homo_sapiens.GRCh38.sncRNA
   genome:
 #    fa: ~/reference/genome/Homo_sapiens.GRCh38.genome.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq/data/ref/GCF_000001405.40_GRCh38.p14_genomic.fna
+    fa: /home/milefer7/myRes/m5C-UBSseq/data/ref/GRCh38.p14.genome.fa
     hisat3n: /home/milefer7/myRes/m5C-UBSseq/data/ref/index/hisat3n/Homo_sapiens.GRCh38.genome/Homo_sapiens.GRCh38.genome
 
 # Sample name should be indentical and listed in the 2nd level of the yaml file

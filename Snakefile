@@ -180,10 +180,10 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 24
+    threads: 3
     shell:
         """
-        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
+        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment -o 20 | \
             {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
         """
 
@@ -197,7 +197,7 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    threads: 24
+    threads: 6
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
