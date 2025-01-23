@@ -158,8 +158,6 @@ rule hisat2_3n_mapping_contamination_SE:
         mapped=temp(TEMPDIR / "mapping_unsorted_SE/{sample}_{rn}.contamination.bam"),
         unmapped=temp(TEMPDIR / "mapping_discarded_SE/{sample}_{rn}.contamination.bam"),
         summary="report_reads/mapping/{sample}_{rn}.contamination.summary",
-    resources:
-        mem_mb=14000  # 限制内存使用为 14GB
     params:
         index=REF["contamination"]["hisat3n"],
     threads: 24
@@ -178,17 +176,20 @@ rule hisat2_3n_mapping_genes_SE:
         mapped=temp(TEMPDIR / "mapping_unsorted_SE/{sample}_{rn}.genes.bam"),
         unmapped=temp(TEMPDIR / "mapping_discarded_SE/{sample}_{rn}.genes.bam"),
         summary="report_reads/mapping/{sample}_{rn}.genes.summary",
-    resources:
-        mem_mb=14000  # 限制内存使用为 14GB
     params:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 7
+    threads: 2
     shell:
+        # """
+        # {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
+        #     {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
+        # """
+        # 修改 samtools 并发数为 1，levle=1
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
-            {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
+            {BIN[samtools]} view -@ 1 -e '!flag.unmap' -O BAM,level=1 -U {output.unmapped} -o {output.mapped}
         """
 
 
@@ -201,8 +202,6 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    resources:
-        mem_mb=14000  # 限制内存使用为 14GB
     threads: 7
     shell:
         """
