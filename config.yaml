@@ -26,16 +26,16 @@ library: TAKARAV3
 reference:
   contamination:
 #    fa: ~/reference/genome/contamination/contamination.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq/data/ref/GCA_000819615.1_ViralProj14015_genomic.fna
-    hisat3n: /home/milefer7/myRes/m5C-UBSseq/data/ref/index/hisat3n/contamination/contamination
+    fa: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/GCA_000819615.1_ViralProj14015_genomic.fna
+    hisat3n: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/index/hisat3n/contamination/contamination
   genes:
 #    fa: ~/reference/genome/Homo_sapiens.GRCh38.sncRNA.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq/data/ref/gencode.v47.lncRNA_transcripts.fa
-    hisat3n: /home/milefer7/myRes/m5C-UBSseq/data/ref/index/hisat3n/Homo_sapiens.GRCh38.sncRNA/Homo_sapiens.GRCh38.sncRNA
+    fa: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/gencode.v47.lncRNA_transcripts.fa
+    hisat3n: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/index/hisat3n/Homo_sapiens.GRCh38.sncRNA/Homo_sapiens.GRCh38.sncRNA
   genome:
 #    fa: ~/reference/genome/Homo_sapiens.GRCh38.genome.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq/data/ref/GRCh38.p14.genome.fa
-    hisat3n: /home/milefer7/myRes/m5C-UBSseq/data/ref/index/hisat3n/Homo_sapiens.GRCh38.genome/Homo_sapiens.GRCh38.genome
+    fa: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/GRCh38.p14.genome.fa
+    hisat3n: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/index/hisat3n/Homo_sapiens.GRCh38.genome/Homo_sapiens.GRCh38.genome
 
 # Sample name should be indentical and listed in the 2nd level of the yaml file
 # Each sample will be analysis seperately, but
