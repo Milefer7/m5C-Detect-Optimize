@@ -15,7 +15,7 @@ BIN = config["path"]
 REF = config["reference"]
 
 CUSTOMIZED_GENES = [os.path.expanduser(i) for i in config.get("customized_genes", [])]
-WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3", "adapter"]
+WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3"]
 MARKDUP = config.get("markdup", False)
 
 
@@ -180,16 +180,11 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 2
+    threads: 24
     shell:
-        # """
-        # {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
-        #     {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
-        # """
-        # 修改 samtools 并发数为 1，levle=1
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
-            {BIN[samtools]} view -@ 1 -e '!flag.unmap' -O BAM,level=1 -U {output.unmapped} -o {output.mapped}
+            {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
         """
 
 
@@ -202,7 +197,7 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    threads: 7
+    threads: 24
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
