@@ -200,7 +200,6 @@ rule hisat2_3n_mapping_genes_SE:
             --3N \
             --no-softclip \
             --score-min L,0,-0.1 \
-            --parallel-reads 500 \
             --dta-cufflinks \
         | {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
         """
