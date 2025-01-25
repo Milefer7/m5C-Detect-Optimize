@@ -3,7 +3,7 @@ path:
   samtools: /home/milefer7/miniconda3/envs/asc04/bin/samtools
   hisat3n: /home/milefer7/miniconda3/envs/asc04/bin/hisat-3n
   hisat3ntable: /home/milefer7/miniconda3/envs/asc04/bin/hisat-3n-table
-  umicollapse: /home/milefer7/miniconda3/envs/asc04/bin/umicollapse
+  umicollapse: /home/milefer7/opt/UMICollapse-master/umicollapse.jar
   join_pileup.py: ../bin/join_pileup.py
   group_pileup.py: ../bin/group_pileup.py
   select_sites.py: ../bin/select_sites.py
