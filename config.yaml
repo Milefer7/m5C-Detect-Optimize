@@ -10,8 +10,8 @@ path:
   filter_sites.py: ../bin/filter_sites.py
 
 # global config
-# library: INLINE
-library: TAKARAV3
+library: INLINE
+# library: TAKARAV3
 #
 # prepare genes index
 # premap to rRNA, tRNA and other small RNA
