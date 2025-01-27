@@ -3,7 +3,8 @@ path:
   samtools: /home/milefer7/miniconda3/envs/asc04/bin/samtools
   hisat3n: /home/milefer7/miniconda3/envs/asc04/bin/hisat-3n
   hisat3ntable: /home/milefer7/miniconda3/envs/asc04/bin/hisat-3n-table
-  umicollapse: /home/milefer7/opt/UMICollapse-master/umicollapse.jar
+  umicollapse: /home/milefer7/miniconda3/envs/asc04/bin/umicollapse
+  bgzip: /home/milefer7/miniconda3/envs/asc04/bin/bgzip
   join_pileup.py: ../bin/join_pileup.py
   group_pileup.py: ../bin/group_pileup.py
   select_sites.py: ../bin/select_sites.py
@@ -26,16 +27,16 @@ library: INLINE
 reference:
   contamination:
 #    fa: ~/reference/genome/contamination/contamination.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/GCA_000819615.1_ViralProj14015_genomic.fna
-    hisat3n: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/index/hisat3n/contamination/contamination
+    fa: /home/milefer7/myRes/ASC25_m5C/data/ref/GCA_000819615.1_ViralProj14015_genomic.fna
+    hisat3n: /home/milefer7/myRes/ASC25_m5C/data/ref/index/hisat3n/contamination/contamination
   genes:
 #    fa: ~/reference/genome/Homo_sapiens.GRCh38.sncRNA.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/gencode.v47.lncRNA_transcripts.fa
-    hisat3n: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/index/hisat3n/Homo_sapiens.GRCh38.sncRNA/Homo_sapiens.GRCh38.sncRNA
+    fa: /home/milefer7/myRes/ASC25_m5C/data/ref/gencode.v47.lncRNA_transcripts.fa
+    hisat3n: /home/milefer7/myRes/ASC25_m5C/data/ref/index/hisat3n/Homo_sapiens.GRCh38.sncRNA/Homo_sapiens.GRCh38.sncRNA
   genome:
 #    fa: ~/reference/genome/Homo_sapiens.GRCh38.genome.fa
-    fa: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/GRCh38.p14.genome.fa
-    hisat3n: /home/milefer7/myRes/m5C-UBSseq_optimized_version/data/ref/index/hisat3n/Homo_sapiens.GRCh38.genome/Homo_sapiens.GRCh38.genome
+    fa: /home/milefer7/myRes/ASC25_m5C/data/ref/GRCh38.p14.genome.fa
+    hisat3n: /home/milefer7/myRes/ASC25_m5C/data/ref/index/hisat3n/Homo_sapiens.GRCh38.genome/Homo_sapiens.GRCh38.genome
 
 # Sample name should be indentical and listed in the 2nd level of the yaml file
 # Each sample will be analysis seperately, but
