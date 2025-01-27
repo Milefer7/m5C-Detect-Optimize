@@ -72,7 +72,6 @@ rule cutadapt_SE:
         fastq_cut=temp(TEMPDIR / "cut_adapter_SE/{sample}_{rn}_R1.fq.gz"),
         fastq_tooshort=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.tooshort.fq.gz",
         fastq_untrimmed=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.untrimmed.fq.gz",
-        report="report_reads/trimming/{sample}_{rn}.json",
     params:
         library=lambda wildcards: SAMPLE2LIB[wildcards.sample],
     threads: 20
