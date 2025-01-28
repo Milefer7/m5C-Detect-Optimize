@@ -14,6 +14,36 @@ workdir: "workspace"
 BIN = config["path"]
 REF = config["reference"]
 
+# 资源监控
+onstart:
+    shell(
+        """
+        nohup scripts/monitor.sh > logs/monitor.log 2>&1 &
+        echo $! > .monitor.pid
+        """
+    )
+
+
+# 成功结束时执行
+onsuccess:
+    shell(
+        """
+        kill $(cat .monitor.pid) 2>/dev/null || true
+        rm -f .monitor.pid
+        echo "✅ 工作流执行成功！耗时: {workflow.runtime} 秒"
+        """
+    )
+
+# 失败时执行
+onerror:
+    shell(
+        """
+        kill $(cat .monitor.pid) 2>/dev/null || true
+        rm -f .monitor.pid
+        echo "❌ 工作流执行失败！耗时: {workflow.runtime} 秒"
+        """
+    )
+
 CUSTOMIZED_GENES = [os.path.expanduser(i) for i in config.get("customized_genes", [])]
 WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3"]
 MARKDUP = config.get("markdup", False)
@@ -78,33 +108,6 @@ rule cutadapt_SE:
     shell:
         """
         cutseq {input} -t {threads} -A {params.library} -m 20 --trim-polyA --ensure-inline-barcode -o {output.fastq_cut} -s {output.fastq_tooshort} -u {output.fastq_untrimmed}
-        """
-
-
-rule cutadapt_PE:
-    input:
-        lambda wildcards: SAMPLE2DATA[wildcards.sample][wildcards.rn].get("R1", "/"),
-        lambda wildcards: SAMPLE2DATA[wildcards.sample][wildcards.rn].get("R2", "/"),
-    output:
-        fastq_cut=[
-            temp(TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R1.fq.gz"),
-            temp(TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R2.fq.gz"),
-        ],
-        fastq_tooshort=[
-            INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.tooshort.fq.gz",
-            INTERNALDIR / "discarded_reads/{sample}_{rn}_R2.tooshort.fq.gz",
-        ],
-        fastq_untrimmed=[
-            INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.untrimmed.fq.gz",
-            INTERNALDIR / "discarded_reads/{sample}_{rn}_R2.untrimmed.fq.gz",
-        ],
-        report="report_reads/trimming/{sample}_{rn}.report",
-    params:
-        library=lambda wildcards: SAMPLE2LIB[wildcards.sample],
-    threads: 20
-    shell:
-        """
-        cutseq -t {threads} -A {params.library} -m 20 --trim-polyA --ensure-inline-barcode --auto-rc -o {output.fastq_cut} -s {output.fastq_tooshort} -u {output.fastq_untrimmed} --json-file {output.report} {input} 
         """
 
 
@@ -233,82 +236,6 @@ rule extract_unmap_bam_internal_SE:
         """
 
 
-# Mapping (PE mapping mode)
-
-
-rule hisat2_3n_mapping_contamination_PE:
-    input:
-        TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R1.fq.gz",
-        TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R2.fq.gz",
-    output:
-        mapped=temp(TEMPDIR / "mapping_unsorted_PE/{sample}_{rn}.contamination.bam"),
-        unmapped=temp(TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.contamination.bam"),
-        summary="report_reads/mapping/{sample}_{rn}.contamination.summary",
-    params:
-        index=REF["contamination"]["hisat3n"],
-    threads: 24
-    shell:
-        """
-        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -1 {input[0]} -2 {input[1]} --directional-mapping --base-change C,T --mp 8,2 --no-spliced-alignment | \
-            {BIN[samtools]} view -@ {threads} -e 'flag.proper_pair && !flag.unmap && !flag.munmap' -O BAM -U {output.unmapped} -o {output.mapped}
-        """
-
-
-rule hisat2_3n_mapping_genes_PE:
-    input:
-        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.contamination.fq.gz",
-        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.contamination.fq.gz",
-        "prepared_genes/genes.3n.CT.1.ht2" if CUSTOMIZED_GENES else [],
-    output:
-        mapped=temp(TEMPDIR / "mapping_unsorted_PE/{sample}_{rn}.genes.bam"),
-        unmapped=temp(TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.genes.bam"),
-        summary="report_reads/mapping/{sample}_{rn}.genes.summary",
-    params:
-        index=(
-            REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
-        ),
-    threads: 24
-    shell:
-        """
-        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -1 {input[0]} -2 {input[1]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
-            {BIN[samtools]} view -@ {threads} -e 'flag.proper_pair && !flag.unmap && !flag.munmap' -O BAM -U {output.unmapped} -o {output.mapped}
-        """
-
-
-rule hisat2_3n_mapping_genome_PE:
-    input:
-        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.genes.fq.gz",
-        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.genes.fq.gz",
-    output:
-        mapped=temp(TEMPDIR / "mapping_unsorted_PE/{sample}_{rn}.genome.bam"),
-        unmapped=temp(TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.genome.bam"),
-        summary="report_reads/mapping/{sample}_{rn}.genome.summary",
-    params:
-        index=REF["genome"]["hisat3n"],
-    threads: 24
-    shell:
-        """
-        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -1 {input[0]} -2 {input[1]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
-            {BIN[samtools]} view -@ {threads} -e 'flag.proper_pair && !flag.unmap && !flag.munmap' -O BAM -U {output.unmapped} -o {output.mapped}
-        """
-
-
-rule extract_unmap_bam_internal_PE:
-    input:
-        TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.{reftype}.bam",
-    output:
-        r1=temp(TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.{reftype}.fq.gz"),
-        r2=temp(TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.{reftype}.fq.gz"),
-    threads: 4
-    shell:
-        """
-        {BIN[samtools]} fastq -@ {threads} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n {input}
-        """
-
-
-ruleorder: extract_unmap_bam_final_PE > extract_unmap_bam_final_SE
-
-
 rule extract_unmap_bam_final_SE:
     input:
         r1=TEMPDIR / "unmapped_internal_SE/{sample}_{rn}_R1.genome.fq.gz",
@@ -318,21 +245,6 @@ rule extract_unmap_bam_final_SE:
     shell:
         """
         mv {input.r1} {output.r1}
-        """
-
-
-rule extract_unmap_bam_final_PE:
-    input:
-        r1=TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.genome.fq.gz",
-        r2=TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.genome.fq.gz",
-    output:
-        r1=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.unmapped.fq.gz",
-        r2=INTERNALDIR / "discarded_reads/{sample}_{rn}_R2.unmapped.fq.gz",
-    threads: 4
-    shell:
-        """
-        mv {input.r1} {output.r1}
-        mv {input.r2} {output.r2}
         """
 
 

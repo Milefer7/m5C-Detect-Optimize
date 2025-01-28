@@ -31,7 +31,7 @@ total                                    100
 Select jobs to execute...
 Execute 3 jobs...
 
-[Mon Jan 27 11:32:52 2025]
+[Tue Jan 28 02:38:52 2025]
 localrule cutadapt_SE:
     input: ../data/SRR23538290_1.fastq.gz
     output: .tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz, internal_files/discarded_reads/CONTROL-rep1_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/CONTROL-rep1_run1_R1.untrimmed.fq.gz
@@ -42,18 +42,7 @@ localrule cutadapt_SE:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 11:32:52 2025]
-localrule cutadapt_SE:
-    input: ../data/SRR23538292_1.fastq.gz
-    output: .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.untrimmed.fq.gz
-    jobid: 31
-    reason: Missing output files: .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz
-    wildcards: sample=DRUG-rep2, rn=run1
-    threads: 20
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 11:32:52 2025]
+[Tue Jan 28 02:38:52 2025]
 localrule cutadapt_SE:
     input: ../data/SRR23538291_1.fastq.gz
     output: .tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.untrimmed.fq.gz
@@ -63,29 +52,40 @@ localrule cutadapt_SE:
     threads: 20
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:35:49 2025]
+
+[Tue Jan 28 02:38:52 2025]
+localrule cutadapt_SE:
+    input: ../data/SRR23538292_1.fastq.gz
+    output: .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.untrimmed.fq.gz
+    jobid: 31
+    reason: Missing output files: .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz
+    wildcards: sample=DRUG-rep2, rn=run1
+    threads: 20
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 02:41:52 2025]
 Finished job 5.
 1 of 100 steps (1%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:35:49 2025]
+[Tue Jan 28 02:41:52 2025]
 localrule hisat2_3n_mapping_contamination_SE:
     input: .tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz
     output: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.contamination.bam, .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam, report_reads/mapping/CONTROL-rep1_run1.contamination.summary
     jobid: 4
-    reason: Missing output files: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam, .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.contamination.bam; Input files updated by another job: .tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz
+    reason: Missing output files: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.contamination.bam, .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam; Input files updated by another job: .tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz
     wildcards: sample=CONTROL-rep1, rn=run1
     threads: 24
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:36:37 2025]
+[Tue Jan 28 02:42:32 2025]
 Finished job 31.
 2 of 100 steps (2%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:36:37 2025]
+[Tue Jan 28 02:42:32 2025]
 localrule hisat2_3n_mapping_contamination_SE:
     input: .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz
     output: .tmp/mapping_unsorted_SE/DRUG-rep2_run1.contamination.bam, .tmp/mapping_discarded_SE/DRUG-rep2_run1.contamination.bam, report_reads/mapping/DRUG-rep2_run1.contamination.summary
@@ -95,41 +95,30 @@ localrule hisat2_3n_mapping_contamination_SE:
     threads: 24
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:37:14 2025]
+[Tue Jan 28 02:43:11 2025]
 Finished job 18.
 3 of 100 steps (3%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:37:14 2025]
+[Tue Jan 28 02:43:11 2025]
 localrule hisat2_3n_mapping_contamination_SE:
     input: .tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz
     output: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.contamination.bam, .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam, report_reads/mapping/DRUG-rep1_run1.contamination.summary
     jobid: 17
-    reason: Missing output files: .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam, .tmp/mapping_unsorted_SE/DRUG-rep1_run1.contamination.bam; Input files updated by another job: .tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz
+    reason: Missing output files: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.contamination.bam, .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam; Input files updated by another job: .tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz
     wildcards: sample=DRUG-rep1, rn=run1
     threads: 24
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:42:32 2025]
+[Tue Jan 28 02:48:13 2025]
 Finished job 4.
 4 of 100 steps (4%) done
 Removing temporary output .tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz.
 Select jobs to execute...
 Execute 2 jobs...
 
-[Mon Jan 27 11:42:33 2025]
-localrule extract_unmap_bam_internal_SE:
-    input: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam
-    output: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz
-    jobid: 9
-    reason: Missing output files: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam
-    wildcards: sample=CONTROL-rep1, rn=run1, reftype=contamination
-    threads: 4
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 11:42:33 2025]
+[Tue Jan 28 02:48:14 2025]
 localrule hisat2_3n_sort:
     input: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.contamination.bam
     output: internal_files/run_sorted/CONTROL-rep1_run1.contamination.bam
@@ -139,14 +128,25 @@ localrule hisat2_3n_sort:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:42:33 2025]
+
+[Tue Jan 28 02:48:14 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam
+    output: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz
+    jobid: 9
+    reason: Missing output files: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam
+    wildcards: sample=CONTROL-rep1, rn=run1, reftype=contamination
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 02:48:14 2025]
 Finished job 3.
 5 of 100 steps (5%) done
 Removing temporary output .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.contamination.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:42:33 2025]
+[Tue Jan 28 02:48:14 2025]
 localrule combine_runs:
     input: internal_files/run_sorted/CONTROL-rep1_run1.contamination.bam
     output: .tmp/combined_mapping/CONTROL-rep1.contamination.bam
@@ -156,45 +156,34 @@ localrule combine_runs:
     threads: 8
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:42:33 2025]
+[Tue Jan 28 02:48:14 2025]
 Finished job 2.
 6 of 100 steps (6%) done
-[Mon Jan 27 11:43:26 2025]
+[Tue Jan 28 02:48:53 2025]
 Finished job 9.
 7 of 100 steps (7%) done
 Removing temporary output .tmp/mapping_discarded_SE/CONTROL-rep1_run1.contamination.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:43:26 2025]
+[Tue Jan 28 02:48:53 2025]
 localrule hisat2_3n_mapping_genes_SE:
     input: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz
     output: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genes.bam, .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam, report_reads/mapping/CONTROL-rep1_run1.genes.summary
     jobid: 8
-    reason: Missing output files: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam, .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genes.bam; Input files updated by another job: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz
+    reason: Missing output files: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genes.bam, .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam; Input files updated by another job: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz
     wildcards: sample=CONTROL-rep1, rn=run1
     threads: 35
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:46:25 2025]
+[Tue Jan 28 02:53:23 2025]
 Finished job 30.
 8 of 100 steps (8%) done
 Removing temporary output .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz.
 Select jobs to execute...
 Execute 2 jobs...
 
-[Mon Jan 27 11:46:25 2025]
-localrule extract_unmap_bam_internal_SE:
-    input: .tmp/mapping_discarded_SE/DRUG-rep2_run1.contamination.bam
-    output: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz
-    jobid: 35
-    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep2_run1.contamination.bam
-    wildcards: sample=DRUG-rep2, rn=run1, reftype=contamination
-    threads: 4
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 11:46:25 2025]
+[Tue Jan 28 02:53:24 2025]
 localrule hisat2_3n_sort:
     input: .tmp/mapping_unsorted_SE/DRUG-rep2_run1.contamination.bam
     output: internal_files/run_sorted/DRUG-rep2_run1.contamination.bam
@@ -204,14 +193,25 @@ localrule hisat2_3n_sort:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:46:25 2025]
+
+[Tue Jan 28 02:53:24 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/DRUG-rep2_run1.contamination.bam
+    output: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz
+    jobid: 35
+    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep2_run1.contamination.bam
+    wildcards: sample=DRUG-rep2, rn=run1, reftype=contamination
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 02:53:24 2025]
 Finished job 29.
 9 of 100 steps (9%) done
 Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep2_run1.contamination.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:46:25 2025]
+[Tue Jan 28 02:53:24 2025]
 localrule combine_runs:
     input: internal_files/run_sorted/DRUG-rep2_run1.contamination.bam
     output: .tmp/combined_mapping/DRUG-rep2.contamination.bam
@@ -221,45 +221,34 @@ localrule combine_runs:
     threads: 8
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:46:25 2025]
+[Tue Jan 28 02:53:24 2025]
 Finished job 28.
 10 of 100 steps (10%) done
-[Mon Jan 27 11:47:16 2025]
+[Tue Jan 28 02:54:13 2025]
 Finished job 35.
 11 of 100 steps (11%) done
 Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep2_run1.contamination.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:47:16 2025]
+[Tue Jan 28 02:54:13 2025]
 localrule hisat2_3n_mapping_genes_SE:
     input: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz
     output: .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genes.bam, .tmp/mapping_discarded_SE/DRUG-rep2_run1.genes.bam, report_reads/mapping/DRUG-rep2_run1.genes.summary
     jobid: 34
-    reason: Missing output files: .tmp/mapping_discarded_SE/DRUG-rep2_run1.genes.bam, .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genes.bam; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz
+    reason: Missing output files: .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genes.bam, .tmp/mapping_discarded_SE/DRUG-rep2_run1.genes.bam; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz
     wildcards: sample=DRUG-rep2, rn=run1
     threads: 35
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:49:58 2025]
+[Tue Jan 28 02:55:38 2025]
 Finished job 17.
 12 of 100 steps (12%) done
 Removing temporary output .tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz.
 Select jobs to execute...
 Execute 2 jobs...
 
-[Mon Jan 27 11:49:58 2025]
-localrule extract_unmap_bam_internal_SE:
-    input: .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam
-    output: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.contamination.fq.gz
-    jobid: 22
-    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam
-    wildcards: sample=DRUG-rep1, rn=run1, reftype=contamination
-    threads: 4
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 11:49:58 2025]
+[Tue Jan 28 02:55:38 2025]
 localrule hisat2_3n_sort:
     input: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.contamination.bam
     output: internal_files/run_sorted/DRUG-rep1_run1.contamination.bam
@@ -269,14 +258,25 @@ localrule hisat2_3n_sort:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:49:58 2025]
+
+[Tue Jan 28 02:55:38 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam
+    output: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.contamination.fq.gz
+    jobid: 22
+    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam
+    wildcards: sample=DRUG-rep1, rn=run1, reftype=contamination
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 02:55:38 2025]
 Finished job 16.
 13 of 100 steps (13%) done
 Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep1_run1.contamination.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:49:58 2025]
+[Tue Jan 28 02:55:38 2025]
 localrule combine_runs:
     input: internal_files/run_sorted/DRUG-rep1_run1.contamination.bam
     output: .tmp/combined_mapping/DRUG-rep1.contamination.bam
@@ -286,17 +286,17 @@ localrule combine_runs:
     threads: 8
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:49:58 2025]
+[Tue Jan 28 02:55:38 2025]
 Finished job 15.
 14 of 100 steps (14%) done
-[Mon Jan 27 11:51:01 2025]
+[Tue Jan 28 02:56:43 2025]
 Finished job 22.
 15 of 100 steps (15%) done
 Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep1_run1.contamination.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:51:02 2025]
+[Tue Jan 28 02:56:43 2025]
 localrule hisat2_3n_mapping_genes_SE:
     input: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.contamination.fq.gz
     output: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genes.bam, .tmp/mapping_discarded_SE/DRUG-rep1_run1.genes.bam, report_reads/mapping/DRUG-rep1_run1.genes.summary
@@ -306,25 +306,14 @@ localrule hisat2_3n_mapping_genes_SE:
     threads: 35
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:52:42 2025]
+[Tue Jan 28 02:59:06 2025]
 Finished job 8.
 16 of 100 steps (16%) done
 Removing temporary output .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.contamination.fq.gz.
 Select jobs to execute...
 Execute 2 jobs...
 
-[Mon Jan 27 11:52:43 2025]
-localrule extract_unmap_bam_internal_SE:
-    input: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam
-    output: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz
-    jobid: 13
-    reason: Missing output files: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam
-    wildcards: sample=CONTROL-rep1, rn=run1, reftype=genes
-    threads: 4
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 11:52:43 2025]
+[Tue Jan 28 02:59:07 2025]
 localrule hisat2_3n_sort:
     input: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genes.bam
     output: internal_files/run_sorted/CONTROL-rep1_run1.genes.bam
@@ -334,14 +323,25 @@ localrule hisat2_3n_sort:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:53:00 2025]
+
+[Tue Jan 28 02:59:07 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam
+    output: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz
+    jobid: 13
+    reason: Missing output files: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam
+    wildcards: sample=CONTROL-rep1, rn=run1, reftype=genes
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 02:59:24 2025]
 Finished job 7.
 17 of 100 steps (17%) done
 Removing temporary output .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genes.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:53:00 2025]
+[Tue Jan 28 02:59:24 2025]
 localrule combine_runs:
     input: internal_files/run_sorted/CONTROL-rep1_run1.genes.bam
     output: .tmp/combined_mapping/CONTROL-rep1.genes.bam
@@ -351,13 +351,13 @@ localrule combine_runs:
     threads: 8
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:53:11 2025]
+[Tue Jan 28 02:59:36 2025]
 Finished job 6.
 18 of 100 steps (18%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 11:53:11 2025]
+[Tue Jan 28 02:59:36 2025]
 localrule dedup_mapping:
     input: .tmp/combined_mapping/CONTROL-rep1.genes.bam
     output: internal_files/aligned_bam/CONTROL-rep1.genes.bam, report_reads/dedup/CONTROL-rep1.genes.log
@@ -367,46 +367,18 @@ localrule dedup_mapping:
     threads: 20
     resources: tmpdir=/tmp
 
-[Mon Jan 27 11:53:24 2025]
+[Tue Jan 28 02:59:48 2025]
 Finished job 13.
 19 of 100 steps (19%) done
 Removing temporary output .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genes.bam.
 Select jobs to execute...
 Waiting for more resources.
-[Mon Jan 27 11:59:11 2025]
+[Tue Jan 28 03:02:58 2025]
 Finished job 49.
 20 of 100 steps (20%) done
 Execute 2 jobs...
 
-[Mon Jan 27 11:59:11 2025]
-localrule hisat2_3n_calling_unfiltered_multi:
-    input: internal_files/aligned_bam/CONTROL-rep1.genes.bam
-    output: .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz
-    jobid: 50
-    reason: Missing output files: .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/CONTROL-rep1.genes.bam
-    wildcards: sample=CONTROL-rep1, ref=genes
-    threads: 16
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 11:59:11 2025]
-localrule hisat2_3n_mapping_genome_SE:
-    input: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz
-    output: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam, .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam, report_reads/mapping/CONTROL-rep1_run1.genome.summary
-    jobid: 12
-    reason: Missing output files: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam, .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam; Input files updated by another job: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz
-    wildcards: sample=CONTROL-rep1, rn=run1
-    threads: 24
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 11:59:12 2025]
-Finished job 34.
-21 of 100 steps (21%) done
-Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz.
-Select jobs to execute...
-Execute 3 jobs...
-
-[Mon Jan 27 11:59:12 2025]
+[Tue Jan 28 03:02:59 2025]
 localrule hisat2_3n_calling_unfiltered_unique:
     input: internal_files/aligned_bam/CONTROL-rep1.genes.bam
     output: .tmp/unfiltered_unique/CONTROL-rep1.genes.tsv.gz
@@ -417,7 +389,24 @@ localrule hisat2_3n_calling_unfiltered_unique:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 11:59:12 2025]
+[Tue Jan 28 03:02:59 2025]
+localrule hisat2_3n_mapping_genome_SE:
+    input: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz
+    output: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam, .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam, report_reads/mapping/CONTROL-rep1_run1.genome.summary
+    jobid: 12
+    reason: Missing output files: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam, .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam; Input files updated by another job: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz
+    wildcards: sample=CONTROL-rep1, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:03:34 2025]
+Finished job 34.
+21 of 100 steps (21%) done
+Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.contamination.fq.gz.
+Select jobs to execute...
+Execute 3 jobs...
+
+[Tue Jan 28 03:03:35 2025]
 localrule hisat2_3n_sort:
     input: .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genes.bam
     output: internal_files/run_sorted/DRUG-rep2_run1.genes.bam
@@ -428,7 +417,18 @@ localrule hisat2_3n_sort:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 11:59:12 2025]
+[Tue Jan 28 03:03:35 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/CONTROL-rep1.genes.bam
+    output: .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz
+    jobid: 50
+    reason: Missing output files: .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/CONTROL-rep1.genes.bam
+    wildcards: sample=CONTROL-rep1, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:03:35 2025]
 localrule extract_unmap_bam_internal_SE:
     input: .tmp/mapping_discarded_SE/DRUG-rep2_run1.genes.bam
     output: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genes.fq.gz
@@ -438,14 +438,14 @@ localrule extract_unmap_bam_internal_SE:
     threads: 4
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:00:03 2025]
-Finished job 39.
+[Tue Jan 28 03:03:54 2025]
+Finished job 33.
 22 of 100 steps (22%) done
-Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep2_run1.genes.bam.
+Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genes.bam.
 Select jobs to execute...
-Execute 1 jobs...
+Execute 2 jobs...
 
-[Mon Jan 27 12:00:03 2025]
+[Tue Jan 28 03:03:54 2025]
 localrule hisat2_3n_filtering:
     input: internal_files/aligned_bam/CONTROL-rep1.genes.bam
     output: .tmp/hisat_converted/CONTROL-rep1.genes.bam
@@ -455,14 +455,8 @@ localrule hisat2_3n_filtering:
     threads: 4
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:00:06 2025]
-Finished job 33.
-23 of 100 steps (23%) done
-Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genes.bam.
-Select jobs to execute...
-Execute 1 jobs...
 
-[Mon Jan 27 12:00:06 2025]
+[Tue Jan 28 03:03:54 2025]
 localrule combine_runs:
     input: internal_files/run_sorted/DRUG-rep2_run1.genes.bam
     output: .tmp/combined_mapping/DRUG-rep2.genes.bam
@@ -472,61 +466,17 @@ localrule combine_runs:
     threads: 8
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:00:20 2025]
+[Tue Jan 28 03:04:08 2025]
 Finished job 32.
-24 of 100 steps (24%) done
+23 of 100 steps (23%) done
 Select jobs to execute...
 Waiting for more resources.
-[Mon Jan 27 12:00:27 2025]
+[Tue Jan 28 03:04:17 2025]
 Finished job 52.
-25 of 100 steps (25%) done
+24 of 100 steps (24%) done
 Execute 1 jobs...
 
-[Mon Jan 27 12:00:28 2025]
-localrule dedup_mapping:
-    input: .tmp/combined_mapping/DRUG-rep2.genes.bam
-    output: internal_files/aligned_bam/DRUG-rep2.genes.bam, report_reads/dedup/DRUG-rep2.genes.log
-    jobid: 66
-    reason: Missing output files: internal_files/aligned_bam/DRUG-rep2.genes.bam; Input files updated by another job: .tmp/combined_mapping/DRUG-rep2.genes.bam
-    wildcards: sample=DRUG-rep2, ref=genes
-    threads: 20
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:06:16 2025]
-Finished job 66.
-26 of 100 steps (26%) done
-Select jobs to execute...
-Execute 2 jobs...
-
-[Mon Jan 27 12:06:16 2025]
-localrule hisat2_3n_calling_filtered_multi:
-    input: .tmp/hisat_converted/CONTROL-rep1.genes.bam
-    output: .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz
-    jobid: 53
-    reason: Missing output files: .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/CONTROL-rep1.genes.bam
-    wildcards: sample=CONTROL-rep1, ref=genes
-    threads: 16
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:06:16 2025]
-localrule hisat2_3n_filtering:
-    input: internal_files/aligned_bam/DRUG-rep2.genes.bam
-    output: .tmp/hisat_converted/DRUG-rep2.genes.bam
-    jobid: 69
-    reason: Missing output files: .tmp/hisat_converted/DRUG-rep2.genes.bam; Input files updated by another job: internal_files/aligned_bam/DRUG-rep2.genes.bam
-    wildcards: sample=DRUG-rep2, ref=genes
-    threads: 4
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:06:30 2025]
-Finished job 21.
-27 of 100 steps (27%) done
-Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.contamination.fq.gz.
-Select jobs to execute...
-Execute 3 jobs...
-
-[Mon Jan 27 12:06:30 2025]
+[Tue Jan 28 03:04:17 2025]
 localrule hisat2_3n_calling_filtered_unqiue:
     input: .tmp/hisat_converted/CONTROL-rep1.genes.bam
     output: .tmp/filtered_unique/CONTROL-rep1.genes.tsv.gz
@@ -536,8 +486,19 @@ localrule hisat2_3n_calling_filtered_unqiue:
     threads: 16
     resources: tmpdir=/tmp
 
+[Tue Jan 28 03:04:27 2025]
+Finished job 39.
+25 of 100 steps (25%) done
+Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep2_run1.genes.bam.
+Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:07:46 2025]
+Finished job 21.
+26 of 100 steps (26%) done
+Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.contamination.fq.gz.
+Execute 3 jobs...
 
-[Mon Jan 27 12:06:30 2025]
+[Tue Jan 28 03:07:46 2025]
 localrule hisat2_3n_sort:
     input: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genes.bam
     output: internal_files/run_sorted/DRUG-rep1_run1.genes.bam
@@ -548,7 +509,18 @@ localrule hisat2_3n_sort:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 12:06:30 2025]
+[Tue Jan 28 03:07:46 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/DRUG-rep2.genes.bam
+    output: internal_files/aligned_bam/DRUG-rep2.genes.bam, report_reads/dedup/DRUG-rep2.genes.log
+    jobid: 66
+    reason: Missing output files: internal_files/aligned_bam/DRUG-rep2.genes.bam; Input files updated by another job: .tmp/combined_mapping/DRUG-rep2.genes.bam
+    wildcards: sample=DRUG-rep2, ref=genes
+    threads: 20
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:07:46 2025]
 localrule extract_unmap_bam_internal_SE:
     input: .tmp/mapping_discarded_SE/DRUG-rep1_run1.genes.bam
     output: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genes.fq.gz
@@ -558,35 +530,35 @@ localrule extract_unmap_bam_internal_SE:
     threads: 4
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:06:46 2025]
-Finished job 69.
-28 of 100 steps (28%) done
-Select jobs to execute...
-Waiting for more resources.
-[Mon Jan 27 12:07:03 2025]
+[Tue Jan 28 03:08:16 2025]
 Finished job 20.
-29 of 100 steps (29%) done
+27 of 100 steps (27%) done
 Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genes.bam.
+Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:07:04 2025]
-localrule hisat2_3n_calling_filtered_unqiue:
-    input: .tmp/hisat_converted/DRUG-rep2.genes.bam
-    output: .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz
-    jobid: 68
-    reason: Missing output files: .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep2.genes.bam
-    wildcards: sample=DRUG-rep2, ref=genes
+[Tue Jan 28 03:08:16 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/CONTROL-rep1.genes.bam
+    output: .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz
+    jobid: 53
+    reason: Missing output files: .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/CONTROL-rep1.genes.bam
+    wildcards: sample=CONTROL-rep1, ref=genes
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:07:34 2025]
+[Tue Jan 28 03:08:38 2025]
 Finished job 26.
-30 of 100 steps (30%) done
+28 of 100 steps (28%) done
 Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep1_run1.genes.bam.
 Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:10:43 2025]
+Finished job 50.
+29 of 100 steps (29%) done
 Execute 1 jobs...
 
-[Mon Jan 27 12:07:34 2025]
+[Tue Jan 28 03:10:43 2025]
 localrule combine_runs:
     input: internal_files/run_sorted/DRUG-rep1_run1.genes.bam
     output: .tmp/combined_mapping/DRUG-rep1.genes.bam
@@ -596,50 +568,33 @@ localrule combine_runs:
     threads: 8
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:07:36 2025]
+[Tue Jan 28 03:10:56 2025]
 Finished job 48.
-31 of 100 steps (31%) done
+30 of 100 steps (30%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:07:36 2025]
-localrule hisat2_3n_calling_filtered_multi:
-    input: .tmp/hisat_converted/DRUG-rep2.genes.bam
-    output: .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz
-    jobid: 70
-    reason: Missing output files: .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep2.genes.bam
-    wildcards: sample=DRUG-rep2, ref=genes
-    threads: 16
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:07:52 2025]
-Finished job 19.
-32 of 100 steps (32%) done
-Select jobs to execute...
-Waiting for more resources.
-[Mon Jan 27 12:08:16 2025]
-Finished job 50.
-33 of 100 steps (33%) done
-Execute 1 jobs...
-
-[Mon Jan 27 12:08:16 2025]
+[Tue Jan 28 03:10:56 2025]
 localrule hisat2_3n_mapping_genome_SE:
     input: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genes.fq.gz
     output: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam, .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam, report_reads/mapping/DRUG-rep1_run1.genome.summary
     jobid: 25
-    reason: Missing output files: .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam, .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genes.fq.gz
+    reason: Missing output files: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam, .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genes.fq.gz
     wildcards: sample=DRUG-rep1, rn=run1
     threads: 24
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:09:28 2025]
-Finished job 12.
-34 of 100 steps (34%) done
-Removing temporary output .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz.
+[Tue Jan 28 03:10:57 2025]
+Finished job 19.
+31 of 100 steps (31%) done
 Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:11:00 2025]
+Finished job 51.
+32 of 100 steps (32%) done
 Execute 1 jobs...
 
-[Mon Jan 27 12:09:28 2025]
+[Tue Jan 28 03:11:00 2025]
 localrule hisat2_3n_mapping_genome_SE:
     input: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genes.fq.gz
     output: .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genome.bam, .tmp/mapping_discarded_SE/DRUG-rep2_run1.genome.bam, report_reads/mapping/DRUG-rep2_run1.genome.summary
@@ -649,149 +604,24 @@ localrule hisat2_3n_mapping_genome_SE:
     threads: 24
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:13:21 2025]
-Finished job 51.
-35 of 100 steps (35%) done
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 12:13:21 2025]
-localrule hisat2_3n_sort:
-    input: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam
-    output: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam
-    jobid: 11
-    reason: Missing output files: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam
-    wildcards: sample=CONTROL-rep1, rn=run1, ref=genome
-    threads: 16
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:13:41 2025]
-Finished job 53.
-36 of 100 steps (36%) done
-Removing temporary output .tmp/hisat_converted/CONTROL-rep1.genes.bam.
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 12:13:41 2025]
-localrule hisat2_3n_calling_unfiltered_multi:
-    input: internal_files/aligned_bam/DRUG-rep2.genes.bam
-    output: .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz
-    jobid: 67
-    reason: Missing output files: .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep2.genes.bam
-    wildcards: sample=DRUG-rep2, ref=genes
-    threads: 16
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:15:55 2025]
-Finished job 68.
-37 of 100 steps (37%) done
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 12:15:55 2025]
-localrule hisat2_3n_calling_unfiltered_unique:
-    input: internal_files/aligned_bam/DRUG-rep2.genes.bam
-    output: .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz
-    jobid: 65
-    reason: Missing output files: .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep2.genes.bam
-    wildcards: sample=DRUG-rep2, ref=genes
-    threads: 16
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:16:29 2025]
-Finished job 11.
-38 of 100 steps (38%) done
-Removing temporary output .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam.
+[Tue Jan 28 03:12:31 2025]
+Finished job 66.
+33 of 100 steps (33%) done
 Select jobs to execute...
 Execute 2 jobs...
 
-[Mon Jan 27 12:16:29 2025]
-localrule join_pileup:
-    input: .tmp/unfiltered_unique/CONTROL-rep1.genes.tsv.gz, .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_unique/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz
-    output: internal_files/count_sites/CONTROL-rep1.genes.arrow
-    jobid: 47
-    reason: Missing output files: internal_files/count_sites/CONTROL-rep1.genes.arrow; Input files updated by another job: .tmp/unfiltered_unique/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_unique/CONTROL-rep1.genes.tsv.gz, .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz
-    wildcards: sample=CONTROL-rep1, ref=genes
-    threads: 6
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:16:29 2025]
-localrule combine_runs:
-    input: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam
-    output: .tmp/combined_mapping/CONTROL-rep1.genome.bam
-    jobid: 10
-    reason: Missing output files: .tmp/combined_mapping/CONTROL-rep1.genome.bam; Input files updated by another job: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam
-    wildcards: sample=CONTROL-rep1, ref=genome
-    threads: 8
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:16:57 2025]
-Finished job 47.
-39 of 100 steps (39%) done
-Removing temporary output .tmp/unfiltered_unique/CONTROL-rep1.genes.tsv.gz.
-Removing temporary output .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz.
-Removing temporary output .tmp/filtered_unique/CONTROL-rep1.genes.tsv.gz.
-Removing temporary output .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz.
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 12:16:57 2025]
-localrule group_pileup:
-    input: internal_files/count_sites/CONTROL-rep1.genes.arrow
-    output: internal_files/group_sites/CONTROL.genes.arrow
-    jobid: 55
-    reason: Missing output files: internal_files/group_sites/CONTROL.genes.arrow; Input files updated by another job: internal_files/count_sites/CONTROL-rep1.genes.arrow
-    wildcards: group=CONTROL, ref=genes
-    threads: 6
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:17:01 2025]
-Finished job 70.
-40 of 100 steps (40%) done
-Removing temporary output .tmp/hisat_converted/DRUG-rep2.genes.bam.
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 12:17:01 2025]
-localrule extract_unmap_bam_internal_SE:
-    input: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam
-    output: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz
-    jobid: 41
-    reason: Missing output files: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam
-    wildcards: sample=CONTROL-rep1, rn=run1, reftype=genome
+[Tue Jan 28 03:12:32 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/DRUG-rep2.genes.bam
+    output: .tmp/hisat_converted/DRUG-rep2.genes.bam
+    jobid: 69
+    reason: Missing output files: .tmp/hisat_converted/DRUG-rep2.genes.bam; Input files updated by another job: internal_files/aligned_bam/DRUG-rep2.genes.bam
+    wildcards: sample=DRUG-rep2, ref=genes
     threads: 4
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:17:05 2025]
-Finished job 41.
-41 of 100 steps (41%) done
-Removing temporary output .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam.
-Select jobs to execute...
-Execute 1 jobs...
 
-[Mon Jan 27 12:17:05 2025]
-localrule extract_unmap_bam_final_SE:
-    input: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz
-    output: internal_files/discarded_reads/CONTROL-rep1_run1_R1.unmapped.fq.gz
-    jobid: 40
-    reason: Missing output files: internal_files/discarded_reads/CONTROL-rep1_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz
-    wildcards: sample=CONTROL-rep1, rn=run1
-    threads: 4
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:17:05 2025]
-Finished job 40.
-42 of 100 steps (42%) done
-Removing temporary output .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz.
-Select jobs to execute...
-Waiting for more resources.
-[Mon Jan 27 12:17:06 2025]
-Finished job 55.
-43 of 100 steps (43%) done
-Execute 1 jobs...
-
-[Mon Jan 27 12:17:06 2025]
+[Tue Jan 28 03:12:32 2025]
 localrule dedup_mapping:
     input: .tmp/combined_mapping/DRUG-rep1.genes.bam
     output: internal_files/aligned_bam/DRUG-rep1.genes.bam, report_reads/dedup/DRUG-rep1.genes.log
@@ -801,13 +631,112 @@ localrule dedup_mapping:
     threads: 20
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:17:47 2025]
-Finished job 10.
-44 of 100 steps (44%) done
+[Tue Jan 28 03:12:41 2025]
+Finished job 12.
+34 of 100 steps (34%) done
+Removing temporary output .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genes.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Tue Jan 28 03:12:42 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam
+    output: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam
+    jobid: 11
+    reason: Missing output files: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam
+    wildcards: sample=CONTROL-rep1, rn=run1, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:12:42 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam
+    output: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz
+    jobid: 41
+    reason: Missing output files: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam
+    wildcards: sample=CONTROL-rep1, rn=run1, reftype=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:12:44 2025]
+Finished job 41.
+35 of 100 steps (35%) done
+Removing temporary output .tmp/mapping_discarded_SE/CONTROL-rep1_run1.genome.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:17:47 2025]
+[Tue Jan 28 03:12:45 2025]
+localrule extract_unmap_bam_final_SE:
+    input: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz
+    output: internal_files/discarded_reads/CONTROL-rep1_run1_R1.unmapped.fq.gz
+    jobid: 40
+    reason: Missing output files: internal_files/discarded_reads/CONTROL-rep1_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz
+    wildcards: sample=CONTROL-rep1, rn=run1
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:12:45 2025]
+Finished job 40.
+36 of 100 steps (36%) done
+Removing temporary output .tmp/unmapped_internal_SE/CONTROL-rep1_run1_R1.genome.fq.gz.
+Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:12:57 2025]
+Finished job 69.
+37 of 100 steps (37%) done
+Waiting for more resources.
+[Tue Jan 28 03:15:01 2025]
+Finished job 11.
+38 of 100 steps (38%) done
+Removing temporary output .tmp/mapping_unsorted_SE/CONTROL-rep1_run1.genome.bam.
+Execute 2 jobs...
+
+[Tue Jan 28 03:15:02 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/DRUG-rep2.genes.bam
+    output: .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz
+    jobid: 68
+    reason: Missing output files: .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep2.genes.bam
+    wildcards: sample=DRUG-rep2, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:15:02 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam
+    output: .tmp/combined_mapping/CONTROL-rep1.genome.bam
+    jobid: 10
+    reason: Missing output files: .tmp/combined_mapping/CONTROL-rep1.genome.bam; Input files updated by another job: internal_files/run_sorted/CONTROL-rep1_run1.genome.bam
+    wildcards: sample=CONTROL-rep1, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:15:17 2025]
+Finished job 53.
+39 of 100 steps (39%) done
+Removing temporary output .tmp/hisat_converted/CONTROL-rep1.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Tue Jan 28 03:15:17 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/DRUG-rep2.genes.bam
+    output: .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz
+    jobid: 70
+    reason: Missing output files: .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep2.genes.bam
+    wildcards: sample=DRUG-rep2, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:16:12 2025]
+Finished job 10.
+40 of 100 steps (40%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Tue Jan 28 03:16:12 2025]
 localrule stat_mapping_number:
     input: .tmp/combined_mapping/CONTROL-rep1.contamination.bam, .tmp/combined_mapping/CONTROL-rep1.genes.bam, .tmp/combined_mapping/CONTROL-rep1.genome.bam
     output: report_reads/mapped/CONTROL-rep1.tsv
@@ -817,48 +746,93 @@ localrule stat_mapping_number:
     threads: 4
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:18:02 2025]
+
+[Tue Jan 28 03:16:12 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/CONTROL-rep1.genes.tsv.gz, .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_unique/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz
+    output: internal_files/count_sites/CONTROL-rep1.genes.arrow
+    jobid: 47
+    reason: Missing output files: internal_files/count_sites/CONTROL-rep1.genes.arrow; Input files updated by another job: .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_unique/CONTROL-rep1.genes.tsv.gz, .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz, .tmp/unfiltered_unique/CONTROL-rep1.genes.tsv.gz
+    wildcards: sample=CONTROL-rep1, ref=genes
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:16:25 2025]
 Finished job 1.
-45 of 100 steps (45%) done
+41 of 100 steps (41%) done
 Removing temporary output .tmp/combined_mapping/CONTROL-rep1.contamination.bam.
 Removing temporary output .tmp/combined_mapping/CONTROL-rep1.genes.bam.
 Select jobs to execute...
 Waiting for more resources.
-[Mon Jan 27 12:20:52 2025]
-Finished job 25.
-46 of 100 steps (46%) done
-Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genes.fq.gz.
+[Tue Jan 28 03:16:39 2025]
+Finished job 47.
+42 of 100 steps (42%) done
+Removing temporary output .tmp/unfiltered_unique/CONTROL-rep1.genes.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/CONTROL-rep1.genes.tsv.gz.
+Removing temporary output .tmp/filtered_unique/CONTROL-rep1.genes.tsv.gz.
+Removing temporary output .tmp/filtered_multi/CONTROL-rep1.genes.tsv.gz.
+Execute 1 jobs...
+
+[Tue Jan 28 03:16:39 2025]
+localrule group_pileup:
+    input: internal_files/count_sites/CONTROL-rep1.genes.arrow
+    output: internal_files/group_sites/CONTROL.genes.arrow
+    jobid: 55
+    reason: Missing output files: internal_files/group_sites/CONTROL.genes.arrow; Input files updated by another job: internal_files/count_sites/CONTROL-rep1.genes.arrow
+    wildcards: group=CONTROL, ref=genes
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:16:48 2025]
+Finished job 55.
+43 of 100 steps (43%) done
+Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:16:53 2025]
+Finished job 59.
+44 of 100 steps (44%) done
 Execute 2 jobs...
 
-[Mon Jan 27 12:20:52 2025]
-localrule hisat2_3n_sort:
-    input: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam
-    output: internal_files/run_sorted/DRUG-rep1_run1.genome.bam
-    jobid: 24
-    reason: Missing output files: internal_files/run_sorted/DRUG-rep1_run1.genome.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam
-    wildcards: sample=DRUG-rep1, rn=run1, ref=genome
+[Tue Jan 28 03:16:53 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/DRUG-rep2.genes.bam
+    output: .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz
+    jobid: 65
+    reason: Missing output files: .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep2.genes.bam
+    wildcards: sample=DRUG-rep2, ref=genes
     threads: 16
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 12:20:52 2025]
-localrule dedup_mapping:
-    input: .tmp/combined_mapping/CONTROL-rep1.genome.bam
-    output: internal_files/aligned_bam/CONTROL-rep1.genome.bam, report_reads/dedup/CONTROL-rep1.genome.log
-    jobid: 74
-    reason: Missing output files: internal_files/aligned_bam/CONTROL-rep1.genome.bam; Input files updated by another job: .tmp/combined_mapping/CONTROL-rep1.genome.bam
-    wildcards: sample=CONTROL-rep1, ref=genome
-    threads: 20
+[Tue Jan 28 03:16:53 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/DRUG-rep1.genes.bam
+    output: .tmp/unfiltered_multi/DRUG-rep1.genes.tsv.gz
+    jobid: 60
+    reason: Missing output files: .tmp/unfiltered_multi/DRUG-rep1.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genes.bam
+    wildcards: sample=DRUG-rep1, ref=genes
+    threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:20:59 2025]
+[Tue Jan 28 03:22:07 2025]
 Finished job 38.
-47 of 100 steps (47%) done
+45 of 100 steps (45%) done
 Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genes.fq.gz.
 Select jobs to execute...
 Execute 3 jobs...
 
-[Mon Jan 27 12:20:59 2025]
+[Tue Jan 28 03:22:07 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/DRUG-rep2_run1.genome.bam
+    output: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz
+    jobid: 45
+    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep2_run1.genome.bam
+    wildcards: sample=DRUG-rep2, rn=run1, reftype=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:22:07 2025]
 localrule hisat2_3n_sort:
     input: .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genome.bam
     output: internal_files/run_sorted/DRUG-rep2_run1.genome.bam
@@ -869,101 +843,7 @@ localrule hisat2_3n_sort:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 12:20:59 2025]
-localrule extract_unmap_bam_internal_SE:
-    input: .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam
-    output: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz
-    jobid: 43
-    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam
-    wildcards: sample=DRUG-rep1, rn=run1, reftype=genome
-    threads: 4
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:20:59 2025]
-localrule extract_unmap_bam_internal_SE:
-    input: .tmp/mapping_discarded_SE/DRUG-rep2_run1.genome.bam
-    output: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz
-    jobid: 45
-    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep2_run1.genome.bam
-    wildcards: sample=DRUG-rep2, rn=run1, reftype=genome
-    threads: 4
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:21:03 2025]
-Finished job 45.
-48 of 100 steps (48%) done
-Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep2_run1.genome.bam.
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 12:21:03 2025]
-localrule extract_unmap_bam_final_SE:
-    input: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz
-    output: internal_files/discarded_reads/DRUG-rep2_run1_R1.unmapped.fq.gz
-    jobid: 44
-    reason: Missing output files: internal_files/discarded_reads/DRUG-rep2_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz
-    wildcards: sample=DRUG-rep2, rn=run1
-    threads: 4
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:21:03 2025]
-Finished job 44.
-49 of 100 steps (49%) done
-Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz.
-[Mon Jan 27 12:21:04 2025]
-Finished job 43.
-50 of 100 steps (50%) done
-Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam.
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 12:21:04 2025]
-localrule extract_unmap_bam_final_SE:
-    input: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz
-    output: internal_files/discarded_reads/DRUG-rep1_run1_R1.unmapped.fq.gz
-    jobid: 42
-    reason: Missing output files: internal_files/discarded_reads/DRUG-rep1_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz
-    wildcards: sample=DRUG-rep1, rn=run1
-    threads: 4
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:21:04 2025]
-Finished job 42.
-51 of 100 steps (51%) done
-Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz.
-[Mon Jan 27 12:22:03 2025]
-Finished job 67.
-52 of 100 steps (52%) done
-[Mon Jan 27 12:22:06 2025]
-Finished job 59.
-53 of 100 steps (53%) done
-Select jobs to execute...
-Execute 3 jobs...
-
-[Mon Jan 27 12:22:06 2025]
-localrule hisat2_3n_calling_unfiltered_unique:
-    input: internal_files/aligned_bam/DRUG-rep1.genes.bam
-    output: .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz
-    jobid: 58
-    reason: Missing output files: .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genes.bam
-    wildcards: sample=DRUG-rep1, ref=genes
-    threads: 16
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:22:06 2025]
-localrule hisat2_3n_calling_unfiltered_multi:
-    input: internal_files/aligned_bam/DRUG-rep1.genes.bam
-    output: .tmp/unfiltered_multi/DRUG-rep1.genes.tsv.gz
-    jobid: 60
-    reason: Missing output files: .tmp/unfiltered_multi/DRUG-rep1.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genes.bam
-    wildcards: sample=DRUG-rep1, ref=genes
-    threads: 16
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:22:06 2025]
+[Tue Jan 28 03:22:07 2025]
 localrule hisat2_3n_filtering:
     input: internal_files/aligned_bam/DRUG-rep1.genes.bam
     output: .tmp/hisat_converted/DRUG-rep1.genes.bam
@@ -973,28 +853,40 @@ localrule hisat2_3n_filtering:
     threads: 4
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:22:31 2025]
-Finished job 62.
-54 of 100 steps (54%) done
+[Tue Jan 28 03:22:11 2025]
+Finished job 45.
+46 of 100 steps (46%) done
+Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep2_run1.genome.bam.
 Select jobs to execute...
-Waiting for more resources.
-[Mon Jan 27 12:23:31 2025]
-Finished job 65.
-55 of 100 steps (55%) done
-Execute 2 jobs...
+Execute 1 jobs...
 
-[Mon Jan 27 12:23:31 2025]
-localrule join_pileup:
-    input: .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz, .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz, .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz, .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz
-    output: internal_files/count_sites/DRUG-rep2.genes.arrow
-    jobid: 64
-    reason: Missing output files: internal_files/count_sites/DRUG-rep2.genes.arrow; Input files updated by another job: .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz, .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz, .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz, .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz
-    wildcards: sample=DRUG-rep2, ref=genes
-    threads: 6
+[Tue Jan 28 03:22:11 2025]
+localrule extract_unmap_bam_final_SE:
+    input: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz
+    output: internal_files/discarded_reads/DRUG-rep2_run1_R1.unmapped.fq.gz
+    jobid: 44
+    reason: Missing output files: internal_files/discarded_reads/DRUG-rep2_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz
+    wildcards: sample=DRUG-rep2, rn=run1
+    threads: 4
     resources: tmpdir=/tmp
 
+[Tue Jan 28 03:22:11 2025]
+Finished job 44.
+47 of 100 steps (47%) done
+Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep2_run1_R1.genome.fq.gz.
+Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:22:38 2025]
+Finished job 62.
+48 of 100 steps (48%) done
+Waiting for more resources.
+[Tue Jan 28 03:22:48 2025]
+Finished job 25.
+49 of 100 steps (49%) done
+Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genes.fq.gz.
+Execute 2 jobs...
 
-[Mon Jan 27 12:23:31 2025]
+[Tue Jan 28 03:22:49 2025]
 localrule hisat2_3n_calling_filtered_multi:
     input: .tmp/hisat_converted/DRUG-rep1.genes.bam
     output: .tmp/filtered_multi/DRUG-rep1.genes.tsv.gz
@@ -1004,33 +896,24 @@ localrule hisat2_3n_calling_filtered_multi:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:24:00 2025]
-Finished job 64.
-56 of 100 steps (56%) done
-Removing temporary output .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz.
-Removing temporary output .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz.
-Removing temporary output .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz.
-Removing temporary output .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz.
-Select jobs to execute...
-Waiting for more resources.
-[Mon Jan 27 12:24:13 2025]
-Finished job 24.
-57 of 100 steps (57%) done
-Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam.
-Execute 2 jobs...
 
-[Mon Jan 27 12:24:14 2025]
-localrule combine_runs:
-    input: internal_files/run_sorted/DRUG-rep1_run1.genome.bam
-    output: .tmp/combined_mapping/DRUG-rep1.genome.bam
-    jobid: 23
-    reason: Missing output files: .tmp/combined_mapping/DRUG-rep1.genome.bam; Input files updated by another job: internal_files/run_sorted/DRUG-rep1_run1.genome.bam
-    wildcards: sample=DRUG-rep1, ref=genome
-    threads: 8
+[Tue Jan 28 03:22:49 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam
+    output: internal_files/run_sorted/DRUG-rep1_run1.genome.bam
+    jobid: 24
+    reason: Missing output files: internal_files/run_sorted/DRUG-rep1_run1.genome.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam
+    wildcards: sample=DRUG-rep1, rn=run1, ref=genome
+    threads: 16
     resources: tmpdir=/tmp
 
+[Tue Jan 28 03:24:00 2025]
+Finished job 68.
+50 of 100 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
 
-[Mon Jan 27 12:24:14 2025]
+[Tue Jan 28 03:24:00 2025]
 localrule hisat2_3n_calling_filtered_unqiue:
     input: .tmp/hisat_converted/DRUG-rep1.genes.bam
     output: .tmp/filtered_unique/DRUG-rep1.genes.tsv.gz
@@ -1040,14 +923,47 @@ localrule hisat2_3n_calling_filtered_unqiue:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:24:59 2025]
-Finished job 37.
-58 of 100 steps (58%) done
-Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genome.bam.
+[Tue Jan 28 03:24:19 2025]
+Finished job 70.
+51 of 100 steps (51%) done
+Removing temporary output .tmp/hisat_converted/DRUG-rep2.genes.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:25:00 2025]
+[Tue Jan 28 03:24:20 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/DRUG-rep2.genes.bam
+    output: .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz
+    jobid: 67
+    reason: Missing output files: .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep2.genes.bam
+    wildcards: sample=DRUG-rep2, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:25:25 2025]
+Finished job 65.
+52 of 100 steps (52%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Tue Jan 28 03:25:25 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/DRUG-rep1.genes.bam
+    output: .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz
+    jobid: 58
+    reason: Missing output files: .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genes.bam
+    wildcards: sample=DRUG-rep1, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:25:42 2025]
+Finished job 37.
+53 of 100 steps (53%) done
+Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep2_run1.genome.bam.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Tue Jan 28 03:25:43 2025]
 localrule combine_runs:
     input: internal_files/run_sorted/DRUG-rep2_run1.genome.bam
     output: .tmp/combined_mapping/DRUG-rep2.genome.bam
@@ -1057,68 +973,79 @@ localrule combine_runs:
     threads: 8
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:25:49 2025]
-Finished job 23.
-59 of 100 steps (59%) done
+
+[Tue Jan 28 03:25:43 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam
+    output: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz
+    jobid: 43
+    reason: Missing output files: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam
+    wildcards: sample=DRUG-rep1, rn=run1, reftype=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:25:48 2025]
+Finished job 43.
+54 of 100 steps (54%) done
+Removing temporary output .tmp/mapping_discarded_SE/DRUG-rep1_run1.genome.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:25:49 2025]
+[Tue Jan 28 03:25:48 2025]
+localrule extract_unmap_bam_final_SE:
+    input: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz
+    output: internal_files/discarded_reads/DRUG-rep1_run1_R1.unmapped.fq.gz
+    jobid: 42
+    reason: Missing output files: internal_files/discarded_reads/DRUG-rep1_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz
+    wildcards: sample=DRUG-rep1, rn=run1
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:25:48 2025]
+Finished job 42.
+55 of 100 steps (55%) done
+Removing temporary output .tmp/unmapped_internal_SE/DRUG-rep1_run1_R1.genome.fq.gz.
+Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:26:44 2025]
+Finished job 60.
+56 of 100 steps (56%) done
+Execute 1 jobs...
+
+[Tue Jan 28 03:26:44 2025]
 localrule dedup_mapping:
-    input: .tmp/combined_mapping/DRUG-rep1.genome.bam
-    output: internal_files/aligned_bam/DRUG-rep1.genome.bam, report_reads/dedup/DRUG-rep1.genome.log
-    jobid: 84
-    reason: Missing output files: internal_files/aligned_bam/DRUG-rep1.genome.bam; Input files updated by another job: .tmp/combined_mapping/DRUG-rep1.genome.bam
-    wildcards: sample=DRUG-rep1, ref=genome
+    input: .tmp/combined_mapping/CONTROL-rep1.genome.bam
+    output: internal_files/aligned_bam/CONTROL-rep1.genome.bam, report_reads/dedup/CONTROL-rep1.genome.log
+    jobid: 74
+    reason: Missing output files: internal_files/aligned_bam/CONTROL-rep1.genome.bam; Input files updated by another job: .tmp/combined_mapping/CONTROL-rep1.genome.bam
+    wildcards: sample=CONTROL-rep1, ref=genome
     threads: 20
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:26:23 2025]
-Finished job 36.
-60 of 100 steps (60%) done
+[Tue Jan 28 03:27:00 2025]
+Finished job 24.
+57 of 100 steps (57%) done
+Removing temporary output .tmp/mapping_unsorted_SE/DRUG-rep1_run1.genome.bam.
 Select jobs to execute...
-Execute 2 jobs...
-
-[Mon Jan 27 12:26:23 2025]
-localrule stat_mapping_number:
-    input: .tmp/combined_mapping/DRUG-rep1.contamination.bam, .tmp/combined_mapping/DRUG-rep1.genes.bam, .tmp/combined_mapping/DRUG-rep1.genome.bam
-    output: report_reads/mapped/DRUG-rep1.tsv
-    jobid: 14
-    reason: Missing output files: report_reads/mapped/DRUG-rep1.tsv; Input files updated by another job: .tmp/combined_mapping/DRUG-rep1.genes.bam, .tmp/combined_mapping/DRUG-rep1.contamination.bam, .tmp/combined_mapping/DRUG-rep1.genome.bam
-    wildcards: sample=DRUG-rep1
-    threads: 4
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:26:23 2025]
-localrule stat_mapping_number:
-    input: .tmp/combined_mapping/DRUG-rep2.contamination.bam, .tmp/combined_mapping/DRUG-rep2.genes.bam, .tmp/combined_mapping/DRUG-rep2.genome.bam
-    output: report_reads/mapped/DRUG-rep2.tsv
-    jobid: 27
-    reason: Missing output files: report_reads/mapped/DRUG-rep2.tsv; Input files updated by another job: .tmp/combined_mapping/DRUG-rep2.genes.bam, .tmp/combined_mapping/DRUG-rep2.contamination.bam, .tmp/combined_mapping/DRUG-rep2.genome.bam
-    wildcards: sample=DRUG-rep2
-    threads: 4
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:26:38 2025]
-Finished job 27.
-61 of 100 steps (61%) done
-Removing temporary output .tmp/combined_mapping/DRUG-rep2.contamination.bam.
-Removing temporary output .tmp/combined_mapping/DRUG-rep2.genes.bam.
-Select jobs to execute...
-Waiting for more resources.
-[Mon Jan 27 12:26:39 2025]
-Finished job 14.
-62 of 100 steps (62%) done
-Removing temporary output .tmp/combined_mapping/DRUG-rep1.contamination.bam.
-Removing temporary output .tmp/combined_mapping/DRUG-rep1.genes.bam.
-Waiting for more resources.
-[Mon Jan 27 12:30:00 2025]
-Finished job 58.
-63 of 100 steps (63%) done
 Execute 1 jobs...
 
-[Mon Jan 27 12:30:00 2025]
+[Tue Jan 28 03:27:01 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/DRUG-rep1_run1.genome.bam
+    output: .tmp/combined_mapping/DRUG-rep1.genome.bam
+    jobid: 23
+    reason: Missing output files: .tmp/combined_mapping/DRUG-rep1.genome.bam; Input files updated by another job: internal_files/run_sorted/DRUG-rep1_run1.genome.bam
+    wildcards: sample=DRUG-rep1, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:27:03 2025]
+Finished job 36.
+58 of 100 steps (58%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Tue Jan 28 03:27:03 2025]
 localrule dedup_mapping:
     input: .tmp/combined_mapping/DRUG-rep2.genome.bam
     output: internal_files/aligned_bam/DRUG-rep2.genome.bam, report_reads/dedup/DRUG-rep2.genome.log
@@ -1128,30 +1055,105 @@ localrule dedup_mapping:
     threads: 20
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:30:18 2025]
-Finished job 60.
-64 of 100 steps (64%) done
-[Mon Jan 27 12:31:39 2025]
+[Tue Jan 28 03:28:25 2025]
+Finished job 23.
+59 of 100 steps (59%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Tue Jan 28 03:28:25 2025]
+localrule stat_mapping_number:
+    input: .tmp/combined_mapping/DRUG-rep1.contamination.bam, .tmp/combined_mapping/DRUG-rep1.genes.bam, .tmp/combined_mapping/DRUG-rep1.genome.bam
+    output: report_reads/mapped/DRUG-rep1.tsv
+    jobid: 14
+    reason: Missing output files: report_reads/mapped/DRUG-rep1.tsv; Input files updated by another job: .tmp/combined_mapping/DRUG-rep1.contamination.bam, .tmp/combined_mapping/DRUG-rep1.genes.bam, .tmp/combined_mapping/DRUG-rep1.genome.bam
+    wildcards: sample=DRUG-rep1
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:28:25 2025]
+localrule stat_mapping_number:
+    input: .tmp/combined_mapping/DRUG-rep2.contamination.bam, .tmp/combined_mapping/DRUG-rep2.genes.bam, .tmp/combined_mapping/DRUG-rep2.genome.bam
+    output: report_reads/mapped/DRUG-rep2.tsv
+    jobid: 27
+    reason: Missing output files: report_reads/mapped/DRUG-rep2.tsv; Input files updated by another job: .tmp/combined_mapping/DRUG-rep2.contamination.bam, .tmp/combined_mapping/DRUG-rep2.genome.bam, .tmp/combined_mapping/DRUG-rep2.genes.bam
+    wildcards: sample=DRUG-rep2
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:28:38 2025]
+Finished job 27.
+60 of 100 steps (60%) done
+Removing temporary output .tmp/combined_mapping/DRUG-rep2.contamination.bam.
+Removing temporary output .tmp/combined_mapping/DRUG-rep2.genes.bam.
+Select jobs to execute...
+Waiting for more resources.
+[Tue Jan 28 03:28:39 2025]
+Finished job 14.
+61 of 100 steps (61%) done
+Removing temporary output .tmp/combined_mapping/DRUG-rep1.contamination.bam.
+Removing temporary output .tmp/combined_mapping/DRUG-rep1.genes.bam.
+Waiting for more resources.
+[Tue Jan 28 03:31:06 2025]
 Finished job 63.
-65 of 100 steps (65%) done
-[Mon Jan 27 12:32:00 2025]
-Finished job 61.
-66 of 100 steps (66%) done
-Removing temporary output .tmp/hisat_converted/DRUG-rep1.genes.bam.
+62 of 100 steps (62%) done
+Execute 1 jobs...
+
+[Tue Jan 28 03:31:06 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/DRUG-rep1.genome.bam
+    output: internal_files/aligned_bam/DRUG-rep1.genome.bam, report_reads/dedup/DRUG-rep1.genome.log
+    jobid: 84
+    reason: Missing output files: internal_files/aligned_bam/DRUG-rep1.genome.bam; Input files updated by another job: .tmp/combined_mapping/DRUG-rep1.genome.bam
+    wildcards: sample=DRUG-rep1, ref=genome
+    threads: 20
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:31:37 2025]
+Finished job 67.
+63 of 100 steps (63%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:32:00 2025]
+[Tue Jan 28 03:31:37 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz, .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz, .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz, .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz
+    output: internal_files/count_sites/DRUG-rep2.genes.arrow
+    jobid: 64
+    reason: Missing output files: internal_files/count_sites/DRUG-rep2.genes.arrow; Input files updated by another job: .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz, .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz, .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz, .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz
+    wildcards: sample=DRUG-rep2, ref=genes
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 03:31:54 2025]
+Finished job 61.
+64 of 100 steps (64%) done
+Removing temporary output .tmp/hisat_converted/DRUG-rep1.genes.bam.
+[Tue Jan 28 03:32:02 2025]
+Finished job 64.
+65 of 100 steps (65%) done
+Removing temporary output .tmp/unfiltered_unique/DRUG-rep2.genes.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/DRUG-rep2.genes.tsv.gz.
+Removing temporary output .tmp/filtered_unique/DRUG-rep2.genes.tsv.gz.
+Removing temporary output .tmp/filtered_multi/DRUG-rep2.genes.tsv.gz.
+[Tue Jan 28 03:33:06 2025]
+Finished job 58.
+66 of 100 steps (66%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Tue Jan 28 03:33:06 2025]
 localrule join_pileup:
     input: .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz, .tmp/unfiltered_multi/DRUG-rep1.genes.tsv.gz, .tmp/filtered_unique/DRUG-rep1.genes.tsv.gz, .tmp/filtered_multi/DRUG-rep1.genes.tsv.gz
     output: internal_files/count_sites/DRUG-rep1.genes.arrow
     jobid: 57
-    reason: Missing output files: internal_files/count_sites/DRUG-rep1.genes.arrow; Input files updated by another job: .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz, .tmp/unfiltered_multi/DRUG-rep1.genes.tsv.gz, .tmp/filtered_multi/DRUG-rep1.genes.tsv.gz, .tmp/filtered_unique/DRUG-rep1.genes.tsv.gz
+    reason: Missing output files: internal_files/count_sites/DRUG-rep1.genes.arrow; Input files updated by another job: .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz, .tmp/filtered_unique/DRUG-rep1.genes.tsv.gz, .tmp/filtered_multi/DRUG-rep1.genes.tsv.gz, .tmp/unfiltered_multi/DRUG-rep1.genes.tsv.gz
     wildcards: sample=DRUG-rep1, ref=genes
     threads: 6
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:32:29 2025]
+[Tue Jan 28 03:33:38 2025]
 Finished job 57.
 67 of 100 steps (67%) done
 Removing temporary output .tmp/unfiltered_unique/DRUG-rep1.genes.tsv.gz.
@@ -1161,49 +1163,38 @@ Removing temporary output .tmp/filtered_multi/DRUG-rep1.genes.tsv.gz.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:32:29 2025]
+[Tue Jan 28 03:33:38 2025]
 localrule group_pileup:
     input: internal_files/count_sites/DRUG-rep1.genes.arrow, internal_files/count_sites/DRUG-rep2.genes.arrow
     output: internal_files/group_sites/DRUG.genes.arrow
     jobid: 56
-    reason: Missing output files: internal_files/group_sites/DRUG.genes.arrow; Input files updated by another job: internal_files/count_sites/DRUG-rep2.genes.arrow, internal_files/count_sites/DRUG-rep1.genes.arrow
+    reason: Missing output files: internal_files/group_sites/DRUG.genes.arrow; Input files updated by another job: internal_files/count_sites/DRUG-rep1.genes.arrow, internal_files/count_sites/DRUG-rep2.genes.arrow
     wildcards: group=DRUG, ref=genes
     threads: 6
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:32:55 2025]
+[Tue Jan 28 03:34:03 2025]
 Finished job 56.
 68 of 100 steps (68%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 12:32:55 2025]
+[Tue Jan 28 03:34:03 2025]
 localrule combined_select_sites:
     input: internal_files/group_sites/CONTROL.genes.arrow, internal_files/group_sites/DRUG.genes.arrow
     output: detected_sites/prefilter/genes.tsv
     jobid: 54
-    reason: Missing output files: detected_sites/prefilter/genes.tsv; Input files updated by another job: internal_files/group_sites/CONTROL.genes.arrow, internal_files/group_sites/DRUG.genes.arrow
+    reason: Missing output files: detected_sites/prefilter/genes.tsv; Input files updated by another job: internal_files/group_sites/DRUG.genes.arrow, internal_files/group_sites/CONTROL.genes.arrow
     wildcards: ref=genes
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:33:02 2025]
+[Tue Jan 28 03:34:11 2025]
 Finished job 54.
 69 of 100 steps (69%) done
 Select jobs to execute...
 Execute 3 jobs...
 
-[Mon Jan 27 12:33:02 2025]
-localrule stat_sample_background:
-    input: internal_files/count_sites/DRUG-rep2.genes.arrow, detected_sites/prefilter/genes.tsv
-    output: detected_sites/background/DRUG-rep2.genes.tsv, detected_sites/filtered/DRUG-rep2.genes.tsv
-    jobid: 98
-    reason: Missing output files: detected_sites/filtered/DRUG-rep2.genes.tsv; Input files updated by another job: internal_files/count_sites/DRUG-rep2.genes.arrow, detected_sites/prefilter/genes.tsv
-    wildcards: sample=DRUG-rep2, ref=genes
-    threads: 2
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:33:02 2025]
+[Tue Jan 28 03:34:11 2025]
 localrule stat_sample_background:
     input: internal_files/count_sites/CONTROL-rep1.genes.arrow, detected_sites/prefilter/genes.tsv
     output: detected_sites/background/CONTROL-rep1.genes.tsv, detected_sites/filtered/CONTROL-rep1.genes.tsv
@@ -1214,44 +1205,44 @@ localrule stat_sample_background:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 12:33:02 2025]
+[Tue Jan 28 03:34:11 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/DRUG-rep2.genes.arrow, detected_sites/prefilter/genes.tsv
+    output: detected_sites/background/DRUG-rep2.genes.tsv, detected_sites/filtered/DRUG-rep2.genes.tsv
+    jobid: 98
+    reason: Missing output files: detected_sites/filtered/DRUG-rep2.genes.tsv; Input files updated by another job: internal_files/count_sites/DRUG-rep2.genes.arrow, detected_sites/prefilter/genes.tsv
+    wildcards: sample=DRUG-rep2, ref=genes
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:34:11 2025]
 localrule stat_sample_background:
     input: internal_files/count_sites/DRUG-rep1.genes.arrow, detected_sites/prefilter/genes.tsv
     output: detected_sites/background/DRUG-rep1.genes.tsv, detected_sites/filtered/DRUG-rep1.genes.tsv
     jobid: 96
-    reason: Missing output files: detected_sites/filtered/DRUG-rep1.genes.tsv; Input files updated by another job: detected_sites/prefilter/genes.tsv, internal_files/count_sites/DRUG-rep1.genes.arrow
+    reason: Missing output files: detected_sites/filtered/DRUG-rep1.genes.tsv; Input files updated by another job: internal_files/count_sites/DRUG-rep1.genes.arrow, detected_sites/prefilter/genes.tsv
     wildcards: sample=DRUG-rep1, ref=genes
     threads: 2
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:33:08 2025]
+[Tue Jan 28 03:34:16 2025]
 Finished job 46.
 70 of 100 steps (70%) done
-[Mon Jan 27 12:33:08 2025]
-Finished job 96.
-71 of 100 steps (71%) done
-[Mon Jan 27 12:33:08 2025]
+[Tue Jan 28 03:34:16 2025]
 Finished job 98.
+71 of 100 steps (71%) done
+[Tue Jan 28 03:34:16 2025]
+Finished job 96.
 72 of 100 steps (72%) done
-[Mon Jan 27 12:39:50 2025]
+[Tue Jan 28 03:44:53 2025]
 Finished job 74.
 73 of 100 steps (73%) done
 Removing temporary output .tmp/combined_mapping/CONTROL-rep1.genome.bam.
 Select jobs to execute...
 Execute 3 jobs...
 
-[Mon Jan 27 12:39:50 2025]
-localrule hisat2_3n_filtering:
-    input: internal_files/aligned_bam/CONTROL-rep1.genome.bam
-    output: .tmp/hisat_converted/CONTROL-rep1.genome.bam
-    jobid: 77
-    reason: Missing output files: .tmp/hisat_converted/CONTROL-rep1.genome.bam; Input files updated by another job: internal_files/aligned_bam/CONTROL-rep1.genome.bam
-    wildcards: sample=CONTROL-rep1, ref=genome
-    threads: 4
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:39:50 2025]
+[Tue Jan 28 03:44:53 2025]
 localrule hisat2_3n_calling_unfiltered_unique:
     input: internal_files/aligned_bam/CONTROL-rep1.genome.bam
     output: .tmp/unfiltered_unique/CONTROL-rep1.genome.tsv.gz
@@ -1262,7 +1253,18 @@ localrule hisat2_3n_calling_unfiltered_unique:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 12:39:50 2025]
+[Tue Jan 28 03:44:53 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/CONTROL-rep1.genome.bam
+    output: .tmp/hisat_converted/CONTROL-rep1.genome.bam
+    jobid: 77
+    reason: Missing output files: .tmp/hisat_converted/CONTROL-rep1.genome.bam; Input files updated by another job: internal_files/aligned_bam/CONTROL-rep1.genome.bam
+    wildcards: sample=CONTROL-rep1, ref=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 28 03:44:53 2025]
 localrule hisat2_3n_calling_unfiltered_multi:
     input: internal_files/aligned_bam/CONTROL-rep1.genome.bam
     output: .tmp/unfiltered_multi/CONTROL-rep1.genome.tsv.gz
@@ -1272,13 +1274,13 @@ localrule hisat2_3n_calling_unfiltered_multi:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:41:35 2025]
+[Tue Jan 28 03:46:37 2025]
 Finished job 77.
 74 of 100 steps (74%) done
 Select jobs to execute...
 Execute 2 jobs...
 
-[Mon Jan 27 12:41:35 2025]
+[Tue Jan 28 03:46:37 2025]
 localrule hisat2_3n_calling_filtered_unqiue:
     input: .tmp/hisat_converted/CONTROL-rep1.genome.bam
     output: .tmp/filtered_unique/CONTROL-rep1.genome.tsv.gz
@@ -1289,7 +1291,7 @@ localrule hisat2_3n_calling_filtered_unqiue:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 12:41:35 2025]
+[Tue Jan 28 03:46:37 2025]
 localrule hisat2_3n_calling_filtered_multi:
     input: .tmp/hisat_converted/CONTROL-rep1.genome.bam
     output: .tmp/filtered_multi/CONTROL-rep1.genome.tsv.gz
@@ -1299,42 +1301,14 @@ localrule hisat2_3n_calling_filtered_multi:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:50:43 2025]
-Finished job 84.
-75 of 100 steps (75%) done
-Removing temporary output .tmp/combined_mapping/DRUG-rep1.genome.bam.
-Select jobs to execute...
-Execute 2 jobs...
-
-[Mon Jan 27 12:50:43 2025]
-localrule hisat2_3n_calling_unfiltered_unique:
-    input: internal_files/aligned_bam/DRUG-rep1.genome.bam
-    output: .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz
-    jobid: 83
-    reason: Missing output files: .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genome.bam
-    wildcards: sample=DRUG-rep1, ref=genome
-    threads: 16
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 12:50:43 2025]
-localrule hisat2_3n_filtering:
-    input: internal_files/aligned_bam/DRUG-rep1.genome.bam
-    output: .tmp/hisat_converted/DRUG-rep1.genome.bam
-    jobid: 87
-    reason: Missing output files: .tmp/hisat_converted/DRUG-rep1.genome.bam; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genome.bam
-    wildcards: sample=DRUG-rep1, ref=genome
-    threads: 4
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 12:52:22 2025]
+[Tue Jan 28 03:49:29 2025]
 Finished job 91.
-76 of 100 steps (76%) done
+75 of 100 steps (75%) done
 Removing temporary output .tmp/combined_mapping/DRUG-rep2.genome.bam.
 Select jobs to execute...
 Execute 2 jobs...
 
-[Mon Jan 27 12:52:22 2025]
+[Tue Jan 28 03:49:30 2025]
 localrule hisat2_3n_calling_unfiltered_unique:
     input: internal_files/aligned_bam/DRUG-rep2.genome.bam
     output: .tmp/unfiltered_unique/DRUG-rep2.genome.tsv.gz
@@ -1345,7 +1319,7 @@ localrule hisat2_3n_calling_unfiltered_unique:
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 12:52:22 2025]
+[Tue Jan 28 03:49:30 2025]
 localrule hisat2_3n_filtering:
     input: internal_files/aligned_bam/DRUG-rep2.genome.bam
     output: .tmp/hisat_converted/DRUG-rep2.genome.bam
@@ -1355,49 +1329,18 @@ localrule hisat2_3n_filtering:
     threads: 4
     resources: tmpdir=/tmp
 
-[Mon Jan 27 12:53:48 2025]
-Finished job 87.
-77 of 100 steps (77%) done
+[Tue Jan 28 03:51:50 2025]
+Finished job 94.
+76 of 100 steps (76%) done
 Select jobs to execute...
 Waiting for more resources.
-[Mon Jan 27 12:55:31 2025]
-Finished job 94.
-78 of 100 steps (78%) done
-Execute 1 jobs...
+[Tue Jan 28 03:56:02 2025]
+Finished job 84.
+77 of 100 steps (77%) done
+Removing temporary output .tmp/combined_mapping/DRUG-rep1.genome.bam.
+Execute 2 jobs...
 
-[Mon Jan 27 12:55:31 2025]
-localrule hisat2_3n_calling_filtered_unqiue:
-    input: .tmp/hisat_converted/DRUG-rep1.genome.bam
-    output: .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz
-    jobid: 86
-    reason: Missing output files: .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep1.genome.bam
-    wildcards: sample=DRUG-rep1, ref=genome
-    threads: 16
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 13:19:56 2025]
-Finished job 75.
-79 of 100 steps (79%) done
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 13:19:56 2025]
-localrule hisat2_3n_calling_filtered_multi:
-    input: .tmp/hisat_converted/DRUG-rep1.genome.bam
-    output: .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz
-    jobid: 88
-    reason: Missing output files: .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep1.genome.bam
-    wildcards: sample=DRUG-rep1, ref=genome
-    threads: 16
-    resources: tmpdir=/tmp
-
-[Mon Jan 27 13:20:19 2025]
-Finished job 73.
-80 of 100 steps (80%) done
-Select jobs to execute...
-Execute 1 jobs...
-
-[Mon Jan 27 13:20:19 2025]
+[Tue Jan 28 03:56:02 2025]
 localrule hisat2_3n_calling_filtered_unqiue:
     input: .tmp/hisat_converted/DRUG-rep2.genome.bam
     output: .tmp/filtered_unique/DRUG-rep2.genome.tsv.gz
@@ -1407,13 +1350,8 @@ localrule hisat2_3n_calling_filtered_unqiue:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 13:23:31 2025]
-Finished job 78.
-81 of 100 steps (81%) done
-Select jobs to execute...
-Execute 1 jobs...
 
-[Mon Jan 27 13:23:31 2025]
+[Tue Jan 28 03:56:02 2025]
 localrule hisat2_3n_calling_filtered_multi:
     input: .tmp/hisat_converted/DRUG-rep2.genome.bam
     output: .tmp/filtered_multi/DRUG-rep2.genome.tsv.gz
@@ -1423,14 +1361,13 @@ localrule hisat2_3n_calling_filtered_multi:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 13:24:11 2025]
-Finished job 76.
-82 of 100 steps (82%) done
-Removing temporary output .tmp/hisat_converted/CONTROL-rep1.genome.bam.
+[Tue Jan 28 04:25:07 2025]
+Finished job 75.
+78 of 100 steps (78%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 13:24:11 2025]
+[Tue Jan 28 04:25:07 2025]
 localrule hisat2_3n_calling_unfiltered_multi:
     input: internal_files/aligned_bam/DRUG-rep1.genome.bam
     output: .tmp/unfiltered_multi/DRUG-rep1.genome.tsv.gz
@@ -1440,13 +1377,13 @@ localrule hisat2_3n_calling_unfiltered_multi:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 13:42:59 2025]
-Finished job 83.
-83 of 100 steps (83%) done
+[Tue Jan 28 04:27:24 2025]
+Finished job 76.
+79 of 100 steps (79%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 13:42:59 2025]
+[Tue Jan 28 04:27:25 2025]
 localrule hisat2_3n_calling_unfiltered_multi:
     input: internal_files/aligned_bam/DRUG-rep2.genome.bam
     output: .tmp/unfiltered_multi/DRUG-rep2.genome.tsv.gz
@@ -1456,25 +1393,53 @@ localrule hisat2_3n_calling_unfiltered_multi:
     threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 13:44:18 2025]
-Finished job 90.
-84 of 100 steps (84%) done
+[Tue Jan 28 04:27:49 2025]
+Finished job 73.
+80 of 100 steps (80%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 13:44:18 2025]
+[Tue Jan 28 04:27:49 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/DRUG-rep1.genome.bam
+    output: .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz
+    jobid: 83
+    reason: Missing output files: .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genome.bam
+    wildcards: sample=DRUG-rep1, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 04:28:54 2025]
+Finished job 78.
+81 of 100 steps (81%) done
+Removing temporary output .tmp/hisat_converted/CONTROL-rep1.genome.bam.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Tue Jan 28 04:28:55 2025]
 localrule join_pileup:
     input: .tmp/unfiltered_unique/CONTROL-rep1.genome.tsv.gz, .tmp/unfiltered_multi/CONTROL-rep1.genome.tsv.gz, .tmp/filtered_unique/CONTROL-rep1.genome.tsv.gz, .tmp/filtered_multi/CONTROL-rep1.genome.tsv.gz
     output: internal_files/count_sites/CONTROL-rep1.genome.arrow
     jobid: 72
-    reason: Missing output files: internal_files/count_sites/CONTROL-rep1.genome.arrow; Input files updated by another job: .tmp/filtered_multi/CONTROL-rep1.genome.tsv.gz, .tmp/filtered_unique/CONTROL-rep1.genome.tsv.gz, .tmp/unfiltered_unique/CONTROL-rep1.genome.tsv.gz, .tmp/unfiltered_multi/CONTROL-rep1.genome.tsv.gz
+    reason: Missing output files: internal_files/count_sites/CONTROL-rep1.genome.arrow; Input files updated by another job: .tmp/unfiltered_multi/CONTROL-rep1.genome.tsv.gz, .tmp/filtered_unique/CONTROL-rep1.genome.tsv.gz, .tmp/filtered_multi/CONTROL-rep1.genome.tsv.gz, .tmp/unfiltered_unique/CONTROL-rep1.genome.tsv.gz
     wildcards: sample=CONTROL-rep1, ref=genome
     threads: 6
     resources: tmpdir=/tmp
 
-[Mon Jan 27 13:45:45 2025]
+
+[Tue Jan 28 04:28:55 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/DRUG-rep1.genome.bam
+    output: .tmp/hisat_converted/DRUG-rep1.genome.bam
+    jobid: 87
+    reason: Missing output files: .tmp/hisat_converted/DRUG-rep1.genome.bam; Input files updated by another job: internal_files/aligned_bam/DRUG-rep1.genome.bam
+    wildcards: sample=DRUG-rep1, ref=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 04:30:20 2025]
 Finished job 72.
-85 of 100 steps (85%) done
+82 of 100 steps (82%) done
 Removing temporary output .tmp/unfiltered_unique/CONTROL-rep1.genome.tsv.gz.
 Removing temporary output .tmp/unfiltered_multi/CONTROL-rep1.genome.tsv.gz.
 Removing temporary output .tmp/filtered_unique/CONTROL-rep1.genome.tsv.gz.
@@ -1482,7 +1447,7 @@ Removing temporary output .tmp/filtered_multi/CONTROL-rep1.genome.tsv.gz.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 13:45:45 2025]
+[Tue Jan 28 04:30:21 2025]
 localrule group_pileup:
     input: internal_files/count_sites/CONTROL-rep1.genome.arrow
     output: internal_files/group_sites/CONTROL.genome.arrow
@@ -1492,73 +1457,108 @@ localrule group_pileup:
     threads: 6
     resources: tmpdir=/tmp
 
-[Mon Jan 27 13:46:13 2025]
+[Tue Jan 28 04:30:51 2025]
 Finished job 80.
-86 of 100 steps (86%) done
-[Mon Jan 27 13:50:49 2025]
-Finished job 86.
-87 of 100 steps (87%) done
-[Mon Jan 27 14:07:49 2025]
-Finished job 93.
-88 of 100 steps (88%) done
-[Mon Jan 27 14:10:36 2025]
-Finished job 88.
-89 of 100 steps (89%) done
-Removing temporary output .tmp/hisat_converted/DRUG-rep1.genome.bam.
-[Mon Jan 27 14:11:20 2025]
-Finished job 95.
-90 of 100 steps (90%) done
-Removing temporary output .tmp/hisat_converted/DRUG-rep2.genome.bam.
-[Mon Jan 27 14:15:34 2025]
-Finished job 85.
-91 of 100 steps (91%) done
+83 of 100 steps (83%) done
+[Tue Jan 28 04:32:22 2025]
+Finished job 87.
+84 of 100 steps (84%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 14:15:34 2025]
-localrule join_pileup:
-    input: .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz, .tmp/unfiltered_multi/DRUG-rep1.genome.tsv.gz, .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz, .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz
-    output: internal_files/count_sites/DRUG-rep1.genome.arrow
-    jobid: 82
-    reason: Missing output files: internal_files/count_sites/DRUG-rep1.genome.arrow; Input files updated by another job: .tmp/unfiltered_multi/DRUG-rep1.genome.tsv.gz, .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz, .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz, .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz
+[Tue Jan 28 04:32:23 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/DRUG-rep1.genome.bam
+    output: .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz
+    jobid: 86
+    reason: Missing output files: .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep1.genome.bam
     wildcards: sample=DRUG-rep1, ref=genome
-    threads: 6
+    threads: 16
     resources: tmpdir=/tmp
 
-[Mon Jan 27 14:17:20 2025]
-Finished job 82.
-92 of 100 steps (92%) done
-Removing temporary output .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz.
-Removing temporary output .tmp/unfiltered_multi/DRUG-rep1.genome.tsv.gz.
-Removing temporary output .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz.
-Removing temporary output .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz.
-[Mon Jan 27 14:27:58 2025]
-Finished job 92.
-93 of 100 steps (93%) done
+[Tue Jan 28 04:40:06 2025]
+Finished job 90.
+85 of 100 steps (85%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 14:27:58 2025]
+[Tue Jan 28 04:40:06 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/DRUG-rep1.genome.bam
+    output: .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz
+    jobid: 88
+    reason: Missing output files: .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/DRUG-rep1.genome.bam
+    wildcards: sample=DRUG-rep1, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 04:45:57 2025]
+Finished job 95.
+86 of 100 steps (86%) done
+[Tue Jan 28 04:46:50 2025]
+Finished job 93.
+87 of 100 steps (87%) done
+Removing temporary output .tmp/hisat_converted/DRUG-rep2.genome.bam.
+[Tue Jan 28 05:15:46 2025]
+Finished job 92.
+88 of 100 steps (88%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Tue Jan 28 05:15:46 2025]
 localrule join_pileup:
     input: .tmp/unfiltered_unique/DRUG-rep2.genome.tsv.gz, .tmp/unfiltered_multi/DRUG-rep2.genome.tsv.gz, .tmp/filtered_unique/DRUG-rep2.genome.tsv.gz, .tmp/filtered_multi/DRUG-rep2.genome.tsv.gz
     output: internal_files/count_sites/DRUG-rep2.genome.arrow
     jobid: 89
-    reason: Missing output files: internal_files/count_sites/DRUG-rep2.genome.arrow; Input files updated by another job: .tmp/filtered_multi/DRUG-rep2.genome.tsv.gz, .tmp/filtered_unique/DRUG-rep2.genome.tsv.gz, .tmp/unfiltered_unique/DRUG-rep2.genome.tsv.gz, .tmp/unfiltered_multi/DRUG-rep2.genome.tsv.gz
+    reason: Missing output files: internal_files/count_sites/DRUG-rep2.genome.arrow; Input files updated by another job: .tmp/filtered_multi/DRUG-rep2.genome.tsv.gz, .tmp/filtered_unique/DRUG-rep2.genome.tsv.gz, .tmp/unfiltered_multi/DRUG-rep2.genome.tsv.gz, .tmp/unfiltered_unique/DRUG-rep2.genome.tsv.gz
     wildcards: sample=DRUG-rep2, ref=genome
     threads: 6
     resources: tmpdir=/tmp
 
-[Mon Jan 27 14:29:32 2025]
+[Tue Jan 28 05:17:13 2025]
+Finished job 85.
+89 of 100 steps (89%) done
+[Tue Jan 28 05:17:16 2025]
+Finished job 83.
+90 of 100 steps (90%) done
+[Tue Jan 28 05:17:26 2025]
 Finished job 89.
-94 of 100 steps (94%) done
+91 of 100 steps (91%) done
 Removing temporary output .tmp/unfiltered_unique/DRUG-rep2.genome.tsv.gz.
 Removing temporary output .tmp/unfiltered_multi/DRUG-rep2.genome.tsv.gz.
 Removing temporary output .tmp/filtered_unique/DRUG-rep2.genome.tsv.gz.
 Removing temporary output .tmp/filtered_multi/DRUG-rep2.genome.tsv.gz.
+[Tue Jan 28 05:23:18 2025]
+Finished job 86.
+92 of 100 steps (92%) done
+[Tue Jan 28 05:27:56 2025]
+Finished job 88.
+93 of 100 steps (93%) done
+Removing temporary output .tmp/hisat_converted/DRUG-rep1.genome.bam.
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 14:29:32 2025]
+[Tue Jan 28 05:27:56 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz, .tmp/unfiltered_multi/DRUG-rep1.genome.tsv.gz, .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz, .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz
+    output: internal_files/count_sites/DRUG-rep1.genome.arrow
+    jobid: 82
+    reason: Missing output files: internal_files/count_sites/DRUG-rep1.genome.arrow; Input files updated by another job: .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz, .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz, .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz, .tmp/unfiltered_multi/DRUG-rep1.genome.tsv.gz
+    wildcards: sample=DRUG-rep1, ref=genome
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 05:29:38 2025]
+Finished job 82.
+94 of 100 steps (94%) done
+Removing temporary output .tmp/unfiltered_unique/DRUG-rep1.genome.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/DRUG-rep1.genome.tsv.gz.
+Removing temporary output .tmp/filtered_unique/DRUG-rep1.genome.tsv.gz.
+Removing temporary output .tmp/filtered_multi/DRUG-rep1.genome.tsv.gz.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Tue Jan 28 05:29:38 2025]
 localrule group_pileup:
     input: internal_files/count_sites/DRUG-rep1.genome.arrow, internal_files/count_sites/DRUG-rep2.genome.arrow
     output: internal_files/group_sites/DRUG.genome.arrow
@@ -1568,79 +1568,79 @@ localrule group_pileup:
     threads: 6
     resources: tmpdir=/tmp
 
-[Mon Jan 27 14:31:20 2025]
+[Tue Jan 28 05:31:27 2025]
 Finished job 81.
 95 of 100 steps (95%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 14:31:20 2025]
+[Tue Jan 28 05:31:27 2025]
 localrule combined_select_sites:
     input: internal_files/group_sites/CONTROL.genome.arrow, internal_files/group_sites/DRUG.genome.arrow
     output: detected_sites/prefilter/genome.tsv
     jobid: 79
-    reason: Missing output files: detected_sites/prefilter/genome.tsv; Input files updated by another job: internal_files/group_sites/DRUG.genome.arrow, internal_files/group_sites/CONTROL.genome.arrow
+    reason: Missing output files: detected_sites/prefilter/genome.tsv; Input files updated by another job: internal_files/group_sites/CONTROL.genome.arrow, internal_files/group_sites/DRUG.genome.arrow
     wildcards: ref=genome
     resources: tmpdir=/tmp
 
-[Mon Jan 27 14:31:47 2025]
+[Tue Jan 28 05:31:55 2025]
 Finished job 79.
 96 of 100 steps (96%) done
 Select jobs to execute...
 Execute 3 jobs...
 
-[Mon Jan 27 14:31:47 2025]
+[Tue Jan 28 05:31:55 2025]
 localrule stat_sample_background:
     input: internal_files/count_sites/DRUG-rep1.genome.arrow, detected_sites/prefilter/genome.tsv
     output: detected_sites/background/DRUG-rep1.genome.tsv, detected_sites/filtered/DRUG-rep1.genome.tsv
     jobid: 97
-    reason: Missing output files: detected_sites/filtered/DRUG-rep1.genome.tsv; Input files updated by another job: internal_files/count_sites/DRUG-rep1.genome.arrow, detected_sites/prefilter/genome.tsv
+    reason: Missing output files: detected_sites/filtered/DRUG-rep1.genome.tsv; Input files updated by another job: detected_sites/prefilter/genome.tsv, internal_files/count_sites/DRUG-rep1.genome.arrow
     wildcards: sample=DRUG-rep1, ref=genome
     threads: 2
     resources: tmpdir=/tmp
 
 
-[Mon Jan 27 14:31:47 2025]
-localrule stat_sample_background:
-    input: internal_files/count_sites/CONTROL-rep1.genome.arrow, detected_sites/prefilter/genome.tsv
-    output: detected_sites/background/CONTROL-rep1.genome.tsv, detected_sites/filtered/CONTROL-rep1.genome.tsv
-    jobid: 71
-    reason: Missing output files: detected_sites/filtered/CONTROL-rep1.genome.tsv; Input files updated by another job: internal_files/count_sites/CONTROL-rep1.genome.arrow, detected_sites/prefilter/genome.tsv
-    wildcards: sample=CONTROL-rep1, ref=genome
-    threads: 2
-    resources: tmpdir=/tmp
-
-
-[Mon Jan 27 14:31:47 2025]
+[Tue Jan 28 05:31:55 2025]
 localrule stat_sample_background:
     input: internal_files/count_sites/DRUG-rep2.genome.arrow, detected_sites/prefilter/genome.tsv
     output: detected_sites/background/DRUG-rep2.genome.tsv, detected_sites/filtered/DRUG-rep2.genome.tsv
     jobid: 99
-    reason: Missing output files: detected_sites/filtered/DRUG-rep2.genome.tsv; Input files updated by another job: internal_files/count_sites/DRUG-rep2.genome.arrow, detected_sites/prefilter/genome.tsv
+    reason: Missing output files: detected_sites/filtered/DRUG-rep2.genome.tsv; Input files updated by another job: detected_sites/prefilter/genome.tsv, internal_files/count_sites/DRUG-rep2.genome.arrow
     wildcards: sample=DRUG-rep2, ref=genome
     threads: 2
     resources: tmpdir=/tmp
 
-[Mon Jan 27 14:32:02 2025]
+
+[Tue Jan 28 05:31:55 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/CONTROL-rep1.genome.arrow, detected_sites/prefilter/genome.tsv
+    output: detected_sites/background/CONTROL-rep1.genome.tsv, detected_sites/filtered/CONTROL-rep1.genome.tsv
+    jobid: 71
+    reason: Missing output files: detected_sites/filtered/CONTROL-rep1.genome.tsv; Input files updated by another job: detected_sites/prefilter/genome.tsv, internal_files/count_sites/CONTROL-rep1.genome.arrow
+    wildcards: sample=CONTROL-rep1, ref=genome
+    threads: 2
+    resources: tmpdir=/tmp
+
+[Tue Jan 28 05:32:10 2025]
 Finished job 71.
 97 of 100 steps (97%) done
-[Mon Jan 27 14:32:04 2025]
+[Tue Jan 28 05:32:13 2025]
 Finished job 99.
 98 of 100 steps (98%) done
-[Mon Jan 27 14:32:06 2025]
+[Tue Jan 28 05:32:16 2025]
 Finished job 97.
 99 of 100 steps (99%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Mon Jan 27 14:32:06 2025]
+[Tue Jan 28 05:32:16 2025]
 localrule all:
     input: report_reads/mapped/CONTROL-rep1.tsv, report_reads/mapped/DRUG-rep1.tsv, report_reads/mapped/DRUG-rep2.tsv, internal_files/discarded_reads/CONTROL-rep1_run1_R1.unmapped.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.unmapped.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.unmapped.fq.gz, detected_sites/filtered/CONTROL-rep1.genes.tsv, detected_sites/filtered/CONTROL-rep1.genome.tsv, detected_sites/filtered/DRUG-rep1.genes.tsv, detected_sites/filtered/DRUG-rep1.genome.tsv, detected_sites/filtered/DRUG-rep2.genes.tsv, detected_sites/filtered/DRUG-rep2.genome.tsv
     jobid: 0
-    reason: Input files updated by another job: detected_sites/filtered/CONTROL-rep1.genome.tsv, detected_sites/filtered/CONTROL-rep1.genes.tsv, detected_sites/filtered/DRUG-rep1.genome.tsv, report_reads/mapped/DRUG-rep2.tsv, report_reads/mapped/CONTROL-rep1.tsv, detected_sites/filtered/DRUG-rep2.genes.tsv, detected_sites/filtered/DRUG-rep2.genome.tsv, detected_sites/filtered/DRUG-rep1.genes.tsv, report_reads/mapped/DRUG-rep1.tsv, internal_files/discarded_reads/DRUG-rep2_run1_R1.unmapped.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.unmapped.fq.gz, internal_files/discarded_reads/CONTROL-rep1_run1_R1.unmapped.fq.gz
+    reason: Input files updated by another job: detected_sites/filtered/CONTROL-rep1.genes.tsv, detected_sites/filtered/CONTROL-rep1.genome.tsv, internal_files/discarded_reads/DRUG-rep1_run1_R1.unmapped.fq.gz, detected_sites/filtered/DRUG-rep2.genes.tsv, internal_files/discarded_reads/DRUG-rep2_run1_R1.unmapped.fq.gz, report_reads/mapped/CONTROL-rep1.tsv, report_reads/mapped/DRUG-rep1.tsv, internal_files/discarded_reads/CONTROL-rep1_run1_R1.unmapped.fq.gz, detected_sites/filtered/DRUG-rep2.genome.tsv, report_reads/mapped/DRUG-rep2.tsv, detected_sites/filtered/DRUG-rep1.genome.tsv, detected_sites/filtered/DRUG-rep1.genes.tsv
     resources: tmpdir=/tmp
 
-[Mon Jan 27 14:32:06 2025]
+[Tue Jan 28 05:32:16 2025]
 Finished job 0.
 100 of 100 steps (100%) done
-Complete log: .snakemake/log/2025-01-27T113251.612247.snakemake.log
+Complete log: .snakemake/log/2025-01-28T023852.523103.snakemake.log
