@@ -28,18 +28,16 @@ onstart:
 onsuccess:
     shell(
         """
-        kill $(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
+        kill -- -$(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
         rm -f {workflow.basedir}/.monitor.pid
-        echo "✅ 工作流执行成功！耗时: {workflow.runtime} 秒"
         """
     )
 
 onerror:
     shell(
         """
-        kill $(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
+        kill -- -$(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
         rm -f {workflow.basedir}/.monitor.pid
-        echo "❌ 工作流执行失败！耗时: {workflow.runtime} 秒"
         """
     )
 
