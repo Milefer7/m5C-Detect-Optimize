@@ -1,4 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
+> 这个版本在默认参数的情况下修改了有关 mapping rule中 cpu核 并发的数量，充分利用112个核。
 
 # m<sup>5</sup>C-UBSseq
 
