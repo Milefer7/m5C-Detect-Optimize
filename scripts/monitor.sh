@@ -1,123 +1,114 @@
 #!/bin/bash
 
 # ----------------- 配置项 -----------------
-LOG_DIR="log"
-LOG_FILE="${LOG_DIR}/monitor_$(date +'%Y-%m-%d_%H-%M').log" # 分钟级日志
+export LC_NUMERIC=C  # 确保数字格式使用点号
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+LOG_DIR="${BASE_DIR}/scripts/log"
 MAX_CMD_LENGTH=40
 REFRESH_INTERVAL=10
 SEPARATOR="▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-MAX_LOG_DAYS=7  # 自动清理7天前日志
+MAX_LOG_DAYS=7
 
 # ----------------- 初始化 -----------------
-mkdir -p "${LOG_DIR}"
+mkdir -p "${LOG_DIR}" || {
+    echo "无法创建日志目录: ${LOG_DIR}" >&2
+    exit 1
+}
 
 # 检查依赖项
-if ! command -v pidstat &> /dev/null; then
-    echo "错误：需要安装sysstat工具包"
-    echo "Ubuntu/Debian: sudo apt install sysstat"
-    echo "CentOS/RHEL: sudo yum install sysstat"
-    exit 1
-fi
+REQUIRED_CMDS=(pidstat ps awk tput find)
+for cmd in "${REQUIRED_CMDS[@]}"; do
+    if ! command -v "${cmd}" &> /dev/null; then
+        echo "错误：需要安装 ${cmd} 命令" | tee -a "${LOG_FILE}"
+        exit 1
+    fi
+done
 
 # 自动清理旧日志
-find "${LOG_DIR}" -name "monitor_*.log" -mtime +${MAX_LOG_DAYS} -delete
+find "${LOG_DIR}" -name "monitor_*.log" -mtime +${MAX_LOG_DAYS} -delete 2>/dev/null
 
-# 初始化日志文件
-if [ ! -f "${LOG_FILE}" ]; then
-    echo -ne "\xEF\xBB\xBF" > "${LOG_FILE}"
-    echo -e "记录时间\tPID\t进程名\t内存%\tCPU%\tI/O读(KB/s)\tI/O写(KB/s)\t完整命令行" >> "${LOG_FILE}"
-fi
+# 主循环变量
+last_hour=""
 
 # ----------------- 主循环 -----------------
-while true; do
-    clear
-    current_time=$(date +'%Y-%m-%d %H:%M:%S')
-    term_width=$(tput cols)
-    
-    # 获取进程数据
-    processes=$(ps aux --sort=-%mem | awk 'NR<=6 && NR>1')
-    
-    # 获取I/O数据（两次采样取平均）
-    io_stats=$(pidstat -dlh 1 2 | awk '
-    BEGIN {count=0} 
-    /^Average:/ && NF>=7 {
-        pid=$4
-        read[pid] += $6
-        write[pid] += $7
-        count[pid]++
-    } 
-    END {
-        for (pid in read) {
-            if (count[pid] > 0) {
-                printf "%s %.1f %.1f\n", pid, read[pid]/count[pid], write[pid]/count[pid]
+while :; do
+    current_time=$(date +"%Y-%m-%d %H:%M:%S")
+    current_hour=$(date +"%Y-%m-%d_%H")
+
+    # 动态更新日志文件路径（每小时一个文件）
+    if [[ "${current_hour}" != "${last_hour}" ]]; then
+        LOG_FILE="${LOG_DIR}/monitor_${current_hour}.log"
+        # 初始化新日志文件
+        if [[ ! -f "${LOG_FILE}" ]]; then
+            echo -ne "\xEF\xBB\xBF" > "${LOG_FILE}" 2>/dev/null || {
+                echo "无法写入日志文件: ${LOG_FILE}" >&2
+                exit 1
             }
-        }
-    }')
+            echo -e "记录时间\tPID\t进程名\t内存%\tCPU%\tI/O读(KB/s)\tI/O写(KB/s)\t完整命令行" >> "${LOG_FILE}" || {
+                echo "无法写入日志文件: ${LOG_FILE}" >&2
+                exit 1
+            }
+        fi
+        last_hour="${current_hour}"
+    fi
 
-    # ================= 终端显示 =================
-    echo "🔄 进程监控 | 刷新间隔: ${REFRESH_INTERVAL}秒 | 终端宽度: ${term_width}"
-    echo "📅 当前时间: ${current_time}"
-    printf "%-7s %-18s %5s %5s %10s %10s %s\n" "PID" "进程名" "内存%" "CPU%" "I/O读" "I/O写" "命令行"
-    echo "${SEPARATOR:0:$term_width}"
-
-    echo "${processes}" | awk -v term_w=${term_width} -v io_data="${io_stats}" '
-    BEGIN {
-        split(io_data, io_lines, "\n")
-        for (i in io_lines) {
-            split(io_lines[i], fields, " ")
-            io_pid[fields[1]] = 1
-            io_read[fields[1]] = fields[2]
-            io_write[fields[1]] = fields[3]
-        }
-    }
+    # ================= 数据采集 =================
     {
-        pid = $2
-        cmd_full = $11
-        for (i=12; i<=NF; i++) cmd_full = cmd_full " " $i
+        # 进程数据（按内存排序）
+        processes=$(ps --no-headers -eo pid,%mem,%cpu,comm,args --sort=-%mem | head -n 6)
         
-        # 动态调整显示宽度
-        col_width = term_w - 65
-        if (col_width < 10) col_width = 10
-        cmd_display = length(cmd_full) > col_width ? substr(cmd_full,1,col_width-3) "..." : cmd_full
-        
-        printf "%-7s %-18s %5.1f %5.1f %10s %10s %s\n", 
-            pid, 
-            (length($11)>15 ? substr($11,1,15) "..." : $11),
-            $4, 
-            $3, 
-            (pid in io_pid ? sprintf("%.1f", io_read[pid]) : "N/A"),
-            (pid in io_pid ? sprintf("%.1f", io_write[pid]) : "N/A"),
-            cmd_display
-    }'
+        # I/O数据采集（两次采样取平均）
+        io_stats=$(pidstat -dlh 1 2 | awk '
+        /^Average:/ && NF>=7 {
+            pid=$4
+            read[pid] += $6
+            write[pid] += $7
+            cnt[pid]++
+        } 
+        END {
+            for (pid in read) {
+                if (cnt[pid] > 0) {
+                    printf "%s %.1f %.1f\n", pid, read[pid]/cnt[pid], write[pid]/cnt[pid]
+                }
+            }
+        }')
+    } 2>>"${LOG_FILE}"
 
     # ================= 日志记录 =================
     {
-        echo -e "\n🕒 记录时间: ${current_time}"
+        printf "\n🕒 记录时间: %s\n" "${current_time}"
         echo "${SEPARATOR}"
-        echo "${processes}" | awk -v io_data="${io_stats}" '
+        awk -v current_time="${current_time}" -v io_data="${io_stats}" '
         BEGIN {
             split(io_data, io_lines, "\n")
             for (i in io_lines) {
                 split(io_lines[i], fields, " ")
-                io_pid[fields[1]] = 1
-                io_read[fields[1]] = fields[2]
-                io_write[fields[1]] = fields[3]
+                if (length(fields)>=3) {
+                    pid=fields[1]
+                    io_read[pid] = fields[2]
+                    io_write[pid] = fields[3]
+                }
             }
         }
         {
-            pid = $2
-            cmd = $11
-            for (i=12; i<=NF; i++) cmd = cmd " " $i
-            printf "%s\t%s\t%.1f\t%.1f\t%s\t%s\t%s\n", 
+            pid = $1
+            mem = $2
+            cpu = $3
+            comm = $4
+            cmd_full = $5
+            for (i=6; i<=NF; i++) cmd_full = cmd_full " " $i
+            
+            printf "%s\t%s\t%s\t%.1f\t%.1f\t%s\t%s\t%s\n", 
+                current_time,
                 pid, 
-                $11, 
-                $4, 
-                $3, 
-                (pid in io_pid ? io_read[pid] : "N/A"), 
-                (pid in io_pid ? io_write[pid] : "N/A"), 
-                cmd
-        }'
-    } >> "${LOG_FILE}"
+                comm,
+                mem, 
+                cpu, 
+                (pid in io_read ? io_read[pid] : "N/A"), 
+                (pid in io_write ? io_write[pid] : "N/A"), 
+                cmd_full
+        }' <<< "${processes}"
+    } >> "${LOG_FILE}" 2>/dev/null
 
-    sleep ${REFRESH_INTERVAL}
+    sleep "${REFRESH_INTERVAL}"
 done

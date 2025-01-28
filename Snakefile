@@ -18,31 +18,31 @@ REF = config["reference"]
 onstart:
     shell(
         """
-        nohup scripts/monitor.sh > logs/monitor.log 2>&1 &
-        echo $! > .monitor.pid
+        {workflow.basedir}/scripts/initialization.sh
+        nohup {workflow.basedir}/scripts/monitor.sh > /dev/null 2>&1 &
+        echo $! > {workflow.basedir}/.monitor.pid
         """
     )
 
 
-# 成功结束时执行
 onsuccess:
     shell(
         """
-        kill $(cat .monitor.pid) 2>/dev/null || true
-        rm -f .monitor.pid
+        kill $(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
+        rm -f {workflow.basedir}/.monitor.pid
         echo "✅ 工作流执行成功！耗时: {workflow.runtime} 秒"
         """
     )
 
-# 失败时执行
 onerror:
     shell(
         """
-        kill $(cat .monitor.pid) 2>/dev/null || true
-        rm -f .monitor.pid
+        kill $(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
+        rm -f {workflow.basedir}/.monitor.pid
         echo "❌ 工作流执行失败！耗时: {workflow.runtime} 秒"
         """
     )
+
 
 CUSTOMIZED_GENES = [os.path.expanduser(i) for i in config.get("customized_genes", [])]
 WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3"]
