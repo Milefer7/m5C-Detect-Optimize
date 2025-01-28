@@ -1,0 +1,88 @@
+host: saas-de-qiysss-proj1-d535-5969dc4d5d-hjfxc
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 112
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                    count
+-----------------------------------  -------
+all                                        1
+combine_runs                               9
+combined_select_sites                      2
+cutadapt_SE                                3
+dedup_mapping                              6
+extract_unmap_bam_final_SE                 3
+extract_unmap_bam_internal_SE              9
+group_pileup                               4
+hisat2_3n_calling_filtered_multi           6
+hisat2_3n_calling_filtered_unqiue          6
+hisat2_3n_calling_unfiltered_multi         6
+hisat2_3n_calling_unfiltered_unique        6
+hisat2_3n_filtering                        6
+hisat2_3n_mapping_contamination_SE         3
+hisat2_3n_mapping_genes_SE                 3
+hisat2_3n_mapping_genome_SE                3
+hisat2_3n_sort                             9
+join_pileup                                6
+stat_mapping_number                        3
+stat_sample_background                     6
+total                                    100
+
+Select jobs to execute...
+Execute 3 jobs...
+
+[Mon Jan 27 11:23:34 2025]
+localrule cutadapt_SE:
+    input: ../data/SRR23538290_1.fastq.gz
+    output: .tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz, internal_files/discarded_reads/CONTROL-rep1_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/CONTROL-rep1_run1_R1.untrimmed.fq.gz, report_reads/trimming/CONTROL-rep1_run1.json
+    jobid: 5
+    reason: Missing output files: .tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz
+    wildcards: sample=CONTROL-rep1, rn=run1
+    threads: 20
+    resources: tmpdir=/tmp
+
+
+[Mon Jan 27 11:23:34 2025]
+localrule cutadapt_SE:
+    input: ../data/SRR23538292_1.fastq.gz
+    output: .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.untrimmed.fq.gz, report_reads/trimming/DRUG-rep2_run1.json
+    jobid: 31
+    reason: Missing output files: .tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz
+    wildcards: sample=DRUG-rep2, rn=run1
+    threads: 20
+    resources: tmpdir=/tmp
+
+
+[Mon Jan 27 11:23:34 2025]
+localrule cutadapt_SE:
+    input: ../data/SRR23538291_1.fastq.gz
+    output: .tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.untrimmed.fq.gz, report_reads/trimming/DRUG-rep1_run1.json
+    jobid: 18
+    reason: Missing output files: .tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz
+    wildcards: sample=DRUG-rep1, rn=run1
+    threads: 20
+    resources: tmpdir=/tmp
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule cutadapt_SE in file /home/milefer7/myRes/ASC25_m5C/Snakefile, line 68:
+Job 5  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+report_reads/trimming/CONTROL-rep1_run1.json (missing locally, parent dir contents: )
+Removing output files of failed job cutadapt_SE since they might be corrupted:
+.tmp/cut_adapter_SE/CONTROL-rep1_run1_R1.fq.gz, internal_files/discarded_reads/CONTROL-rep1_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/CONTROL-rep1_run1_R1.untrimmed.fq.gz
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule cutadapt_SE in file /home/milefer7/myRes/ASC25_m5C/Snakefile, line 68:
+Job 31  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+report_reads/trimming/DRUG-rep2_run1.json (missing locally, parent dir contents: )
+Removing output files of failed job cutadapt_SE since they might be corrupted:
+.tmp/cut_adapter_SE/DRUG-rep2_run1_R1.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/DRUG-rep2_run1_R1.untrimmed.fq.gz
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule cutadapt_SE in file /home/milefer7/myRes/ASC25_m5C/Snakefile, line 68:
+Job 18  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+report_reads/trimming/DRUG-rep1_run1.json (missing locally, parent dir contents: )
+Removing output files of failed job cutadapt_SE since they might be corrupted:
+.tmp/cut_adapter_SE/DRUG-rep1_run1_R1.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/DRUG-rep1_run1_R1.untrimmed.fq.gz
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-01-27T112334.626979.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
