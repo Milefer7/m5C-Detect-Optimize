@@ -14,33 +14,6 @@ workdir: "workspace"
 BIN = config["path"]
 REF = config["reference"]
 
-# 资源监控
-onstart:
-    shell(
-        """
-        {workflow.basedir}/scripts/initialization.sh
-        nohup {workflow.basedir}/scripts/monitor.sh > /dev/null 2>&1 &
-        echo $! > {workflow.basedir}/.monitor.pid
-        """
-    )
-
-
-onsuccess:
-    shell(
-        """
-        kill -- -$(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
-        rm -f {workflow.basedir}/.monitor.pid
-        """
-    )
-
-onerror:
-    shell(
-        """
-        kill -- -$(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
-        rm -f {workflow.basedir}/.monitor.pid
-        """
-    )
-
 
 CUSTOMIZED_GENES = [os.path.expanduser(i) for i in config.get("customized_genes", [])]
 WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3"]
@@ -180,7 +153,7 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 35
+    threads: 24
     shell:
         """
         {BIN[hisat3n]} \
