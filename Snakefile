@@ -14,35 +14,6 @@ workdir: "workspace"
 BIN = config["path"]
 REF = config["reference"]
 
-# 资源监控
-onstart:
-    shell(
-        """
-        {workflow.basedir}/scripts/initialization.sh
-        nohup {workflow.basedir}/scripts/monitor.sh > /dev/null 2>&1 &
-        echo $! > {workflow.basedir}/.monitor.pid
-        """
-    )
-
-
-onsuccess:
-    shell(
-        """
-        kill $(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
-        rm -f {workflow.basedir}/.monitor.pid
-        echo "✅ 工作流执行成功！耗时: {workflow.runtime} 秒"
-        """
-    )
-
-onerror:
-    shell(
-        """
-        kill $(cat {workflow.basedir}/.monitor.pid) 2>/dev/null || true
-        rm -f {workflow.basedir}/.monitor.pid
-        echo "❌ 工作流执行失败！耗时: {workflow.runtime} 秒"
-        """
-    )
-
 
 CUSTOMIZED_GENES = [os.path.expanduser(i) for i in config.get("customized_genes", [])]
 WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3"]
