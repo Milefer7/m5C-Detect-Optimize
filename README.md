@@ -1,5 +1,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
-> 测试增加cpu数，看看利用率是否可以达到100%
+> 测试增加cpu数，看看利用率是否可以达到100%。
+* thread添加的思路是: 110(cpus)/rule的job数量。
+> 希望每个rule中所有的job并行。
+  * 结果是甚至比原来慢了 0.02h。
 
 # m<sup>5</sup>C-UBSseq
 
