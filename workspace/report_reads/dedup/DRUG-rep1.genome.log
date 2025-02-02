@@ -4,7 +4,7 @@ Number of input reads	162208045
 Number of removed unmapped reads	0
 Number of unremoved reads	162208045
 Number of unique alignment positions	30342364
-Average number of UMIs per alignment position	4.0913501004733845
+Average number of UMIs per alignment position	4.0913501663878264
 Max number of UMIs over all alignment positions	7594
-Number of reads after deduplicating	119247585
-UMI collapsing finished in 1526.62 seconds!
+Number of reads after deduplicating	119247587
+UMI collapsing finished in 1539.722 seconds!
