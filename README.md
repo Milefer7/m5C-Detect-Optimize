@@ -1,11 +1,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
 
-> snakefile的参数还是出厂设置。
+> snakefile的参数还是出厂设置。 `v2.x ` 是优化工具，编译 `-O3` , `v2.0` 是对 `hisat` 工具 `o3` 优化
 
-* `v2.x ` 是优化工具，编译 `-O3`
-* `v2.0`是对 `hisat` 工具 `o3` 优化
-  * `RELEASE_FLAGS  = -O3 -march=native -funroll-loops -fprefetch-loop-arrays -flto -fomit-frame-pointer -floop-interchange -floop-unroll-and-jam -fpeel-loops -funswitch-loops -floop-block`
-  * `LDFLAGS = -static -flto`
+* `v2.1` 是在 hisat 优化的基础上，在优化 `samtools` 和 `bgzip`
 
 # m `<sup>`5 `</sup>`C-UBSseq
 
