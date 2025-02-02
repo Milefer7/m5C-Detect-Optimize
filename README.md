@@ -1,7 +1,11 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
 
+> 默认配置参数（snakefile）。v2.0 hisat工具o3优化
 
-# m<sup>5</sup>C-UBSseq
+* `RELEASE_FLAGS  = -O3 -march=native -funroll-loops -fprefetch-loop-arrays -flto -fomit-frame-pointer -floop-interchange -floop-unroll-and-jam -fpeel-loops -funswitch-loops -floop-block`
+* `LDFLAGS        = -static -flto`
+
+# m `<sup>`5 `</sup>`C-UBSseq
 
 ## Changelog
 
@@ -25,7 +29,6 @@
       url       = {https://doi.org/10.5281/zenodo.11046885}
   }
   ```
-
 - cite the method
 
   ```BibTex
@@ -46,7 +49,7 @@
 />
 </p>
 <p align="center">
-Copyright &copy; 2021-present
+Copyright © 2021-present
 <a href="https://github.com/y9c" target="_blank">Chang Y</a>
 </p>
 <p align="center">
