@@ -14,7 +14,7 @@ snapshot_file="$snapshot_dir/atop_$timestamp"
 
 # 运行 atop 并将数据保存到指定的文件
 echo "开启atop监控，输入'q'退出..."
-timeout $max_runtime atop -w "$snapshot_file" -d 60 &
+sudo timeout $max_runtime atop -w "$snapshot_file" -d 60 &
 
 # 获取 atop 的进程ID
 atop_pid=$!
