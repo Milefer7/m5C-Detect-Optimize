@@ -3,134 +3,126 @@ from datetime import datetime
 from collections import defaultdict
 import os
 
-logPath = os.path.expanduser("~/myRes/ASC25-m5C/workspace/.snakemake/log/2025-01-28T110708.346593.snakemake.log")
-summaryPath = f"{logPath}_summary.csv"
-file = open(summaryPath, 'w', encoding="utf-8")
+def parse_snakemake_log():
+    # 初始化路径
+    log_dir = os.path.expanduser("~/myRes/ASC25-m5C/workspace/.snakemake/log/")
+    log_files = sorted([f for f in os.listdir(log_dir) if f.endswith('.log')], key=lambda x: os.path.getmtime(os.path.join(log_dir, x)))
+    
+    if not log_files:
+        raise FileNotFoundError("未找到任何日志文件")
+    
+    log_path = os.path.join(log_dir, log_files[-1])
+    summary_path = f"{log_path}_summary.csv"
+    
+    # 数据结构初始化
+    jobs = {}
+    rule_stats = defaultdict(lambda: {
+        'durations': [], 
+        'threads': None,
+        'job_count': 0,
+        'total_time': 0.0
+    })
 
-file.write(f"{logPath}\n")
-# print(logPath)
+    # 正则模式编译
+    patterns = {
+        'timestamp': re.compile(r'^\[(.*?)\]'),
+        'rule': re.compile(r'^\s*(?:local)?rule (\w+):'),
+        'jobid': re.compile(r'jobid:\s*(\d+)'),
+        'threads': re.compile(r'threads:\s*(\d+)'),
+        'endjob': re.compile(r'Finished job (\d+)\.')
+    }
 
-# 增强版正则表达式
-timestamp_pattern = re.compile(r'^\[(.*?)\]')
-rule_pattern = re.compile(r'^\s*(?:local)?rule (\w+):')
-jobid_pattern = re.compile(r'jobid:\s*(\d+)')
-threads_pattern = re.compile(r'threads:\s*(\d+)')
-endjob_pattern = re.compile(r'Finished job (\d+)\.')
-
-# 数据结构
-jobs = {}  # {jobid: (rule, start_time, threads)}
-rule_stats = defaultdict(lambda: {
-    'durations': [],
-    'threads': None,
-    'job_count': 0,
-    'total_time': 0.0
-})
-
-# 状态跟踪变量
-current_block = {}
-
-def parse_log(log_path):
+    # 日志解析
     with open(log_path) as f:
-        lines = f.readlines()
-
-    for line in lines:
-        line = line.rstrip('\n')
-        
-        # 解析时间戳
-        if timestamp_match := timestamp_pattern.match(line):
-            current_block['timestamp'] = datetime.strptime(
-                timestamp_match.group(1), 
-                '%a %b %d %H:%M:%S %Y'
-            )
-            continue
+        current_block = {}
+        for line in f:
+            line = line.strip()
             
-        # 解析规则声明
-        if rule_match := rule_pattern.match(line):
-            current_block['rule'] = rule_match.group(1)
-            continue
-            
-        # 解析jobid
-        if jobid_match := jobid_pattern.search(line):
-            current_block['jobid'] = jobid_match.group(1)
-            continue
-            
-        # 解析线程数
-        if threads_match := threads_pattern.search(line):
-            current_block['threads'] = int(threads_match.group(1))
-            
-            # 当收集齐必要字段时记录job
-            if all(k in current_block for k in ['timestamp', 'rule', 'jobid', 'threads']):
-                jobs[current_block['jobid']] = {
-                    'rule': current_block['rule'],
-                    'start': current_block['timestamp'],
-                    'threads': current_block['threads']
-                }
-                current_block.clear()
-            continue
-            
-        # 解析完成job
-        if end_match := endjob_pattern.search(line):
-            jobid = end_match.group(1)
-            if jobid not in jobs:
+            # 解析时间戳
+            if ts_match := patterns['timestamp'].match(line):
+                current_block['timestamp'] = datetime.strptime(ts_match.group(1), '%a %b %d %H:%M:%S %Y')
                 continue
                 
-            end_time = current_block.get('timestamp', jobs[jobid]['start'])
-            duration = (end_time - jobs[jobid]['start']).total_seconds()
-            
-            # 更新统计信息
-            rule = jobs[jobid]['rule']
-            rule_stats[rule]['durations'].append(duration)
-            rule_stats[rule]['total_time'] += duration
-            rule_stats[rule]['job_count'] += 1
-            
-            # 记录首次出现的threads值
-            if rule_stats[rule]['threads'] is None:
-                rule_stats[rule]['threads'] = jobs[jobid]['threads']
+            # 解析规则
+            if rule_match := patterns['rule'].match(line):
+                current_block['rule'] = rule_match.group(1)
+                continue
                 
-            del jobs[jobid]
+            # 组合job信息
+            if jobid_match := patterns['jobid'].search(line):
+                current_block['jobid'] = jobid_match.group(1)
+                
+            if threads_match := patterns['threads'].search(line):
+                current_block['threads'] = int(threads_match.group(1))
+                
+                if all(k in current_block for k in ['timestamp', 'rule', 'jobid', 'threads']):
+                    jobs[current_block['jobid']] = {
+                        'rule': current_block['rule'],
+                        'start': current_block['timestamp'],
+                        'threads': current_block['threads'],
+                        'end': None,
+                        'duration': None
+                    }
+                    current_block.clear()
+                continue
+                
+            # 记录结束时间
+            if end_match := patterns['endjob'].search(line):
+                jobid = end_match.group(1)
+                if jobid in jobs:
+                    end_time = current_block.get('timestamp', jobs[jobid]['start'])
+                    duration = (end_time - jobs[jobid]['start']).total_seconds()
+                    
+                    jobs[jobid].update({
+                        'end': end_time,
+                        'duration': duration
+                    })
+                    
+                    rule = jobs[jobid]['rule']
+                    rule_stats[rule]['durations'].append(duration)
+                    rule_stats[rule]['total_time'] += duration
+                    rule_stats[rule]['job_count'] += 1
+                    if rule_stats[rule]['threads'] is None:
+                        rule_stats[rule]['threads'] = jobs[jobid]['threads']
 
-def format_time(seconds):
-    """将秒转换为易读格式"""
-    if seconds < 60:
-        return f"{seconds:.2f}s"
-    minutes, seconds = divmod(seconds, 60)
-    return f"{int(minutes):02d}:{seconds:06.3f}"
+    # 生成报告
+    with open(summary_path, 'w', encoding='utf-8') as f:
+        # 写入元数据（注释行）
+        f.write(f"# Log analysis for: {os.path.basename(log_path)}\n")
+        f.write("# Generated at: {}\n".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+        
+        # 数据表头
+        f.write("rule_name,job_count,avg_time_min,total_time_min,threads\n")
+        
+        # 数据行
+        for rule in sorted(rule_stats.keys()):
+            stats = rule_stats[rule]
+            if stats['job_count'] == 0:
+                continue
+                
+            avg = stats['total_time'] / stats['job_count'] / 60
+            total = stats['total_time'] / 60
+            
+            # 转义特殊字符
+            rule_name = f'"{rule}"' if ',' in rule else rule
+            f.write(f"{rule_name},{stats['job_count']},{avg:.2f},{total:.2f},{stats['threads']}\n")
+        
+        # 统计摘要
+        total_cpu = sum(s['total_time'] for s in rule_stats.values()) / 3600
+        f.write("\n# === Summary ===\n")
+        f.write(f"# Total CPU Time: {total_cpu:.2f} hours\n")
+        
+        # 计算实际耗时
+        valid_jobs = [j for j in jobs.values() if j['start'] and j['end']]
+        if valid_jobs:
+            start = min(j['start'] for j in valid_jobs)
+            end = max(j['end'] for j in valid_jobs)
+            delta = end - start
+            f.write(f"# Wall Time: {delta.days*24 + delta.seconds//3600:02d}:{(delta.seconds//60)%60:02d}:{delta.seconds%60:02d} hours\n")
+        else:
+            f.write("# Wall Time: N/A\n")
 
-# 执行解析
-parse_log(logPath)
+    print(f"分析报告已生成：{os.path.abspath(summary_path)}")
 
-# 准备报告数据
-report = []
-for rule, stats in rule_stats.items():
-    avg_time = stats['total_time'] / stats['job_count'] if stats['job_count'] else 0
-    report.append((
-        rule,
-        avg_time,
-        stats['total_time'],
-        stats['threads'],
-        stats['job_count']
-    ))
-
-# 按规则名称排序
-report.sort(key=lambda x: x[0])
-
-# 生成格式化输出（加宽版）
-header = f"{'Rule':<40},{'Jobs':>8},{'Avg Time/min':>16},{'Total Time/min':>16},{'Threads':>10}\n"
-separator = '-' * 100 + "\n" # 分隔线加宽
-# print(header)
-# print(separator)
-file.write(header)
-# file.write(separator)
-
-for entry in report:
-    rule, avg, total, threads, count = entry
-    file.write(f"{rule:<40},{count:>8},{avg / 60:>16.2f},{total / 60:>16.2f},{threads:>10}\n")
-    # print(f"{rule:<40} {count:>8} {avg / 60:>16.2f}min {total / 60:>16.2f}min {threads:>10}")
-
-# 打印统计摘要
-total_runtime = sum(stats['total_time'] for stats in rule_stats.values())
-# print(f"\nTotal pipeline runtime: {total_runtime/3600:.2f} hours")
-file.write(f"\nTotal pipeline runtime: {total_runtime/3600:.2f} hours\n")
-if file:
-    file.close()
-print("统计时间文件路径：", os.path.abspath(summaryPath))
+if __name__ == "__main__":
+    parse_snakemake_log()
