@@ -153,7 +153,7 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 12
+    threads: 36
     shell:
         """
         {BIN[hisat3n]} \
@@ -200,7 +200,7 @@ rule extract_unmap_bam_internal_SE:
         TEMPDIR / "mapping_discarded_SE/{sample}_{rn}.{reftype}.bam",
     output:
         temp(TEMPDIR / "unmapped_internal_SE/{sample}_{rn}_R1.{reftype}.fq.gz"),
-    threads: 6
+    threads: 18
     shell:
         """
         {BIN[samtools]} fastq -@ {threads} -0 {output} {input}
@@ -229,7 +229,7 @@ rule hisat2_3n_sort:
         ),
     output:
         INTERNALDIR / "run_sorted/{sample}_{rn}.{ref}.bam",
-    threads: 12
+    threads: 18
     shell:
         """
         {BIN[samtools]} sort -@ {threads} --write-index -m 3G -O BAM -o {output} {input}
@@ -281,12 +281,12 @@ rule dedup_mapping:
         txt="report_reads/dedup/{sample}.{ref}.log",
     params:
         tmp=os.environ["TMPDIR"],
-    threads: 12
+    threads: 32
     run:
         if WITH_UMI:
             shell(
                 """
-            java -server -Xms8G -Xmx40G -Xss100M -Djava.io.tmpdir={params.tmp} -jar {BIN[umicollapse]} bam \
+            java -server -Xms20G -Xmx40G -Xss100M -XX:+UseG1GC -Djava.io.tmpdir={params.tmp} -jar {BIN[umicollapse]} bam \
                 -t 2 -T {threads} --data naive --merge avgqual --two-pass -i {input.bam} -o {output.bam} >{output.txt}
             """
             )
@@ -335,7 +335,7 @@ rule hisat2_3n_calling_unfiltered_unique:
         samtools_threads=4,
         hisat_threads=8,
         bgzip_threads=4,
-    # threads: 16
+    threads: 16
     # shell:
     #     """
     #     {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
@@ -363,7 +363,7 @@ rule hisat2_3n_calling_unfiltered_multi:
         samtools_threads=4,
         hisat_threads=8,
         bgzip_threads=4,
-    # threads: 16
+    threads: 16
     # shell:
     #     """
     #     {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
@@ -403,7 +403,7 @@ rule hisat2_3n_calling_filtered_unqiue:
         samtools_threads=4,
         hisat_threads=8,
         bgzip_threads=4,
-    # threads: 16
+    threads: 16
     # shell:
     #     """
     #     {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
