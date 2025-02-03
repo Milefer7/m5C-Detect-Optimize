@@ -153,7 +153,7 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 24
+    threads: 36 
     shell:
         """
         {BIN[hisat3n]} \

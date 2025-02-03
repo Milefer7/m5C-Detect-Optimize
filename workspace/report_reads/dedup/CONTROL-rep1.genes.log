@@ -1,0 +1,10 @@
+Arguments	[bam, -t, 2, -T, 20, --data, naive, --merge, avgqual, --two-pass, -i, .tmp/combined_mapping/CONTROL-rep1.genes.bam, -o, internal_files/aligned_bam/CONTROL-rep1.genes.bam]
+Done with the first pass!
+Number of input reads	14759184
+Number of removed unmapped reads	0
+Number of unremoved reads	14759184
+Number of unique alignment positions	4252436
+Average number of UMIs per alignment position	2.9407426707891666
+Max number of UMIs over all alignment positions	712
+Number of reads after deduplicating	12152095
+UMI collapsing finished in 155.429 seconds!
