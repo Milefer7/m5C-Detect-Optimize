@@ -4,28 +4,11 @@
 
 ## 优化策略
 
-### 1. 线程重分配
-
-```
-rule               原线程 → 新线程 | 优化依据
--------------------------------------------------
-hisat2_3n_calling* 18 → 24        | 单任务加速，减少总耗时
-hisat2_mapping_*   35 → 22        | 平衡并行度和单任务效率
-cutadapt_SE        35 → 10        | I/O瓶颈显著，降线程提吞吐
-dedup_mapping      18 → 12        | JVM内存限制，避免GC停顿
-join_pileup        6 → 12         | 启用Python多进程优化
-```
-
-### 2. 资源组策略升级
-
-```
-snakemake --cores 110 --resources 
-  heavy=2 medium=4 light=8  # 三级控制
-```
-
-* **heavy组** （hisat2_calling*）: 24线程/任务，并行2个 → 48核
-* **medium组** （mapping/sort）: 22线程，并行4个 → 88核
-* **light组** （预处理）: 10线程，并行8个 → 80核
+* 减少 sample 数量 只留下1个 分配36核心 优化
+  * v1.3 作为 1个 sample 的基准测试。
+  * 优化成功后，把另外两个 sample 加进来
+    * 有三个总 sample 并行
+    * 每个 sample 可支配 `108 / 3 = 36` 个核心
 
 ## Changelog
 

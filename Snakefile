@@ -75,7 +75,7 @@ rule cutadapt_SE:
         fastq_untrimmed=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.untrimmed.fq.gz",
     params:
         library=lambda wildcards: SAMPLE2LIB[wildcards.sample],
-    threads: 20
+    threads: 36
     shell:
         """
         cutseq {input} -t {threads} -A {params.library} -m 20 --trim-polyA --ensure-inline-barcode -o {output.fastq_cut} -s {output.fastq_tooshort} -u {output.fastq_untrimmed}
@@ -133,7 +133,7 @@ rule hisat2_3n_mapping_contamination_SE:
         summary="report_reads/mapping/{sample}_{rn}.contamination.summary",
     params:
         index=REF["contamination"]["hisat3n"],
-    threads: 24
+    threads: 36
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --mp 8,2 --no-spliced-alignment | \
@@ -200,7 +200,7 @@ rule extract_unmap_bam_internal_SE:
         TEMPDIR / "mapping_discarded_SE/{sample}_{rn}.{reftype}.bam",
     output:
         temp(TEMPDIR / "unmapped_internal_SE/{sample}_{rn}_R1.{reftype}.fq.gz"),
-    threads: 4
+    threads: 6
     shell:
         """
         {BIN[samtools]} fastq -@ {threads} -0 {output} {input}
@@ -229,7 +229,7 @@ rule hisat2_3n_sort:
         ),
     output:
         INTERNALDIR / "run_sorted/{sample}_{rn}.{ref}.bam",
-    threads: 16
+    threads: 30
     shell:
         """
         {BIN[samtools]} sort -@ {threads} --write-index -m 3G -O BAM -o {output} {input}

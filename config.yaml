@@ -47,11 +47,11 @@ samples:
     data:
       - R1: ../data/SRR23538290_1.fastq.gz
     group: CONTROL
-  DRUG-rep1:
-    data:
-      - R1: ../data/SRR23538291_1.fastq.gz 
-    group: DRUG
-  DRUG-rep2:
-    data:
-      - R1: ../data/SRR23538292_1.fastq.gz
-    group: DRUG
+  # DRUG-rep1:
+  #   data:
+  #     - R1: ../data/SRR23538291_1.fastq.gz 
+  #   group: DRUG
+  # DRUG-rep2:
+  #   data:
+  #     - R1: ../data/SRR23538292_1.fastq.gz
+  #   group: DRUG
