@@ -332,20 +332,30 @@ rule hisat2_3n_calling_unfiltered_unique:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=4, # 对samtools工具使用并发
-        hisat_threads=8, # 分配更多是因为 hisat3ntable 是一个比较耗时的任务
-        bgzip_threads=4, # 对bgzip工具使用并发
-    threads: 16 # 这样设置是为了让多个任务并发执行，最大线程数为16，避免超过16个线程的使用
-    # shell:
-    #     """
-    #     {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
-    #     """
+        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=12,       # 最大化计算核心分配
+        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        # 使用内存盘加速临时文件
+        tmpdir="/dev/shm",
+    threads: 16
     shell:
         """
-        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | \
-        {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | \
-        cut -f 1,2,3,5,7 | \
-        {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
+        export TMPDIR={params.tmpdir}
+        {BIN[samtools]} view \
+            -@ {params.samtools_threads} \
+            -e "rlen<100000" \
+            -h {input} \
+        | stdbuf -o 1M \
+        {BIN[hisat3ntable]} \
+            -p {params.hisat_threads} \
+            -u \
+            --alignments - \
+            --ref {params.fa} \
+            --output-name /dev/stdout \
+            --base-change C,T \
+        | awk '{{print $1,$2,$3,$5,$7}}' \
+        | {BIN[pigz]} -p {params.bgzip_threads} -c \
+        > {output}
         """
 
 
