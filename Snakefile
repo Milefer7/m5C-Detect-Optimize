@@ -153,7 +153,7 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 36 
+    threads: 12
     shell:
         """
         {BIN[hisat3n]} \
@@ -187,7 +187,7 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    threads: 24
+    threads: 12
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
@@ -229,7 +229,7 @@ rule hisat2_3n_sort:
         ),
     output:
         INTERNALDIR / "run_sorted/{sample}_{rn}.{ref}.bam",
-    threads: 30
+    threads: 12
     shell:
         """
         {BIN[samtools]} sort -@ {threads} --write-index -m 3G -O BAM -o {output} {input}
@@ -281,7 +281,7 @@ rule dedup_mapping:
         txt="report_reads/dedup/{sample}.{ref}.log",
     params:
         tmp=os.environ["TMPDIR"],
-    threads: 20
+    threads: 12
     run:
         if WITH_UMI:
             shell(
@@ -332,10 +332,20 @@ rule hisat2_3n_calling_unfiltered_unique:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-    threads: 16
+        samtools_threads=4,
+        hisat_threads=8,
+        bgzip_threads=4,
+    # threads: 16
+    # shell:
+    #     """
+    #     {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+    #     """
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | \
+        {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | \
+        cut -f 1,2,3,5,7 | \
+        {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 
@@ -350,10 +360,20 @@ rule hisat2_3n_calling_unfiltered_multi:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-    threads: 16
+        samtools_threads=4,
+        hisat_threads=8,
+        bgzip_threads=4,
+    # threads: 16
+    # shell:
+    #     """
+    #     {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+    #     """
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | \
+        {BIN[hisat3ntable]} -p {params.hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | \
+        cut -f 1,2,3,5,7 | \
+        {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 
@@ -380,10 +400,20 @@ rule hisat2_3n_calling_filtered_unqiue:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-    threads: 16
+        samtools_threads=4,
+        hisat_threads=8,
+        bgzip_threads=4,
+    # threads: 16
+    # shell:
+    #     """
+    #     {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+    #     """
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | \
+        {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | \
+        cut -f 1,2,3,5,7 | \
+        {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 
