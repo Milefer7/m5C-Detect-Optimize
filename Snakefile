@@ -187,7 +187,7 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    threads: 12
+    threads: 18
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
@@ -281,7 +281,7 @@ rule dedup_mapping:
         txt="report_reads/dedup/{sample}.{ref}.log",
     params:
         tmp=os.environ["TMPDIR"],
-    threads: 32
+    threads: 18
     run:
         if WITH_UMI:
             shell(
