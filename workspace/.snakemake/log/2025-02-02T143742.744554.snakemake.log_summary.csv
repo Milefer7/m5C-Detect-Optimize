@@ -1,0 +1,25 @@
+# Log analysis for: 2025-02-02T143742.744554.snakemake.log
+# Generated at: 2025-02-03 01:24:02
+rule_name,job_count,avg_time_min,total_time_min,threads
+combine_runs,9,0.90,8.12,8
+cutadapt_SE,3,3.70,11.10,20
+dedup_mapping,6,12.85,77.10,20
+extract_unmap_bam_final_SE,3,0.00,0.00,4
+extract_unmap_bam_internal_SE,9,0.72,6.50,4
+group_pileup,4,0.70,2.80,6
+hisat2_3n_calling_filtered_multi,6,27.73,166.37,16
+hisat2_3n_calling_filtered_unqiue,6,27.76,166.55,16
+hisat2_3n_calling_unfiltered_multi,6,27.85,167.12,16
+hisat2_3n_calling_unfiltered_unique,6,28.64,171.82,16
+hisat2_3n_filtering,6,1.86,11.18,4
+hisat2_3n_mapping_contamination_SE,3,12.43,37.30,24
+hisat2_3n_mapping_genes_SE,3,9.99,29.97,24
+hisat2_3n_mapping_genome_SE,3,10.20,30.60,24
+hisat2_3n_sort,9,1.02,9.22,16
+join_pileup,6,1.07,6.45,6
+stat_mapping_number,3,0.52,1.57,4
+stat_sample_background,6,0.20,1.18,2
+
+# === Summary ===
+# Total CPU Time: 15.08 hours
+# Wall Time: 02:57:53 hours
