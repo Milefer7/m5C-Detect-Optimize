@@ -1,6 +1,8 @@
 #!/bin/bash
 
-max_runtime=10800
+# 读取config.yml中的密码(python version)
+sudo_password=$(yq -r '.sudo_password' ~/.config/config.yml)
+# echo "sudo_password: $sudo_password"
 
 # 定义保存快照的目录
 snapshot_dir="$HOME/myRes/ASC25-m5C/workspace/.snakemake/log/atop_snapshots"
@@ -14,10 +16,12 @@ snapshot_file="$snapshot_dir/atop_$timestamp"
 
 # 运行 atop 并将数据保存到指定的文件
 echo "开启atop监控，输入'q'退出..."
-sudo timeout $max_runtime atop -w "$snapshot_file" -d 60 &
+sudo atop -w "$snapshot_file" -d 60 &
 
 # 获取 atop 的进程ID
-atop_pid=$!
+sleep 1  # 给 atop 进程时间启动
+atop_pid=$(ps aux | grep '[a]top -w' | awk '{print $2}')
+# echo "atop_pid: $atop_pid"
 
 # 捕获用户输入的q来退出脚本
 while true; do
@@ -25,10 +29,10 @@ while true; do
     read -n 1 -s key
     if [[ $key == "q" ]]; then
         echo -e "\n接收 'q', 退出..."
-        kill $atop_pid
+        echo -n "$sudo_password" | sudo -S kill -15 $atop_pid 2>&1
         # 等待确认进程已退出
         wait $atop_pid 2>/dev/null
-        echo "快照已保存为: $snapshot_file" # 输出完成信息
+        echo "\n快照已保存为: $snapshot_file" # 输出完成信息
         exit
     fi
 done
