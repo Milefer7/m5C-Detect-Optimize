@@ -2,13 +2,14 @@
 
 # m `<sup>`5 `</sup>`C-UBSseq
 
-## 优化策略
+## 优化策略v1.5
 
 * 减少 sample 数量 只留下1个 分配36核心 优化
   * v1.3 作为 1个 sample 的基准测试。
   * 优化成功后，把另外两个 sample 加进来
     * 有三个总 sample 并行
     * 每个 sample 可支配 `108 / 3 = 36` 个核心
+  * v1.5 在thread上做了调整，在dag图片帮助下，实现合理配置
 
 ## Changelog
 
