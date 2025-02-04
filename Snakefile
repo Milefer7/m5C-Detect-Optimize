@@ -156,25 +156,8 @@ rule hisat2_3n_mapping_genes_SE:
     threads: 24
     shell:
         """
-        {BIN[hisat3n]} \
-            --index {params.index} \
-            -p {threads} \
-            --summary-file {output.summary} \
-            --new-summary \
-            -q \
-            -U {input[0]} \
-            --directional-mapping \
-            -k 2 \
-            --mm \
-            --norc \
-            --base-change C,T \
-            --mp 6,2 \
-            --no-spliced-alignment \
-            --3N \
-            --no-softclip \
-            --score-min L,0,-0.1 \
-            --dta-cufflinks \
-        | {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
+        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
+            {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
         """
 
 
