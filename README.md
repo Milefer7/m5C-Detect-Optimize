@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
-
+基准测试，耗时 02:45:08 详情见 workspace/.snakemake/log/2025-02-04T072629.263712.snakemake.log_summary.csv
 
 # m<sup>5</sup>C-UBSseq
 
