@@ -4,6 +4,9 @@
 # $1: 标准答案文件 true.tsv 的路径
 # $2: 检测结果文件 detected.tsv 的路径
 # 使用示例 # 运行脚本 ./metrics.sh true.tsv SRR23538290.filtered.tsv
+# ./metrics.sh ../data/standard/SRR23538290.genome.tsv ../workspace/detected_sites/filtered/SRR23538290.genome.tsv
+# ./metrics.sh ../data/standard/SRR23538291.genome.tsv ../workspace/detected_sites/filtered/SRR23538291.genome.tsv
+# ./metrics.sh ../data/standard/SRR23538292.genome.tsv ../workspace/detected_sites/filtered/SRR23538292.genome.tsv
 # 注意：两个文件必须为制表符分隔，且包含 ref, pos, strand 前三列和 ur 列（默认第7列）
 
 if [ $# -ne 2 ]; then
