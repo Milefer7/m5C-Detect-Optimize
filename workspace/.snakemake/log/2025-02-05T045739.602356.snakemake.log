@@ -1,0 +1,1604 @@
+host: saas-de-qiysss-proj1-d535-5969dc4d5d-hjfxc
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 112
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                    count
+-----------------------------------  -------
+all                                        1
+combine_runs                               9
+combined_select_sites                      2
+cutadapt_SE                                3
+dedup_mapping                              6
+extract_unmap_bam_final_SE                 3
+extract_unmap_bam_internal_SE              9
+group_pileup                               2
+hisat2_3n_calling_filtered_multi           6
+hisat2_3n_calling_filtered_unqiue          6
+hisat2_3n_calling_unfiltered_multi         6
+hisat2_3n_calling_unfiltered_unique        6
+hisat2_3n_filtering                        6
+hisat2_3n_mapping_contamination_SE         3
+hisat2_3n_mapping_genes_SE                 3
+hisat2_3n_mapping_genome_SE                3
+hisat2_3n_sort                             9
+join_pileup                                6
+stat_mapping_number                        3
+stat_sample_background                     6
+total                                     98
+
+Select jobs to execute...
+Execute 3 jobs...
+
+[Wed Feb  5 04:57:39 2025]
+localrule cutadapt_SE:
+    input: ../data/samples/SRR23538291_1.fastq.gz
+    output: .tmp/cut_adapter_SE/SRR23538291_run1_R1.fq.gz, internal_files/discarded_reads/SRR23538291_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/SRR23538291_run1_R1.untrimmed.fq.gz
+    jobid: 18
+    reason: Missing output files: .tmp/cut_adapter_SE/SRR23538291_run1_R1.fq.gz
+    wildcards: sample=SRR23538291, rn=run1
+    threads: 20
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 04:57:39 2025]
+localrule cutadapt_SE:
+    input: ../data/samples/SRR23538290_1.fastq.gz
+    output: .tmp/cut_adapter_SE/SRR23538290_run1_R1.fq.gz, internal_files/discarded_reads/SRR23538290_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/SRR23538290_run1_R1.untrimmed.fq.gz
+    jobid: 5
+    reason: Missing output files: .tmp/cut_adapter_SE/SRR23538290_run1_R1.fq.gz
+    wildcards: sample=SRR23538290, rn=run1
+    threads: 20
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 04:57:39 2025]
+localrule cutadapt_SE:
+    input: ../data/samples/SRR23538292_1.fastq.gz
+    output: .tmp/cut_adapter_SE/SRR23538292_run1_R1.fq.gz, internal_files/discarded_reads/SRR23538292_run1_R1.tooshort.fq.gz, internal_files/discarded_reads/SRR23538292_run1_R1.untrimmed.fq.gz
+    jobid: 31
+    reason: Missing output files: .tmp/cut_adapter_SE/SRR23538292_run1_R1.fq.gz
+    wildcards: sample=SRR23538292, rn=run1
+    threads: 20
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:00:38 2025]
+Finished job 5.
+1 of 98 steps (1%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:00:38 2025]
+localrule hisat2_3n_mapping_contamination_SE:
+    input: .tmp/cut_adapter_SE/SRR23538290_run1_R1.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538290_run1.contamination.bam, .tmp/mapping_discarded_SE/SRR23538290_run1.contamination.bam, report_reads/mapping/SRR23538290_run1.contamination.summary
+    jobid: 4
+    reason: Missing output files: .tmp/mapping_unsorted_SE/SRR23538290_run1.contamination.bam, .tmp/mapping_discarded_SE/SRR23538290_run1.contamination.bam; Input files updated by another job: .tmp/cut_adapter_SE/SRR23538290_run1_R1.fq.gz
+    wildcards: sample=SRR23538290, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:01:24 2025]
+Finished job 31.
+2 of 98 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:01:24 2025]
+localrule hisat2_3n_mapping_contamination_SE:
+    input: .tmp/cut_adapter_SE/SRR23538292_run1_R1.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538292_run1.contamination.bam, .tmp/mapping_discarded_SE/SRR23538292_run1.contamination.bam, report_reads/mapping/SRR23538292_run1.contamination.summary
+    jobid: 30
+    reason: Missing output files: .tmp/mapping_unsorted_SE/SRR23538292_run1.contamination.bam, .tmp/mapping_discarded_SE/SRR23538292_run1.contamination.bam; Input files updated by another job: .tmp/cut_adapter_SE/SRR23538292_run1_R1.fq.gz
+    wildcards: sample=SRR23538292, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:01:35 2025]
+Finished job 18.
+3 of 98 steps (3%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:01:35 2025]
+localrule hisat2_3n_mapping_contamination_SE:
+    input: .tmp/cut_adapter_SE/SRR23538291_run1_R1.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538291_run1.contamination.bam, .tmp/mapping_discarded_SE/SRR23538291_run1.contamination.bam, report_reads/mapping/SRR23538291_run1.contamination.summary
+    jobid: 17
+    reason: Missing output files: .tmp/mapping_discarded_SE/SRR23538291_run1.contamination.bam, .tmp/mapping_unsorted_SE/SRR23538291_run1.contamination.bam; Input files updated by another job: .tmp/cut_adapter_SE/SRR23538291_run1_R1.fq.gz
+    wildcards: sample=SRR23538291, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:07:19 2025]
+Finished job 4.
+4 of 98 steps (4%) done
+Removing temporary output .tmp/cut_adapter_SE/SRR23538290_run1_R1.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:07:19 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538290_run1.contamination.bam
+    output: internal_files/run_sorted/SRR23538290_run1.contamination.bam
+    jobid: 3
+    reason: Missing output files: internal_files/run_sorted/SRR23538290_run1.contamination.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538290_run1.contamination.bam
+    wildcards: sample=SRR23538290, rn=run1, ref=contamination
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:07:19 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538290_run1.contamination.bam
+    output: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.contamination.fq.gz
+    jobid: 9
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538290_run1.contamination.bam
+    wildcards: sample=SRR23538290, rn=run1, reftype=contamination
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:07:20 2025]
+Finished job 3.
+5 of 98 steps (5%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538290_run1.contamination.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:07:20 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538290_run1.contamination.bam
+    output: .tmp/combined_mapping/SRR23538290.contamination.bam
+    jobid: 2
+    reason: Missing output files: .tmp/combined_mapping/SRR23538290.contamination.bam; Input files updated by another job: internal_files/run_sorted/SRR23538290_run1.contamination.bam
+    wildcards: sample=SRR23538290, ref=contamination
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:07:20 2025]
+Finished job 2.
+6 of 98 steps (6%) done
+[Wed Feb  5 05:07:57 2025]
+Finished job 9.
+7 of 98 steps (7%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538290_run1.contamination.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:07:57 2025]
+localrule hisat2_3n_mapping_genes_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.contamination.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538290_run1.genes.bam, .tmp/mapping_discarded_SE/SRR23538290_run1.genes.bam, report_reads/mapping/SRR23538290_run1.genes.summary
+    jobid: 8
+    reason: Missing output files: .tmp/mapping_unsorted_SE/SRR23538290_run1.genes.bam, .tmp/mapping_discarded_SE/SRR23538290_run1.genes.bam; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.contamination.fq.gz
+    wildcards: sample=SRR23538290, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:12:31 2025]
+Finished job 17.
+8 of 98 steps (8%) done
+Removing temporary output .tmp/cut_adapter_SE/SRR23538291_run1_R1.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:12:31 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538291_run1.contamination.bam
+    output: internal_files/run_sorted/SRR23538291_run1.contamination.bam
+    jobid: 16
+    reason: Missing output files: internal_files/run_sorted/SRR23538291_run1.contamination.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538291_run1.contamination.bam
+    wildcards: sample=SRR23538291, rn=run1, ref=contamination
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:12:31 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538291_run1.contamination.bam
+    output: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.contamination.fq.gz
+    jobid: 22
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538291_run1.contamination.bam
+    wildcards: sample=SRR23538291, rn=run1, reftype=contamination
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:12:32 2025]
+Finished job 16.
+9 of 98 steps (9%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538291_run1.contamination.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:12:32 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538291_run1.contamination.bam
+    output: .tmp/combined_mapping/SRR23538291.contamination.bam
+    jobid: 15
+    reason: Missing output files: .tmp/combined_mapping/SRR23538291.contamination.bam; Input files updated by another job: internal_files/run_sorted/SRR23538291_run1.contamination.bam
+    wildcards: sample=SRR23538291, ref=contamination
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:12:33 2025]
+Finished job 15.
+10 of 98 steps (10%) done
+[Wed Feb  5 05:13:11 2025]
+Finished job 30.
+11 of 98 steps (11%) done
+Removing temporary output .tmp/cut_adapter_SE/SRR23538292_run1_R1.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:13:11 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538292_run1.contamination.bam
+    output: internal_files/run_sorted/SRR23538292_run1.contamination.bam
+    jobid: 29
+    reason: Missing output files: internal_files/run_sorted/SRR23538292_run1.contamination.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538292_run1.contamination.bam
+    wildcards: sample=SRR23538292, rn=run1, ref=contamination
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:13:11 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538292_run1.contamination.bam
+    output: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.contamination.fq.gz
+    jobid: 35
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.contamination.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538292_run1.contamination.bam
+    wildcards: sample=SRR23538292, rn=run1, reftype=contamination
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:13:12 2025]
+Finished job 29.
+12 of 98 steps (12%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538292_run1.contamination.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:13:12 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538292_run1.contamination.bam
+    output: .tmp/combined_mapping/SRR23538292.contamination.bam
+    jobid: 28
+    reason: Missing output files: .tmp/combined_mapping/SRR23538292.contamination.bam; Input files updated by another job: internal_files/run_sorted/SRR23538292_run1.contamination.bam
+    wildcards: sample=SRR23538292, ref=contamination
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:13:12 2025]
+Finished job 28.
+13 of 98 steps (13%) done
+[Wed Feb  5 05:13:20 2025]
+Finished job 22.
+14 of 98 steps (14%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538291_run1.contamination.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:13:20 2025]
+localrule hisat2_3n_mapping_genes_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.contamination.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538291_run1.genes.bam, .tmp/mapping_discarded_SE/SRR23538291_run1.genes.bam, report_reads/mapping/SRR23538291_run1.genes.summary
+    jobid: 21
+    reason: Missing output files: .tmp/mapping_discarded_SE/SRR23538291_run1.genes.bam, .tmp/mapping_unsorted_SE/SRR23538291_run1.genes.bam; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.contamination.fq.gz
+    wildcards: sample=SRR23538291, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:13:55 2025]
+Finished job 35.
+15 of 98 steps (15%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538292_run1.contamination.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:13:55 2025]
+localrule hisat2_3n_mapping_genes_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.contamination.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538292_run1.genes.bam, .tmp/mapping_discarded_SE/SRR23538292_run1.genes.bam, report_reads/mapping/SRR23538292_run1.genes.summary
+    jobid: 34
+    reason: Missing output files: .tmp/mapping_unsorted_SE/SRR23538292_run1.genes.bam, .tmp/mapping_discarded_SE/SRR23538292_run1.genes.bam; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.contamination.fq.gz
+    wildcards: sample=SRR23538292, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:30 2025]
+Finished job 8.
+16 of 98 steps (16%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538290_run1_R1.contamination.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:16:30 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538290_run1.genes.bam
+    output: internal_files/run_sorted/SRR23538290_run1.genes.bam
+    jobid: 7
+    reason: Missing output files: internal_files/run_sorted/SRR23538290_run1.genes.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538290_run1.genes.bam
+    wildcards: sample=SRR23538290, rn=run1, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:16:30 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538290_run1.genes.bam
+    output: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genes.fq.gz
+    jobid: 13
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genes.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538290_run1.genes.bam
+    wildcards: sample=SRR23538290, rn=run1, reftype=genes
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:30 2025]
+Finished job 7.
+17 of 98 steps (17%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538290_run1.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:16:30 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538290_run1.genes.bam
+    output: .tmp/combined_mapping/SRR23538290.genes.bam
+    jobid: 6
+    reason: Missing output files: .tmp/combined_mapping/SRR23538290.genes.bam; Input files updated by another job: internal_files/run_sorted/SRR23538290_run1.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:30 2025]
+Finished job 6.
+18 of 98 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:16:30 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538290.genes.bam
+    output: internal_files/aligned_bam/SRR23538290.genes.bam, report_reads/dedup/SRR23538290.genes.log
+    jobid: 49
+    reason: Missing output files: internal_files/aligned_bam/SRR23538290.genes.bam; Input files updated by another job: .tmp/combined_mapping/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 20
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:32 2025]
+Finished job 49.
+19 of 98 steps (19%) done
+Select jobs to execute...
+Execute 3 jobs...
+
+[Wed Feb  5 05:16:33 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538290.genes.bam
+    output: .tmp/unfiltered_unique/SRR23538290.genes.tsv.gz
+    jobid: 48
+    reason: Missing output files: .tmp/unfiltered_unique/SRR23538290.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:16:33 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/SRR23538290.genes.bam
+    output: .tmp/hisat_converted/SRR23538290.genes.bam
+    jobid: 52
+    reason: Missing output files: .tmp/hisat_converted/SRR23538290.genes.bam; Input files updated by another job: internal_files/aligned_bam/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:16:33 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/SRR23538290.genes.bam
+    output: .tmp/unfiltered_multi/SRR23538290.genes.tsv.gz
+    jobid: 50
+    reason: Missing output files: .tmp/unfiltered_multi/SRR23538290.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:33 2025]
+Finished job 52.
+20 of 98 steps (20%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:16:33 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/SRR23538290.genes.bam
+    output: .tmp/filtered_unique/SRR23538290.genes.tsv.gz
+    jobid: 51
+    reason: Missing output files: .tmp/filtered_unique/SRR23538290.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:33 2025]
+Finished job 50.
+21 of 98 steps (21%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:16:33 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/SRR23538290.genes.bam
+    output: .tmp/filtered_multi/SRR23538290.genes.tsv.gz
+    jobid: 53
+    reason: Missing output files: .tmp/filtered_multi/SRR23538290.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:33 2025]
+Finished job 48.
+22 of 98 steps (22%) done
+[Wed Feb  5 05:16:34 2025]
+Finished job 51.
+23 of 98 steps (23%) done
+[Wed Feb  5 05:16:34 2025]
+Finished job 53.
+24 of 98 steps (24%) done
+Removing temporary output .tmp/hisat_converted/SRR23538290.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:16:34 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/SRR23538290.genes.tsv.gz, .tmp/unfiltered_multi/SRR23538290.genes.tsv.gz, .tmp/filtered_unique/SRR23538290.genes.tsv.gz, .tmp/filtered_multi/SRR23538290.genes.tsv.gz
+    output: internal_files/count_sites/SRR23538290.genes.arrow
+    jobid: 47
+    reason: Missing output files: internal_files/count_sites/SRR23538290.genes.arrow; Input files updated by another job: .tmp/unfiltered_multi/SRR23538290.genes.tsv.gz, .tmp/unfiltered_unique/SRR23538290.genes.tsv.gz, .tmp/filtered_multi/SRR23538290.genes.tsv.gz, .tmp/filtered_unique/SRR23538290.genes.tsv.gz
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:16:34 2025]
+Finished job 47.
+25 of 98 steps (26%) done
+Removing temporary output .tmp/unfiltered_unique/SRR23538290.genes.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/SRR23538290.genes.tsv.gz.
+Removing temporary output .tmp/filtered_unique/SRR23538290.genes.tsv.gz.
+Removing temporary output .tmp/filtered_multi/SRR23538290.genes.tsv.gz.
+[Wed Feb  5 05:17:07 2025]
+Finished job 13.
+26 of 98 steps (27%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538290_run1.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:17:07 2025]
+localrule hisat2_3n_mapping_genome_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genes.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538290_run1.genome.bam, .tmp/mapping_discarded_SE/SRR23538290_run1.genome.bam, report_reads/mapping/SRR23538290_run1.genome.summary
+    jobid: 12
+    reason: Missing output files: .tmp/mapping_unsorted_SE/SRR23538290_run1.genome.bam, .tmp/mapping_discarded_SE/SRR23538290_run1.genome.bam; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genes.fq.gz
+    wildcards: sample=SRR23538290, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:32 2025]
+Finished job 21.
+27 of 98 steps (28%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538291_run1_R1.contamination.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:22:33 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538291_run1.genes.bam
+    output: internal_files/run_sorted/SRR23538291_run1.genes.bam
+    jobid: 20
+    reason: Missing output files: internal_files/run_sorted/SRR23538291_run1.genes.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538291_run1.genes.bam
+    wildcards: sample=SRR23538291, rn=run1, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:22:33 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538291_run1.genes.bam
+    output: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genes.fq.gz
+    jobid: 26
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genes.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538291_run1.genes.bam
+    wildcards: sample=SRR23538291, rn=run1, reftype=genes
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:33 2025]
+Finished job 20.
+28 of 98 steps (29%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538291_run1.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:22:33 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538291_run1.genes.bam
+    output: .tmp/combined_mapping/SRR23538291.genes.bam
+    jobid: 19
+    reason: Missing output files: .tmp/combined_mapping/SRR23538291.genes.bam; Input files updated by another job: internal_files/run_sorted/SRR23538291_run1.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:33 2025]
+Finished job 19.
+29 of 98 steps (30%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:22:33 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538291.genes.bam
+    output: internal_files/aligned_bam/SRR23538291.genes.bam, report_reads/dedup/SRR23538291.genes.log
+    jobid: 58
+    reason: Missing output files: internal_files/aligned_bam/SRR23538291.genes.bam; Input files updated by another job: .tmp/combined_mapping/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 20
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:35 2025]
+Finished job 58.
+30 of 98 steps (31%) done
+Select jobs to execute...
+Execute 3 jobs...
+
+[Wed Feb  5 05:22:35 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538291.genes.bam
+    output: .tmp/unfiltered_unique/SRR23538291.genes.tsv.gz
+    jobid: 57
+    reason: Missing output files: .tmp/unfiltered_unique/SRR23538291.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:22:35 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/SRR23538291.genes.bam
+    output: .tmp/hisat_converted/SRR23538291.genes.bam
+    jobid: 61
+    reason: Missing output files: .tmp/hisat_converted/SRR23538291.genes.bam; Input files updated by another job: internal_files/aligned_bam/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:22:35 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/SRR23538291.genes.bam
+    output: .tmp/unfiltered_multi/SRR23538291.genes.tsv.gz
+    jobid: 59
+    reason: Missing output files: .tmp/unfiltered_multi/SRR23538291.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:35 2025]
+Finished job 61.
+31 of 98 steps (32%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:22:35 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/SRR23538291.genes.bam
+    output: .tmp/filtered_multi/SRR23538291.genes.tsv.gz
+    jobid: 62
+    reason: Missing output files: .tmp/filtered_multi/SRR23538291.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:36 2025]
+Finished job 57.
+32 of 98 steps (33%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:22:36 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/SRR23538291.genes.bam
+    output: .tmp/filtered_unique/SRR23538291.genes.tsv.gz
+    jobid: 60
+    reason: Missing output files: .tmp/filtered_unique/SRR23538291.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:36 2025]
+Finished job 62.
+33 of 98 steps (34%) done
+[Wed Feb  5 05:22:37 2025]
+Finished job 59.
+34 of 98 steps (35%) done
+[Wed Feb  5 05:22:37 2025]
+Finished job 60.
+35 of 98 steps (36%) done
+Removing temporary output .tmp/hisat_converted/SRR23538291.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:22:37 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/SRR23538291.genes.tsv.gz, .tmp/unfiltered_multi/SRR23538291.genes.tsv.gz, .tmp/filtered_unique/SRR23538291.genes.tsv.gz, .tmp/filtered_multi/SRR23538291.genes.tsv.gz
+    output: internal_files/count_sites/SRR23538291.genes.arrow
+    jobid: 56
+    reason: Missing output files: internal_files/count_sites/SRR23538291.genes.arrow; Input files updated by another job: .tmp/filtered_multi/SRR23538291.genes.tsv.gz, .tmp/filtered_unique/SRR23538291.genes.tsv.gz, .tmp/unfiltered_unique/SRR23538291.genes.tsv.gz, .tmp/unfiltered_multi/SRR23538291.genes.tsv.gz
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:22:37 2025]
+Finished job 56.
+36 of 98 steps (37%) done
+Removing temporary output .tmp/unfiltered_unique/SRR23538291.genes.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/SRR23538291.genes.tsv.gz.
+Removing temporary output .tmp/filtered_unique/SRR23538291.genes.tsv.gz.
+Removing temporary output .tmp/filtered_multi/SRR23538291.genes.tsv.gz.
+[Wed Feb  5 05:23:24 2025]
+Finished job 26.
+37 of 98 steps (38%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538291_run1.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:25 2025]
+localrule hisat2_3n_mapping_genome_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genes.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538291_run1.genome.bam, .tmp/mapping_discarded_SE/SRR23538291_run1.genome.bam, report_reads/mapping/SRR23538291_run1.genome.summary
+    jobid: 25
+    reason: Missing output files: .tmp/mapping_discarded_SE/SRR23538291_run1.genome.bam, .tmp/mapping_unsorted_SE/SRR23538291_run1.genome.bam; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genes.fq.gz
+    wildcards: sample=SRR23538291, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:38 2025]
+Finished job 34.
+38 of 98 steps (39%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538292_run1_R1.contamination.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:23:39 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538292_run1.genes.bam
+    output: internal_files/run_sorted/SRR23538292_run1.genes.bam
+    jobid: 33
+    reason: Missing output files: internal_files/run_sorted/SRR23538292_run1.genes.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538292_run1.genes.bam
+    wildcards: sample=SRR23538292, rn=run1, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:23:39 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538292_run1.genes.bam
+    output: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genes.fq.gz
+    jobid: 39
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genes.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538292_run1.genes.bam
+    wildcards: sample=SRR23538292, rn=run1, reftype=genes
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:39 2025]
+Finished job 33.
+39 of 98 steps (40%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538292_run1.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:39 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538292_run1.genes.bam
+    output: .tmp/combined_mapping/SRR23538292.genes.bam
+    jobid: 32
+    reason: Missing output files: .tmp/combined_mapping/SRR23538292.genes.bam; Input files updated by another job: internal_files/run_sorted/SRR23538292_run1.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:39 2025]
+Finished job 32.
+40 of 98 steps (41%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:39 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538292.genes.bam
+    output: internal_files/aligned_bam/SRR23538292.genes.bam, report_reads/dedup/SRR23538292.genes.log
+    jobid: 65
+    reason: Missing output files: internal_files/aligned_bam/SRR23538292.genes.bam; Input files updated by another job: .tmp/combined_mapping/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 20
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:41 2025]
+Finished job 65.
+41 of 98 steps (42%) done
+Select jobs to execute...
+Execute 3 jobs...
+
+[Wed Feb  5 05:23:41 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/SRR23538292.genes.bam
+    output: .tmp/unfiltered_multi/SRR23538292.genes.tsv.gz
+    jobid: 66
+    reason: Missing output files: .tmp/unfiltered_multi/SRR23538292.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:23:41 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/SRR23538292.genes.bam
+    output: .tmp/hisat_converted/SRR23538292.genes.bam
+    jobid: 68
+    reason: Missing output files: .tmp/hisat_converted/SRR23538292.genes.bam; Input files updated by another job: internal_files/aligned_bam/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:23:41 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538292.genes.bam
+    output: .tmp/unfiltered_unique/SRR23538292.genes.tsv.gz
+    jobid: 64
+    reason: Missing output files: .tmp/unfiltered_unique/SRR23538292.genes.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:41 2025]
+Finished job 68.
+42 of 98 steps (43%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:41 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/SRR23538292.genes.bam
+    output: .tmp/filtered_unique/SRR23538292.genes.tsv.gz
+    jobid: 67
+    reason: Missing output files: .tmp/filtered_unique/SRR23538292.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:42 2025]
+Finished job 64.
+43 of 98 steps (44%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:42 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/SRR23538292.genes.bam
+    output: .tmp/filtered_multi/SRR23538292.genes.tsv.gz
+    jobid: 69
+    reason: Missing output files: .tmp/filtered_multi/SRR23538292.genes.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:42 2025]
+Finished job 66.
+44 of 98 steps (45%) done
+[Wed Feb  5 05:23:42 2025]
+Finished job 67.
+45 of 98 steps (46%) done
+[Wed Feb  5 05:23:43 2025]
+Finished job 69.
+46 of 98 steps (47%) done
+Removing temporary output .tmp/hisat_converted/SRR23538292.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:43 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/SRR23538292.genes.tsv.gz, .tmp/unfiltered_multi/SRR23538292.genes.tsv.gz, .tmp/filtered_unique/SRR23538292.genes.tsv.gz, .tmp/filtered_multi/SRR23538292.genes.tsv.gz
+    output: internal_files/count_sites/SRR23538292.genes.arrow
+    jobid: 63
+    reason: Missing output files: internal_files/count_sites/SRR23538292.genes.arrow; Input files updated by another job: .tmp/unfiltered_unique/SRR23538292.genes.tsv.gz, .tmp/unfiltered_multi/SRR23538292.genes.tsv.gz, .tmp/filtered_unique/SRR23538292.genes.tsv.gz, .tmp/filtered_multi/SRR23538292.genes.tsv.gz
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:43 2025]
+Finished job 63.
+47 of 98 steps (48%) done
+Removing temporary output .tmp/unfiltered_unique/SRR23538292.genes.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/SRR23538292.genes.tsv.gz.
+Removing temporary output .tmp/filtered_unique/SRR23538292.genes.tsv.gz.
+Removing temporary output .tmp/filtered_multi/SRR23538292.genes.tsv.gz.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:43 2025]
+localrule group_pileup:
+    input: internal_files/count_sites/SRR23538290.genes.arrow, internal_files/count_sites/SRR23538291.genes.arrow, internal_files/count_sites/SRR23538292.genes.arrow
+    output: internal_files/group_sites/DRUG.genes.arrow
+    jobid: 55
+    reason: Missing output files: internal_files/group_sites/DRUG.genes.arrow; Input files updated by another job: internal_files/count_sites/SRR23538290.genes.arrow, internal_files/count_sites/SRR23538291.genes.arrow, internal_files/count_sites/SRR23538292.genes.arrow
+    wildcards: group=DRUG, ref=genes
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:43 2025]
+Finished job 55.
+48 of 98 steps (49%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:23:43 2025]
+localrule combined_select_sites:
+    input: internal_files/group_sites/DRUG.genes.arrow
+    output: detected_sites/prefilter/genes.tsv
+    jobid: 54
+    reason: Missing output files: detected_sites/prefilter/genes.tsv; Input files updated by another job: internal_files/group_sites/DRUG.genes.arrow
+    wildcards: ref=genes
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:43 2025]
+Finished job 54.
+49 of 98 steps (50%) done
+Select jobs to execute...
+Execute 3 jobs...
+
+[Wed Feb  5 05:23:43 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538290.genes.arrow, detected_sites/prefilter/genes.tsv
+    output: detected_sites/background/SRR23538290.genes.tsv, detected_sites/filtered/SRR23538290.genes.tsv
+    jobid: 46
+    reason: Missing output files: detected_sites/filtered/SRR23538290.genes.tsv; Input files updated by another job: detected_sites/prefilter/genes.tsv, internal_files/count_sites/SRR23538290.genes.arrow
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:23:43 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538292.genes.arrow, detected_sites/prefilter/genes.tsv
+    output: detected_sites/background/SRR23538292.genes.tsv, detected_sites/filtered/SRR23538292.genes.tsv
+    jobid: 96
+    reason: Missing output files: detected_sites/filtered/SRR23538292.genes.tsv; Input files updated by another job: detected_sites/prefilter/genes.tsv, internal_files/count_sites/SRR23538292.genes.arrow
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:23:43 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538291.genes.arrow, detected_sites/prefilter/genes.tsv
+    output: detected_sites/background/SRR23538291.genes.tsv, detected_sites/filtered/SRR23538291.genes.tsv
+    jobid: 94
+    reason: Missing output files: detected_sites/filtered/SRR23538291.genes.tsv; Input files updated by another job: detected_sites/prefilter/genes.tsv, internal_files/count_sites/SRR23538291.genes.arrow
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 2
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:23:44 2025]
+Finished job 46.
+50 of 98 steps (51%) done
+[Wed Feb  5 05:23:44 2025]
+Finished job 94.
+51 of 98 steps (52%) done
+[Wed Feb  5 05:23:44 2025]
+Finished job 96.
+52 of 98 steps (53%) done
+[Wed Feb  5 05:24:23 2025]
+Finished job 39.
+53 of 98 steps (54%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538292_run1.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:24:24 2025]
+localrule hisat2_3n_mapping_genome_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genes.fq.gz
+    output: .tmp/mapping_unsorted_SE/SRR23538292_run1.genome.bam, .tmp/mapping_discarded_SE/SRR23538292_run1.genome.bam, report_reads/mapping/SRR23538292_run1.genome.summary
+    jobid: 38
+    reason: Missing output files: .tmp/mapping_discarded_SE/SRR23538292_run1.genome.bam, .tmp/mapping_unsorted_SE/SRR23538292_run1.genome.bam; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genes.fq.gz
+    wildcards: sample=SRR23538292, rn=run1
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:26:09 2025]
+Finished job 12.
+54 of 98 steps (55%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genes.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:26:09 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538290_run1.genome.bam
+    output: internal_files/run_sorted/SRR23538290_run1.genome.bam
+    jobid: 11
+    reason: Missing output files: internal_files/run_sorted/SRR23538290_run1.genome.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538290_run1.genome.bam
+    wildcards: sample=SRR23538290, rn=run1, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:26:09 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538290_run1.genome.bam
+    output: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genome.fq.gz
+    jobid: 41
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538290_run1.genome.bam
+    wildcards: sample=SRR23538290, rn=run1, reftype=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:26:12 2025]
+Finished job 41.
+55 of 98 steps (56%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538290_run1.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:26:12 2025]
+localrule extract_unmap_bam_final_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genome.fq.gz
+    output: internal_files/discarded_reads/SRR23538290_run1_R1.unmapped.fq.gz
+    jobid: 40
+    reason: Missing output files: internal_files/discarded_reads/SRR23538290_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genome.fq.gz
+    wildcards: sample=SRR23538290, rn=run1
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:26:12 2025]
+Finished job 40.
+56 of 98 steps (57%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538290_run1_R1.genome.fq.gz.
+[Wed Feb  5 05:28:47 2025]
+Finished job 11.
+57 of 98 steps (58%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538290_run1.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:28:48 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538290_run1.genome.bam
+    output: .tmp/combined_mapping/SRR23538290.genome.bam
+    jobid: 10
+    reason: Missing output files: .tmp/combined_mapping/SRR23538290.genome.bam; Input files updated by another job: internal_files/run_sorted/SRR23538290_run1.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:30:03 2025]
+Finished job 10.
+58 of 98 steps (59%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:30:03 2025]
+localrule stat_mapping_number:
+    input: .tmp/combined_mapping/SRR23538290.contamination.bam, .tmp/combined_mapping/SRR23538290.genes.bam, .tmp/combined_mapping/SRR23538290.genome.bam
+    output: report_reads/mapped/SRR23538290.tsv
+    jobid: 1
+    reason: Missing output files: report_reads/mapped/SRR23538290.tsv; Input files updated by another job: .tmp/combined_mapping/SRR23538290.contamination.bam, .tmp/combined_mapping/SRR23538290.genes.bam, .tmp/combined_mapping/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:30:03 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538290.genome.bam
+    output: internal_files/aligned_bam/SRR23538290.genome.bam, report_reads/dedup/SRR23538290.genome.log
+    jobid: 73
+    reason: Missing output files: internal_files/aligned_bam/SRR23538290.genome.bam; Input files updated by another job: .tmp/combined_mapping/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 20
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:30:15 2025]
+Finished job 1.
+59 of 98 steps (60%) done
+Removing temporary output .tmp/combined_mapping/SRR23538290.contamination.bam.
+Removing temporary output .tmp/combined_mapping/SRR23538290.genes.bam.
+[Wed Feb  5 05:34:39 2025]
+Finished job 25.
+60 of 98 steps (61%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genes.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:34:40 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538291_run1.genome.bam
+    output: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genome.fq.gz
+    jobid: 43
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538291_run1.genome.bam
+    wildcards: sample=SRR23538291, rn=run1, reftype=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:34:40 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538291_run1.genome.bam
+    output: internal_files/run_sorted/SRR23538291_run1.genome.bam
+    jobid: 24
+    reason: Missing output files: internal_files/run_sorted/SRR23538291_run1.genome.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538291_run1.genome.bam
+    wildcards: sample=SRR23538291, rn=run1, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:34:44 2025]
+Finished job 43.
+61 of 98 steps (62%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538291_run1.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:34:44 2025]
+localrule extract_unmap_bam_final_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genome.fq.gz
+    output: internal_files/discarded_reads/SRR23538291_run1_R1.unmapped.fq.gz
+    jobid: 42
+    reason: Missing output files: internal_files/discarded_reads/SRR23538291_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genome.fq.gz
+    wildcards: sample=SRR23538291, rn=run1
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:34:44 2025]
+Finished job 42.
+62 of 98 steps (63%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538291_run1_R1.genome.fq.gz.
+[Wed Feb  5 05:34:57 2025]
+Finished job 38.
+63 of 98 steps (64%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genes.fq.gz.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:34:57 2025]
+localrule extract_unmap_bam_internal_SE:
+    input: .tmp/mapping_discarded_SE/SRR23538292_run1.genome.bam
+    output: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genome.fq.gz
+    jobid: 45
+    reason: Missing output files: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genome.fq.gz; Input files updated by another job: .tmp/mapping_discarded_SE/SRR23538292_run1.genome.bam
+    wildcards: sample=SRR23538292, rn=run1, reftype=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:34:57 2025]
+localrule hisat2_3n_sort:
+    input: .tmp/mapping_unsorted_SE/SRR23538292_run1.genome.bam
+    output: internal_files/run_sorted/SRR23538292_run1.genome.bam
+    jobid: 37
+    reason: Missing output files: internal_files/run_sorted/SRR23538292_run1.genome.bam; Input files updated by another job: .tmp/mapping_unsorted_SE/SRR23538292_run1.genome.bam
+    wildcards: sample=SRR23538292, rn=run1, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:35:00 2025]
+Finished job 45.
+64 of 98 steps (65%) done
+Removing temporary output .tmp/mapping_discarded_SE/SRR23538292_run1.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:35:00 2025]
+localrule extract_unmap_bam_final_SE:
+    input: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genome.fq.gz
+    output: internal_files/discarded_reads/SRR23538292_run1_R1.unmapped.fq.gz
+    jobid: 44
+    reason: Missing output files: internal_files/discarded_reads/SRR23538292_run1_R1.unmapped.fq.gz; Input files updated by another job: .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genome.fq.gz
+    wildcards: sample=SRR23538292, rn=run1
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:35:00 2025]
+Finished job 44.
+65 of 98 steps (66%) done
+Removing temporary output .tmp/unmapped_internal_SE/SRR23538292_run1_R1.genome.fq.gz.
+[Wed Feb  5 05:37:32 2025]
+Finished job 37.
+66 of 98 steps (67%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538292_run1.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:37:33 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538292_run1.genome.bam
+    output: .tmp/combined_mapping/SRR23538292.genome.bam
+    jobid: 36
+    reason: Missing output files: .tmp/combined_mapping/SRR23538292.genome.bam; Input files updated by another job: internal_files/run_sorted/SRR23538292_run1.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:38:54 2025]
+Finished job 24.
+67 of 98 steps (68%) done
+Removing temporary output .tmp/mapping_unsorted_SE/SRR23538291_run1.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 05:38:55 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538291_run1.genome.bam
+    output: .tmp/combined_mapping/SRR23538291.genome.bam
+    jobid: 23
+    reason: Missing output files: .tmp/combined_mapping/SRR23538291.genome.bam; Input files updated by another job: internal_files/run_sorted/SRR23538291_run1.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:38:58 2025]
+Finished job 36.
+68 of 98 steps (69%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:38:58 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538292.genome.bam
+    output: internal_files/aligned_bam/SRR23538292.genome.bam, report_reads/dedup/SRR23538292.genome.log
+    jobid: 89
+    reason: Missing output files: internal_files/aligned_bam/SRR23538292.genome.bam; Input files updated by another job: .tmp/combined_mapping/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 20
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:38:58 2025]
+localrule stat_mapping_number:
+    input: .tmp/combined_mapping/SRR23538292.contamination.bam, .tmp/combined_mapping/SRR23538292.genes.bam, .tmp/combined_mapping/SRR23538292.genome.bam
+    output: report_reads/mapped/SRR23538292.tsv
+    jobid: 27
+    reason: Missing output files: report_reads/mapped/SRR23538292.tsv; Input files updated by another job: .tmp/combined_mapping/SRR23538292.contamination.bam, .tmp/combined_mapping/SRR23538292.genome.bam, .tmp/combined_mapping/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:39:10 2025]
+Finished job 27.
+69 of 98 steps (70%) done
+Removing temporary output .tmp/combined_mapping/SRR23538292.contamination.bam.
+Removing temporary output .tmp/combined_mapping/SRR23538292.genes.bam.
+[Wed Feb  5 05:40:34 2025]
+Finished job 23.
+70 of 98 steps (71%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:40:34 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538291.genome.bam
+    output: internal_files/aligned_bam/SRR23538291.genome.bam, report_reads/dedup/SRR23538291.genome.log
+    jobid: 82
+    reason: Missing output files: internal_files/aligned_bam/SRR23538291.genome.bam; Input files updated by another job: .tmp/combined_mapping/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 20
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:40:34 2025]
+localrule stat_mapping_number:
+    input: .tmp/combined_mapping/SRR23538291.contamination.bam, .tmp/combined_mapping/SRR23538291.genes.bam, .tmp/combined_mapping/SRR23538291.genome.bam
+    output: report_reads/mapped/SRR23538291.tsv
+    jobid: 14
+    reason: Missing output files: report_reads/mapped/SRR23538291.tsv; Input files updated by another job: .tmp/combined_mapping/SRR23538291.genome.bam, .tmp/combined_mapping/SRR23538291.genes.bam, .tmp/combined_mapping/SRR23538291.contamination.bam
+    wildcards: sample=SRR23538291
+    threads: 4
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:40:48 2025]
+Finished job 14.
+71 of 98 steps (72%) done
+Removing temporary output .tmp/combined_mapping/SRR23538291.contamination.bam.
+Removing temporary output .tmp/combined_mapping/SRR23538291.genes.bam.
+[Wed Feb  5 05:52:13 2025]
+Finished job 73.
+72 of 98 steps (73%) done
+Removing temporary output .tmp/combined_mapping/SRR23538290.genome.bam.
+Select jobs to execute...
+Execute 3 jobs...
+
+[Wed Feb  5 05:52:14 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/SRR23538290.genome.bam
+    output: .tmp/unfiltered_multi/SRR23538290.genome.tsv.gz
+    jobid: 74
+    reason: Missing output files: .tmp/unfiltered_multi/SRR23538290.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:52:14 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/SRR23538290.genome.bam
+    output: .tmp/hisat_converted/SRR23538290.genome.bam
+    jobid: 76
+    reason: Missing output files: .tmp/hisat_converted/SRR23538290.genome.bam; Input files updated by another job: internal_files/aligned_bam/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:52:14 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538290.genome.bam
+    output: .tmp/unfiltered_unique/SRR23538290.genome.tsv.gz
+    jobid: 72
+    reason: Missing output files: .tmp/unfiltered_unique/SRR23538290.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 05:54:36 2025]
+Finished job 76.
+73 of 98 steps (74%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 05:54:36 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/SRR23538290.genome.bam
+    output: .tmp/filtered_unique/SRR23538290.genome.tsv.gz
+    jobid: 75
+    reason: Missing output files: .tmp/filtered_unique/SRR23538290.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 05:54:36 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/SRR23538290.genome.bam
+    output: .tmp/filtered_multi/SRR23538290.genome.tsv.gz
+    jobid: 77
+    reason: Missing output files: .tmp/filtered_multi/SRR23538290.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 06:07:14 2025]
+Finished job 89.
+74 of 98 steps (76%) done
+Removing temporary output .tmp/combined_mapping/SRR23538292.genome.bam.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 06:07:15 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/SRR23538292.genome.bam
+    output: .tmp/hisat_converted/SRR23538292.genome.bam
+    jobid: 92
+    reason: Missing output files: .tmp/hisat_converted/SRR23538292.genome.bam; Input files updated by another job: internal_files/aligned_bam/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 06:07:15 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/SRR23538292.genome.bam
+    output: .tmp/unfiltered_multi/SRR23538292.genome.tsv.gz
+    jobid: 90
+    reason: Missing output files: .tmp/unfiltered_multi/SRR23538292.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 06:10:20 2025]
+Finished job 92.
+75 of 98 steps (77%) done
+Select jobs to execute...
+Waiting for more resources.
+[Wed Feb  5 06:12:42 2025]
+Finished job 82.
+76 of 98 steps (78%) done
+Removing temporary output .tmp/combined_mapping/SRR23538291.genome.bam.
+Execute 2 jobs...
+
+[Wed Feb  5 06:12:43 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/SRR23538292.genome.bam
+    output: .tmp/filtered_unique/SRR23538292.genome.tsv.gz
+    jobid: 91
+    reason: Missing output files: .tmp/filtered_unique/SRR23538292.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 06:12:43 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/SRR23538292.genome.bam
+    output: .tmp/filtered_multi/SRR23538292.genome.tsv.gz
+    jobid: 93
+    reason: Missing output files: .tmp/filtered_multi/SRR23538292.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 06:40:18 2025]
+Finished job 72.
+77 of 98 steps (79%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 06:40:18 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538292.genome.bam
+    output: .tmp/unfiltered_unique/SRR23538292.genome.tsv.gz
+    jobid: 88
+    reason: Missing output files: .tmp/unfiltered_unique/SRR23538292.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 06:42:53 2025]
+Finished job 75.
+78 of 98 steps (80%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 06:42:53 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538291.genome.bam
+    output: .tmp/unfiltered_unique/SRR23538291.genome.tsv.gz
+    jobid: 81
+    reason: Missing output files: .tmp/unfiltered_unique/SRR23538291.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 06:43:16 2025]
+Finished job 74.
+79 of 98 steps (81%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 06:43:16 2025]
+localrule hisat2_3n_calling_unfiltered_multi:
+    input: internal_files/aligned_bam/SRR23538291.genome.bam
+    output: .tmp/unfiltered_multi/SRR23538291.genome.tsv.gz
+    jobid: 83
+    reason: Missing output files: .tmp/unfiltered_multi/SRR23538291.genome.tsv.gz; Input files updated by another job: internal_files/aligned_bam/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 06:45:27 2025]
+Finished job 77.
+80 of 98 steps (82%) done
+Removing temporary output .tmp/hisat_converted/SRR23538290.genome.bam.
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Feb  5 06:45:28 2025]
+localrule hisat2_3n_filtering:
+    input: internal_files/aligned_bam/SRR23538291.genome.bam
+    output: .tmp/hisat_converted/SRR23538291.genome.bam
+    jobid: 85
+    reason: Missing output files: .tmp/hisat_converted/SRR23538291.genome.bam; Input files updated by another job: internal_files/aligned_bam/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 06:45:28 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/SRR23538290.genome.tsv.gz, .tmp/unfiltered_multi/SRR23538290.genome.tsv.gz, .tmp/filtered_unique/SRR23538290.genome.tsv.gz, .tmp/filtered_multi/SRR23538290.genome.tsv.gz
+    output: internal_files/count_sites/SRR23538290.genome.arrow
+    jobid: 71
+    reason: Missing output files: internal_files/count_sites/SRR23538290.genome.arrow; Input files updated by another job: .tmp/unfiltered_multi/SRR23538290.genome.tsv.gz, .tmp/filtered_multi/SRR23538290.genome.tsv.gz, .tmp/unfiltered_unique/SRR23538290.genome.tsv.gz, .tmp/filtered_unique/SRR23538290.genome.tsv.gz
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 06:48:19 2025]
+Finished job 71.
+81 of 98 steps (83%) done
+Removing temporary output .tmp/unfiltered_unique/SRR23538290.genome.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/SRR23538290.genome.tsv.gz.
+Removing temporary output .tmp/filtered_unique/SRR23538290.genome.tsv.gz.
+Removing temporary output .tmp/filtered_multi/SRR23538290.genome.tsv.gz.
+[Wed Feb  5 06:49:43 2025]
+Finished job 85.
+82 of 98 steps (84%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 06:49:43 2025]
+localrule hisat2_3n_calling_filtered_unqiue:
+    input: .tmp/hisat_converted/SRR23538291.genome.bam
+    output: .tmp/filtered_unique/SRR23538291.genome.tsv.gz
+    jobid: 84
+    reason: Missing output files: .tmp/filtered_unique/SRR23538291.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 07:11:09 2025]
+Finished job 90.
+83 of 98 steps (85%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 07:11:09 2025]
+localrule hisat2_3n_calling_filtered_multi:
+    input: .tmp/hisat_converted/SRR23538291.genome.bam
+    output: .tmp/filtered_multi/SRR23538291.genome.tsv.gz
+    jobid: 86
+    reason: Missing output files: .tmp/filtered_multi/SRR23538291.genome.tsv.gz; Input files updated by another job: .tmp/hisat_converted/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 16
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 07:14:42 2025]
+Finished job 91.
+84 of 98 steps (86%) done
+[Wed Feb  5 07:17:30 2025]
+Finished job 93.
+85 of 98 steps (87%) done
+Removing temporary output .tmp/hisat_converted/SRR23538292.genome.bam.
+[Wed Feb  5 07:40:39 2025]
+Finished job 88.
+86 of 98 steps (88%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 07:40:39 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/SRR23538292.genome.tsv.gz, .tmp/unfiltered_multi/SRR23538292.genome.tsv.gz, .tmp/filtered_unique/SRR23538292.genome.tsv.gz, .tmp/filtered_multi/SRR23538292.genome.tsv.gz
+    output: internal_files/count_sites/SRR23538292.genome.arrow
+    jobid: 87
+    reason: Missing output files: internal_files/count_sites/SRR23538292.genome.arrow; Input files updated by another job: .tmp/filtered_multi/SRR23538292.genome.tsv.gz, .tmp/unfiltered_multi/SRR23538292.genome.tsv.gz, .tmp/unfiltered_unique/SRR23538292.genome.tsv.gz, .tmp/filtered_unique/SRR23538292.genome.tsv.gz
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 07:43:47 2025]
+Finished job 87.
+87 of 98 steps (89%) done
+Removing temporary output .tmp/unfiltered_unique/SRR23538292.genome.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/SRR23538292.genome.tsv.gz.
+Removing temporary output .tmp/filtered_unique/SRR23538292.genome.tsv.gz.
+Removing temporary output .tmp/filtered_multi/SRR23538292.genome.tsv.gz.
+[Wed Feb  5 07:47:11 2025]
+Finished job 81.
+88 of 98 steps (90%) done
+[Wed Feb  5 07:47:41 2025]
+Finished job 83.
+89 of 98 steps (91%) done
+[Wed Feb  5 07:52:53 2025]
+Finished job 84.
+90 of 98 steps (92%) done
+[Wed Feb  5 08:11:24 2025]
+Finished job 86.
+91 of 98 steps (93%) done
+Removing temporary output .tmp/hisat_converted/SRR23538291.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 08:11:25 2025]
+localrule join_pileup:
+    input: .tmp/unfiltered_unique/SRR23538291.genome.tsv.gz, .tmp/unfiltered_multi/SRR23538291.genome.tsv.gz, .tmp/filtered_unique/SRR23538291.genome.tsv.gz, .tmp/filtered_multi/SRR23538291.genome.tsv.gz
+    output: internal_files/count_sites/SRR23538291.genome.arrow
+    jobid: 80
+    reason: Missing output files: internal_files/count_sites/SRR23538291.genome.arrow; Input files updated by another job: .tmp/filtered_multi/SRR23538291.genome.tsv.gz, .tmp/unfiltered_unique/SRR23538291.genome.tsv.gz, .tmp/unfiltered_multi/SRR23538291.genome.tsv.gz, .tmp/filtered_unique/SRR23538291.genome.tsv.gz
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 08:14:40 2025]
+Finished job 80.
+92 of 98 steps (94%) done
+Removing temporary output .tmp/unfiltered_unique/SRR23538291.genome.tsv.gz.
+Removing temporary output .tmp/unfiltered_multi/SRR23538291.genome.tsv.gz.
+Removing temporary output .tmp/filtered_unique/SRR23538291.genome.tsv.gz.
+Removing temporary output .tmp/filtered_multi/SRR23538291.genome.tsv.gz.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 08:14:40 2025]
+localrule group_pileup:
+    input: internal_files/count_sites/SRR23538290.genome.arrow, internal_files/count_sites/SRR23538291.genome.arrow, internal_files/count_sites/SRR23538292.genome.arrow
+    output: internal_files/group_sites/DRUG.genome.arrow
+    jobid: 79
+    reason: Missing output files: internal_files/group_sites/DRUG.genome.arrow; Input files updated by another job: internal_files/count_sites/SRR23538292.genome.arrow, internal_files/count_sites/SRR23538290.genome.arrow, internal_files/count_sites/SRR23538291.genome.arrow
+    wildcards: group=DRUG, ref=genome
+    threads: 6
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 08:19:42 2025]
+Finished job 79.
+93 of 98 steps (95%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 08:19:42 2025]
+localrule combined_select_sites:
+    input: internal_files/group_sites/DRUG.genome.arrow
+    output: detected_sites/prefilter/genome.tsv
+    jobid: 78
+    reason: Missing output files: detected_sites/prefilter/genome.tsv; Input files updated by another job: internal_files/group_sites/DRUG.genome.arrow
+    wildcards: ref=genome
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 08:20:20 2025]
+Finished job 78.
+94 of 98 steps (96%) done
+Select jobs to execute...
+Execute 3 jobs...
+
+[Wed Feb  5 08:20:20 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538291.genome.arrow, detected_sites/prefilter/genome.tsv
+    output: detected_sites/background/SRR23538291.genome.tsv, detected_sites/filtered/SRR23538291.genome.tsv
+    jobid: 95
+    reason: Missing output files: detected_sites/filtered/SRR23538291.genome.tsv; Input files updated by another job: internal_files/count_sites/SRR23538291.genome.arrow, detected_sites/prefilter/genome.tsv
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 08:20:20 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538292.genome.arrow, detected_sites/prefilter/genome.tsv
+    output: detected_sites/background/SRR23538292.genome.tsv, detected_sites/filtered/SRR23538292.genome.tsv
+    jobid: 97
+    reason: Missing output files: detected_sites/filtered/SRR23538292.genome.tsv; Input files updated by another job: internal_files/count_sites/SRR23538292.genome.arrow, detected_sites/prefilter/genome.tsv
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Wed Feb  5 08:20:20 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538290.genome.arrow, detected_sites/prefilter/genome.tsv
+    output: detected_sites/background/SRR23538290.genome.tsv, detected_sites/filtered/SRR23538290.genome.tsv
+    jobid: 70
+    reason: Missing output files: detected_sites/filtered/SRR23538290.genome.tsv; Input files updated by another job: internal_files/count_sites/SRR23538290.genome.arrow, detected_sites/prefilter/genome.tsv
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 2
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 08:20:49 2025]
+Finished job 70.
+95 of 98 steps (97%) done
+[Wed Feb  5 08:20:52 2025]
+Finished job 97.
+96 of 98 steps (98%) done
+[Wed Feb  5 08:20:54 2025]
+Finished job 95.
+97 of 98 steps (99%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb  5 08:20:54 2025]
+localrule all:
+    input: report_reads/mapped/SRR23538290.tsv, report_reads/mapped/SRR23538291.tsv, report_reads/mapped/SRR23538292.tsv, internal_files/discarded_reads/SRR23538290_run1_R1.unmapped.fq.gz, internal_files/discarded_reads/SRR23538291_run1_R1.unmapped.fq.gz, internal_files/discarded_reads/SRR23538292_run1_R1.unmapped.fq.gz, detected_sites/filtered/SRR23538290.genes.tsv, detected_sites/filtered/SRR23538290.genome.tsv, detected_sites/filtered/SRR23538291.genes.tsv, detected_sites/filtered/SRR23538291.genome.tsv, detected_sites/filtered/SRR23538292.genes.tsv, detected_sites/filtered/SRR23538292.genome.tsv
+    jobid: 0
+    reason: Input files updated by another job: detected_sites/filtered/SRR23538292.genes.tsv, report_reads/mapped/SRR23538290.tsv, internal_files/discarded_reads/SRR23538290_run1_R1.unmapped.fq.gz, internal_files/discarded_reads/SRR23538292_run1_R1.unmapped.fq.gz, detected_sites/filtered/SRR23538291.genes.tsv, detected_sites/filtered/SRR23538292.genome.tsv, detected_sites/filtered/SRR23538290.genome.tsv, report_reads/mapped/SRR23538292.tsv, internal_files/discarded_reads/SRR23538291_run1_R1.unmapped.fq.gz, detected_sites/filtered/SRR23538291.genome.tsv, detected_sites/filtered/SRR23538290.genes.tsv, report_reads/mapped/SRR23538291.tsv
+    resources: tmpdir=/tmp
+
+[Wed Feb  5 08:20:54 2025]
+Finished job 0.
+98 of 98 steps (100%) done
+Complete log: .snakemake/log/2025-02-05T045739.602356.snakemake.log
