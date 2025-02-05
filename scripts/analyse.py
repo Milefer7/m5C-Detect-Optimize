@@ -12,7 +12,7 @@ def parse_snakemake_log():
         raise FileNotFoundError("未找到任何日志文件")
     
     log_path = os.path.join(log_dir, log_files[-1])
-    summary_path = f"{log_path}_summary.csv"
+    summary_path = f"{log_path}_summary.md"  # 输出为Markdown文件
     
     # 数据结构初始化
     jobs = {}
@@ -89,10 +89,11 @@ def parse_snakemake_log():
     with open(summary_path, 'w', encoding='utf-8') as f:
         # 写入元数据（注释行）
         f.write(f"# Log analysis for: {os.path.basename(log_path)}\n")
-        f.write("# Generated at: {}\n".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+        f.write("> Generated at: {}\n".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         
-        # 数据表头
-        f.write("rule_name,job_count,avg_time_min,total_time_min,threads\n")
+        # 写入表头（Markdown格式的表格）
+        f.write("\n| rule_name | job_count | avg_time_min | total_time_min | threads |\n")
+        f.write("|-----------|-----------|--------------|-----------------|---------|\n")  # 分隔线
         
         # 数据行
         for rule in sorted(rule_stats.keys()):
@@ -103,14 +104,15 @@ def parse_snakemake_log():
             avg = stats['total_time'] / stats['job_count'] / 60
             total = stats['total_time'] / 60
             
-            # 转义特殊字符
-            rule_name = f'"{rule}"' if ',' in rule else rule
-            f.write(f"{rule_name},{stats['job_count']},{avg:.2f},{total:.2f},{stats['threads']}\n")
+            # 处理字段中的竖线字符
+            rule_name = f'"{rule}"' if '|' in rule else rule
+            # 使用Markdown的表格语法
+            f.write(f"| {rule_name} | {stats['job_count']} | {avg:.2f} | {total:.2f} | {stats['threads']} |\n")
         
         # 统计摘要
         total_cpu = sum(s['total_time'] for s in rule_stats.values()) / 3600
-        f.write("\n# === Summary ===\n")
-        f.write(f"# Total CPU Time: {total_cpu:.2f} hours\n")
+        f.write("\n# Summary \n")
+        f.write(f"* Total CPU Time: {total_cpu:.2f} hours\n")
         
         # 计算实际耗时
         valid_jobs = [j for j in jobs.values() if j['start'] and j['end']]
@@ -118,9 +120,9 @@ def parse_snakemake_log():
             start = min(j['start'] for j in valid_jobs)
             end = max(j['end'] for j in valid_jobs)
             delta = end - start
-            f.write(f"# Wall Time: {delta.days*24 + delta.seconds//3600:02d}:{(delta.seconds//60)%60:02d}:{delta.seconds%60:02d} hours\n")
+            f.write(f"* Wall Time: {delta.days*24 + delta.seconds//3600:02d}:{(delta.seconds//60)%60:02d}:{delta.seconds%60:02d} hours\n")
         else:
-            f.write("# Wall Time: N/A\n")
+            f.write("* Wall Time: N/A\n")
 
     print(f"分析报告已生成：{os.path.abspath(summary_path)}")
 
