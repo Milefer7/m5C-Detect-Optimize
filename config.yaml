@@ -16,11 +16,10 @@ library: INLINE
 # prepare genes index
 # premap to rRNA, tRNA and other small RNA
 # If study virus, then also premap to virus genome
-# customized_genes:
-#   - a.fa
-#   - b.fa
-# library: INLINE
-# makedup: false 
+customized_genes:
+  - ../data/ref/fastq/NSUN2.fa
+  - ../data/ref/fastq/DNMT2.fa
+makedup: false 
 
 # reference genome and index
 reference:
