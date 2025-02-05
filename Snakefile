@@ -75,7 +75,7 @@ rule cutadapt_SE:
         fastq_untrimmed=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.untrimmed.fq.gz",
     params:
         library=lambda wildcards: SAMPLE2LIB[wildcards.sample],
-    threads: 20
+    threads: 36 # 可利用108线程，三个样本同时处理，每个样本36线程
     shell:
         """
         cutseq {input} -t {threads} -A {params.library} -m 20 --trim-polyA --ensure-inline-barcode -o {output.fastq_cut} -s {output.fastq_tooshort} -u {output.fastq_untrimmed}
@@ -133,7 +133,7 @@ rule hisat2_3n_mapping_contamination_SE:
         summary="report_reads/mapping/{sample}_{rn}.contamination.summary",
     params:
         index=REF["contamination"]["hisat3n"],
-    threads: 24
+    threads: 36 # 可利用108线程，三个样本同时处理，每个样本36线程
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --mp 8,2 --no-spliced-alignment | \
@@ -153,7 +153,7 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 24
+    threads: 36 # combine_runs 处理完后会执行这个rule，没有其他任务，所以可以利用全部36线程
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
@@ -170,7 +170,7 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    threads: 24
+    threads: 18 # extract_unmap_bam_internal_SE（18线程） 和 dedup_mapping（18线程） 执行任务，extract_unmap_bam_internal_SE先执行完，下一个是此rule，可取18线程
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
@@ -183,7 +183,7 @@ rule extract_unmap_bam_internal_SE:
         TEMPDIR / "mapping_discarded_SE/{sample}_{rn}.{reftype}.bam",
     output:
         temp(TEMPDIR / "unmapped_internal_SE/{sample}_{rn}_R1.{reftype}.fq.gz"),
-    threads: 4
+    threads: 18 # hisat2_3n_mapping_genome_SE（36线程） 执行任务，下一个是此rule和hisat2_3n_sort（18线程）,可取36-18=18线程
     shell:
         """
         {BIN[samtools]} fastq -@ {threads} -0 {output} {input}
@@ -212,7 +212,7 @@ rule hisat2_3n_sort:
         ),
     output:
         INTERNALDIR / "run_sorted/{sample}_{rn}.{ref}.bam",
-    threads: 16
+    threads: 18 # hisat2_3n_mapping_genome_SE（36线程） 执行任务，下一个是此rule和extract_unmap_bam_internal_SE（18线程）,可取36-18=18线程
     shell:
         """
         {BIN[samtools]} sort -@ {threads} --write-index -m 3G -O BAM -o {output} {input}
@@ -264,12 +264,12 @@ rule dedup_mapping:
         txt="report_reads/dedup/{sample}.{ref}.log",
     params:
         tmp=os.environ["TMPDIR"],
-    threads: 20
+    threads: 18 # hisat2_3n_mapping_genes_SE（36线程） 执行完后分出两个任务并发执行，extract_unmap_bam_internal_SE（18线程） 和 hisat2_3n_sort（18线程）。当 hisat2_3n_sort结束后是combine_runs（8线程）(另一边还没结束),最后到此rule，所以最大只有18线程
     run:
-        if WITH_UMI:
+        if WITH_UMI: # 添加的 -XX:+UseG1GC 表示使用G1垃圾回收器，可以在大内存下提高性能
             shell(
                 """
-            java -server -Xms8G -Xmx40G -Xss100M -Djava.io.tmpdir={params.tmp} -jar {BIN[umicollapse]} bam \
+            java -server -Xms8G -Xmx20G -Xss100M -Djava.io.tmpdir={params.tmp} -jar {BIN[umicollapse]} bam \
                 -t 2 -T {threads} --data naive --merge avgqual --two-pass -i {input.bam} -o {output.bam} >{output.txt}
             """
             )
@@ -315,10 +315,13 @@ rule hisat2_3n_calling_unfiltered_unique:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
+        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=12,       # 最大化计算核心分配
+        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
         """
 
 
@@ -333,10 +336,13 @@ rule hisat2_3n_calling_unfiltered_multi:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
+        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=12,       # 最大化计算核心分配
+        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
         """
 
 
@@ -363,10 +369,13 @@ rule hisat2_3n_calling_filtered_unqiue:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
+        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=12,       # 最大化计算核心分配
+        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
         """
 
 
@@ -381,10 +390,13 @@ rule hisat2_3n_calling_filtered_multi:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
+        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=12,       # 最大化计算核心分配
+        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
         """
 
 
