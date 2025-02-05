@@ -321,7 +321,7 @@ rule hisat2_3n_calling_unfiltered_unique:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 
@@ -342,7 +342,7 @@ rule hisat2_3n_calling_unfiltered_multi:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 
@@ -375,7 +375,7 @@ rule hisat2_3n_calling_filtered_unqiue:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 
@@ -396,7 +396,7 @@ rule hisat2_3n_calling_filtered_multi:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {bgzip_threads} -c > {output}
+        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 
