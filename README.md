@@ -1,6 +1,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
 
-基准测试，耗时 02:45:08 详情见 workspace/.snakemake/log/2025-02-04T072629.263712.snakemake.log_summary.csv
+修改reference后的基准测试，用rRNA tRNA 作为contamination 和 genes。
+耗时 03:23:15。详见 `workspace/.snakemake/log/2025-02-05T045739.602356.snakemake.log_summary.csv`
 
 # m<sup>5</sup>C-UBSseq
 
