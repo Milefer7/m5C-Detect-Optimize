@@ -12,8 +12,7 @@ path:
 
 # global config
 library: INLINE
-# library: TAKARAV3
-#
+
 # prepare genes index
 # premap to rRNA, tRNA and other small RNA
 # If study virus, then also premap to virus genome
@@ -26,32 +25,28 @@ library: INLINE
 # reference genome and index
 reference:
   contamination:
-    # fa: ~/reference/genome/contamination/contamination.fa
-    fa: /home/milefer7/myRes/ASC25-m5C/data/ref/GCA_000819615.1_ViralProj14015_genomic.fna
-    hisat3n: /home/milefer7/myRes/ASC25-m5C/data/ref/index/hisat3n/contamination/contamination
+    fa: ../data/ref/fastq/rRNA.fa
+    hisat3n: ../data/ref/index/rRNA
   genes:
-#    fa: ~/reference/genome/Homo_sapiens.GRCh38.sncRNA.fa
-    fa: /home/milefer7/myRes/ASC25-m5C/data/ref/gencode.v47.lncRNA_transcripts.fa
-    # fa: /home/milefer7/myRes/ASC25-m5C/data/ref/Homo_sapiens.GRCh38.ncrna.fa
-    hisat3n: /home/milefer7/myRes/ASC25-m5C/data/ref/index/hisat3n/Homo_sapiens.GRCh38.sncRNA/Homo_sapiens.GRCh38.sncRNA
+    fa: ../data/ref/fastq/tRNA.fa
+    hisat3n: ../data/ref/index/tRNA
   genome:
-#    fa: ~/reference/genome/Homo_sapiens.GRCh38.genome.fa
-    fa: /home/milefer7/myRes/ASC25-m5C/data/ref/GRCh38.p14.genome.fa
-    hisat3n: /home/milefer7/myRes/ASC25-m5C/data/ref/index/hisat3n/Homo_sapiens.GRCh38.genome/Homo_sapiens.GRCh38.genome
+    fa: ../data/ref/fastq/GRCh38.p14.genome.fa
+    hisat3n: ../data/ref/index/Homo_sapiens.GRCh38.genome
 
 # Sample name should be indentical and listed in the 2nd level of the yaml file
 # Each sample will be analysis seperately, but
 # samples sharing the same group id will be regared as biological replicates and combined in the comparing step
 samples:
-  CONTROL-rep1:
+  SRR23538290:
     data:
-      - R1: ../data/SRR23538290_1.fastq.gz
-    group: CONTROL
-  DRUG-rep1:
-    data:
-      - R1: ../data/SRR23538291_1.fastq.gz 
+      - R1: ../data/samples/SRR23538290_1.fastq.gz
     group: DRUG
-  DRUG-rep2:
+  SRR23538291:
     data:
-      - R1: ../data/SRR23538292_1.fastq.gz
+      - R1: ../data/samples/SRR23538291_1.fastq.gz 
+    group: DRUG
+  SRR23538292:
+    data:
+      - R1: ../data/samples/SRR23538292_1.fastq.gz
     group: DRUG
