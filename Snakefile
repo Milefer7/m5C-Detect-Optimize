@@ -315,9 +315,9 @@ rule hisat2_3n_calling_unfiltered_unique:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 4
     shell:
         """
@@ -336,9 +336,9 @@ rule hisat2_3n_calling_unfiltered_multi:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 4
     shell:
         """
@@ -369,9 +369,9 @@ rule hisat2_3n_calling_filtered_unqiue:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 4
     shell:
         """
@@ -390,9 +390,9 @@ rule hisat2_3n_calling_filtered_multi:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 4
     shell:
         """
