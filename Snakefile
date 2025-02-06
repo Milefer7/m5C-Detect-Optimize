@@ -133,7 +133,7 @@ rule hisat2_3n_mapping_contamination_SE:
         summary="report_reads/mapping/{sample}_{rn}.contamination.summary",
     params:
         index=REF["contamination"]["hisat3n"],
-    threads: 24 # 可利用108线程，三个样本同时处理，每个样本36线程
+    threads: 12 # 可利用108线程，三个样本同时处理，每个样本36线程
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --mp 8,2 --no-spliced-alignment | \
@@ -153,7 +153,7 @@ rule hisat2_3n_mapping_genes_SE:
         index=(
             REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
         ),
-    threads: 24 # combine_runs 处理完后会执行这个rule，没有其他任务，所以可以利用全部36线程
+    threads: 12 # combine_runs 处理完后会执行这个rule，没有其他任务，所以可以利用全部36线程
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
@@ -170,7 +170,7 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    threads: 24 # extract_unmap_bam_internal_SE（18线程） 和 dedup_mapping（18线程） 执行任务，extract_unmap_bam_internal_SE先执行完，下一个是此rule，可取18线程
+    threads: 12 # extract_unmap_bam_internal_SE（18线程） 和 dedup_mapping（18线程） 执行任务，extract_unmap_bam_internal_SE先执行完，下一个是此rule，可取18线程
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
@@ -212,7 +212,7 @@ rule hisat2_3n_sort:
         ),
     output:
         INTERNALDIR / "run_sorted/{sample}_{rn}.{ref}.bam",
-    threads: 18 # hisat2_3n_mapping_genome_SE（36线程） 执行任务，下一个是此rule和extract_unmap_bam_internal_SE（18线程）,可取36-18=18线程
+    threads: 4 # hisat2_3n_mapping_genome_SE（36线程） 执行任务，下一个是此rule和extract_unmap_bam_internal_SE（18线程）,可取36-18=18线程
     shell: # -m 4G 表示每个线程最多使用4G内存
         """
         {BIN[samtools]} sort -@ {threads} --write-index -m 4G -O BAM -o {output} {input}
@@ -318,7 +318,7 @@ rule hisat2_3n_calling_unfiltered_unique:
         samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
         bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
-    threads: 6
+    threads: 4
     shell:
         """
         {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
@@ -339,7 +339,7 @@ rule hisat2_3n_calling_unfiltered_multi:
         samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
         bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
-    threads: 6
+    threads: 4
     shell:
         """
         {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
@@ -372,7 +372,7 @@ rule hisat2_3n_calling_filtered_unqiue:
         samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
         bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
-    threads: 6
+    threads: 4
     shell:
         """
         {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
@@ -393,7 +393,7 @@ rule hisat2_3n_calling_filtered_multi:
         samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
         bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
-    threads: 6
+    threads: 4
     shell:
         """
         {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
