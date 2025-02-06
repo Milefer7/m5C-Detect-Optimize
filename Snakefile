@@ -195,7 +195,7 @@ rule extract_unmap_bam_final_SE:
         r1=TEMPDIR / "unmapped_internal_SE/{sample}_{rn}_R1.genome.fq.gz",
     output:
         r1=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.unmapped.fq.gz",
-    threads: 4
+    threads: 1 # 纯I/O操作，只需要一个线程
     shell:
         """
         mv {input.r1} {output.r1}
@@ -213,9 +213,9 @@ rule hisat2_3n_sort:
     output:
         INTERNALDIR / "run_sorted/{sample}_{rn}.{ref}.bam",
     threads: 18 # hisat2_3n_mapping_genome_SE（36线程） 执行任务，下一个是此rule和extract_unmap_bam_internal_SE（18线程）,可取36-18=18线程
-    shell:
+    shell: # -m 10G 修改为最多使用5G内存（原来是3G）
         """
-        {BIN[samtools]} sort -@ {threads} --write-index -m 3G -O BAM -o {output} {input}
+        {BIN[samtools]} sort -@ {threads} --write-index -m 10G -O BAM -o {output} {input}
         """
 
 
@@ -315,9 +315,9 @@ rule hisat2_3n_calling_unfiltered_unique:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
-        hisat_threads=12,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=5,       # 最大化计算核心分配
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
@@ -336,9 +336,9 @@ rule hisat2_3n_calling_unfiltered_multi:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
-        hisat_threads=12,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=5,       # 最大化计算核心分配
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
@@ -369,9 +369,9 @@ rule hisat2_3n_calling_filtered_unqiue:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
-        hisat_threads=12,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=5,       # 最大化计算核心分配
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
@@ -390,9 +390,9 @@ rule hisat2_3n_calling_filtered_multi:
             if wildcards.ref != "genes" or not CUSTOMIZED_GENES
             else "prepared_genes/genes.fa"
         ),
-        samtools_threads=2,     # 减少samtools线程（I/O瓶颈为主）
-        hisat_threads=12,       # 最大化计算核心分配
-        bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
+        hisat_threads=5,       # 最大化计算核心分配
+        bgzip_threads=1,        # 减少bgzip线程（压缩可能受限于输入速度）
     threads: 16
     shell:
         """
