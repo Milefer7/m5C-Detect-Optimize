@@ -1,11 +1,12 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
 
+## branch v0.21 在分支 v0.2 基础上进一步优化 
 修改reference后的基准测试，用rRNA tRNA 作为contamination 和 genes。
 * 再加上两个参考基因，customized_genes
   * NSUN2.fa
   * DNMT2.fa
 
-* 本分支将v1.6分支中 snakefile 的 thread 优化加入进来。
+* 本分支v0.2将v1.6分支中 snakefile 的 thread 优化加入进来。
   * dedup_mapping的-Xmx40G的参数未修改。如果发现有内存瓶颈，在下一个分支再添加
   * hisat2_3n_mapping_genes_SE的参数没动，怕影响精度，之后再测试
     ```
