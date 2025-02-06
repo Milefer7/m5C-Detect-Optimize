@@ -23,7 +23,7 @@ else
 fi
 
 # 延时 60 分钟（3600 秒）
-sleep 3600
+sleep 14400 
 
 # 使用 sudo 杀死进程
 if [ -n "$atop_pids" ]; then
