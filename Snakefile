@@ -170,7 +170,7 @@ rule hisat2_3n_mapping_genome_SE:
         summary="report_reads/mapping/{sample}_{rn}.genome.summary",
     params:
         index=REF["genome"]["hisat3n"],
-    threads: 12 # extract_unmap_bam_internal_SE（18线程） 和 dedup_mapping（18线程） 执行任务，extract_unmap_bam_internal_SE先执行完，下一个是此rule，可取18线程
+    threads: 20 # extract_unmap_bam_internal_SE（18线程） 和 dedup_mapping（18线程） 执行任务，extract_unmap_bam_internal_SE先执行完，下一个是此rule，可取18线程
     shell:
         """
         {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
