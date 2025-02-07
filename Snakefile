@@ -14,7 +14,6 @@ workdir: "workspace"
 BIN = config["path"]
 REF = config["reference"]
 
-
 CUSTOMIZED_GENES = [os.path.expanduser(i) for i in config.get("customized_genes", [])]
 WITH_UMI = config.get("library", "") in ["INLINE", "TAKARAV3"]
 MARKDUP = config.get("markdup", False)
@@ -73,12 +72,40 @@ rule cutadapt_SE:
         fastq_cut=temp(TEMPDIR / "cut_adapter_SE/{sample}_{rn}_R1.fq.gz"),
         fastq_tooshort=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.tooshort.fq.gz",
         fastq_untrimmed=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.untrimmed.fq.gz",
+        report="report_reads/trimming/{sample}_{rn}.json",
     params:
         library=lambda wildcards: SAMPLE2LIB[wildcards.sample],
     threads: 20
     shell:
         """
-        cutseq {input} -t {threads} -A {params.library} -m 20 --trim-polyA --ensure-inline-barcode -o {output.fastq_cut} -s {output.fastq_tooshort} -u {output.fastq_untrimmed}
+        cutseq -t {threads} -A {params.library} -m 20 --trim-polyA --ensure-inline-barcode --auto-rc -o {output.fastq_cut} -s {output.fastq_tooshort} -u {output.fastq_untrimmed} --json-file {output.report} {input} 
+        """
+
+
+rule cutadapt_PE:
+    input:
+        lambda wildcards: SAMPLE2DATA[wildcards.sample][wildcards.rn].get("R1", "/"),
+        lambda wildcards: SAMPLE2DATA[wildcards.sample][wildcards.rn].get("R2", "/"),
+    output:
+        fastq_cut=[
+            temp(TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R1.fq.gz"),
+            temp(TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R2.fq.gz"),
+        ],
+        fastq_tooshort=[
+            INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.tooshort.fq.gz",
+            INTERNALDIR / "discarded_reads/{sample}_{rn}_R2.tooshort.fq.gz",
+        ],
+        fastq_untrimmed=[
+            INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.untrimmed.fq.gz",
+            INTERNALDIR / "discarded_reads/{sample}_{rn}_R2.untrimmed.fq.gz",
+        ],
+        report="report_reads/trimming/{sample}_{rn}.report",
+    params:
+        library=lambda wildcards: SAMPLE2LIB[wildcards.sample],
+    threads: 20
+    shell:
+        """
+        cutseq -t {threads} -A {params.library} -m 20 --trim-polyA --ensure-inline-barcode --auto-rc -o {output.fastq_cut} -s {output.fastq_tooshort} -u {output.fastq_untrimmed} --json-file {output.report} {input} 
         """
 
 
@@ -95,7 +122,7 @@ rule prepare_genes_index:
         """
         cat {input} >{output.fa}
         rm -f `dirname {output.index}`/`basename {output.index} ".CT.1.ht2"`.*.ht2
-        /home/milefer7/opt/hisat-3n/hisat-3n-build -p 12 --base-change C,T {output.fa} {params.index}
+        ~/tools/hisat2/hisat-3n-build -p 12 --base-change C,T {output.fa} {params.index}
         """
 
 
@@ -156,7 +183,7 @@ rule hisat2_3n_mapping_genes_SE:
     threads: 24
     shell:
         """
-        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
+        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -U {input[0]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
             {BIN[samtools]} view -@ {threads} -e '!flag.unmap' -O BAM -U {output.unmapped} -o {output.mapped}
         """
 
@@ -190,6 +217,82 @@ rule extract_unmap_bam_internal_SE:
         """
 
 
+# Mapping (PE mapping mode)
+
+
+rule hisat2_3n_mapping_contamination_PE:
+    input:
+        TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R1.fq.gz",
+        TEMPDIR / "cut_adapter_PE/{sample}_{rn}_R2.fq.gz",
+    output:
+        mapped=temp(TEMPDIR / "mapping_unsorted_PE/{sample}_{rn}.contamination.bam"),
+        unmapped=temp(TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.contamination.bam"),
+        summary="report_reads/mapping/{sample}_{rn}.contamination.summary",
+    params:
+        index=REF["contamination"]["hisat3n"],
+    threads: 24
+    shell:
+        """
+        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -1 {input[0]} -2 {input[1]} --directional-mapping --base-change C,T --mp 8,2 --no-spliced-alignment | \
+            {BIN[samtools]} view -@ {threads} -e 'flag.proper_pair && !flag.unmap && !flag.munmap' -O BAM -U {output.unmapped} -o {output.mapped}
+        """
+
+
+rule hisat2_3n_mapping_genes_PE:
+    input:
+        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.contamination.fq.gz",
+        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.contamination.fq.gz",
+        "prepared_genes/genes.3n.CT.1.ht2" if CUSTOMIZED_GENES else [],
+    output:
+        mapped=temp(TEMPDIR / "mapping_unsorted_PE/{sample}_{rn}.genes.bam"),
+        unmapped=temp(TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.genes.bam"),
+        summary="report_reads/mapping/{sample}_{rn}.genes.summary",
+    params:
+        index=(
+            REF["genes"]["hisat3n"] if not CUSTOMIZED_GENES else "prepared_genes/genes"
+        ),
+    threads: 24
+    shell:
+        """
+        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -1 {input[0]} -2 {input[1]} --directional-mapping --all --norc --base-change C,T --mp 8,2 --no-spliced-alignment | \
+            {BIN[samtools]} view -@ {threads} -e 'flag.proper_pair && !flag.unmap && !flag.munmap' -O BAM -U {output.unmapped} -o {output.mapped}
+        """
+
+
+rule hisat2_3n_mapping_genome_PE:
+    input:
+        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.genes.fq.gz",
+        TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.genes.fq.gz",
+    output:
+        mapped=temp(TEMPDIR / "mapping_unsorted_PE/{sample}_{rn}.genome.bam"),
+        unmapped=temp(TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.genome.bam"),
+        summary="report_reads/mapping/{sample}_{rn}.genome.summary",
+    params:
+        index=REF["genome"]["hisat3n"],
+    threads: 24
+    shell:
+        """
+        {BIN[hisat3n]} --index {params.index} -p {threads} --summary-file {output.summary} --new-summary -q -1 {input[0]} -2 {input[1]} --directional-mapping --base-change C,T --pen-noncansplice 20 --mp 4,1 | \
+            {BIN[samtools]} view -@ {threads} -e 'flag.proper_pair && !flag.unmap && !flag.munmap' -O BAM -U {output.unmapped} -o {output.mapped}
+        """
+
+
+rule extract_unmap_bam_internal_PE:
+    input:
+        TEMPDIR / "mapping_discarded_PE/{sample}_{rn}.{reftype}.bam",
+    output:
+        r1=temp(TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.{reftype}.fq.gz"),
+        r2=temp(TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.{reftype}.fq.gz"),
+    threads: 4
+    shell:
+        """
+        {BIN[samtools]} fastq -@ {threads} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n {input}
+        """
+
+
+ruleorder: extract_unmap_bam_final_PE > extract_unmap_bam_final_SE
+
+
 rule extract_unmap_bam_final_SE:
     input:
         r1=TEMPDIR / "unmapped_internal_SE/{sample}_{rn}_R1.genome.fq.gz",
@@ -199,6 +302,21 @@ rule extract_unmap_bam_final_SE:
     shell:
         """
         mv {input.r1} {output.r1}
+        """
+
+
+rule extract_unmap_bam_final_PE:
+    input:
+        r1=TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R1.genome.fq.gz",
+        r2=TEMPDIR / "unmapped_internal_PE/{sample}_{rn}_R2.genome.fq.gz",
+    output:
+        r1=INTERNALDIR / "discarded_reads/{sample}_{rn}_R1.unmapped.fq.gz",
+        r2=INTERNALDIR / "discarded_reads/{sample}_{rn}_R2.unmapped.fq.gz",
+    threads: 4
+    shell:
+        """
+        mv {input.r1} {output.r1}
+        mv {input.r2} {output.r2}
         """
 
 
@@ -269,7 +387,7 @@ rule dedup_mapping:
         if WITH_UMI:
             shell(
                 """
-            java -server -Xms8G -Xmx40G -Xss100M -Djava.io.tmpdir={params.tmp} -jar {BIN[umicollapse]} bam \
+            /software/java-15.0.2-el8-x86_64/bin/java -server -Xms8G -Xmx40G -Xss100M -Djava.io.tmpdir={params.tmp} -jar {BIN[umicollapse]} bam \
                 -t 2 -T {threads} --data naive --merge avgqual --two-pass -i {input.bam} -o {output.bam} >{output.txt}
             """
             )
@@ -318,7 +436,7 @@ rule hisat2_3n_calling_unfiltered_unique:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | bgzip -@ {threads} -c > {output}
         """
 
 
@@ -336,7 +454,7 @@ rule hisat2_3n_calling_unfiltered_multi:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | bgzip -@ {threads} -c > {output}
         """
 
 
@@ -366,7 +484,7 @@ rule hisat2_3n_calling_filtered_unqiue:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | bgzip -@ {threads} -c > {output}
         """
 
 
@@ -384,7 +502,7 @@ rule hisat2_3n_calling_filtered_multi:
     threads: 16
     shell:
         """
-        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {threads} -c > {output}
+        {BIN[samtools]} view -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {threads} -m --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | bgzip -@ {threads} -c > {output}
         """
 
 
