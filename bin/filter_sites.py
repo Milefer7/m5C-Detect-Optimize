@@ -8,7 +8,7 @@
 
 
 import argparse
-
+from scipy.stats import binomtest
 import polars as pl
 
 arg_parser = argparse.ArgumentParser()
@@ -52,7 +52,6 @@ with open(args.background_file, "w") as f:
 
 # 修改calculate_pval函数，使用struct和map_elements
 def calculate_pval(u: pl.Expr, d: pl.Expr, p: float) -> pl.Expr:
-    from scipy.stats import binomtest
     return (
         pl.struct([u, d])
         .map_elements(

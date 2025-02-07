@@ -1,2 +1,2 @@
-ref	pos	strand	u	d	ur	pval	passed
-ENST00000377799.8	8847	-	1	45	0.022222222222222223	0.15781492298404942	false
+ref	pos	strand	convertedBaseCount_unfiltered_uniq	unconvertedBaseCount_unfiltered_uniq	convertedBaseCount_unfiltered_multi	unconvertedBaseCount_unfiltered_multi	convertedBaseCount_filtered_uniq	unconvertedBaseCount_filtered_uniq	convertedBaseCount_filtered_multi	unconvertedBaseCount_filtered_multi	u	d	ur	pval	passed
+ENST00000377799.8	8847	-	44	1	0	0	44	1	0	0	1	45	0.022222222222222223	0.15781492298404942	false

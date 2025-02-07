@@ -1,0 +1,98 @@
+host: saas-de-qiysss-proj1-d535-5969dc4d5d-hjfxc
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 112
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+stat_sample_background        6
+total                         6
+
+Select jobs to execute...
+Execute 6 jobs...
+
+[Fri Feb  7 15:58:44 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538290.genes.arrow, detected_sites/prefilter/genes.tsv
+    output: detected_sites/background/SRR23538290.genes.tsv, detected_sites/filtered/SRR23538290.genes.tsv
+    jobid: 47
+    reason: Forced execution
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Fri Feb  7 15:58:44 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538291.genes.arrow, detected_sites/prefilter/genes.tsv
+    output: detected_sites/background/SRR23538291.genes.tsv, detected_sites/filtered/SRR23538291.genes.tsv
+    jobid: 95
+    reason: Forced execution
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Fri Feb  7 15:58:44 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538292.genes.arrow, detected_sites/prefilter/genes.tsv
+    output: detected_sites/background/SRR23538292.genes.tsv, detected_sites/filtered/SRR23538292.genes.tsv
+    jobid: 97
+    reason: Forced execution
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Fri Feb  7 15:58:44 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538291.genome.arrow, detected_sites/prefilter/genome.tsv
+    output: detected_sites/background/SRR23538291.genome.tsv, detected_sites/filtered/SRR23538291.genome.tsv
+    jobid: 96
+    reason: Forced execution
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Fri Feb  7 15:58:44 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538290.genome.arrow, detected_sites/prefilter/genome.tsv
+    output: detected_sites/background/SRR23538290.genome.tsv, detected_sites/filtered/SRR23538290.genome.tsv
+    jobid: 71
+    reason: Forced execution
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 2
+    resources: tmpdir=/tmp
+
+
+[Fri Feb  7 15:58:44 2025]
+localrule stat_sample_background:
+    input: internal_files/count_sites/SRR23538292.genome.arrow, detected_sites/prefilter/genome.tsv
+    output: detected_sites/background/SRR23538292.genome.tsv, detected_sites/filtered/SRR23538292.genome.tsv
+    jobid: 98
+    reason: Forced execution
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 2
+    resources: tmpdir=/tmp
+
+[Fri Feb  7 15:58:44 2025]
+Finished job 47.
+1 of 7 steps (14%) done
+[Fri Feb  7 15:58:44 2025]
+Finished job 95.
+2 of 7 steps (29%) done
+[Fri Feb  7 15:58:44 2025]
+Finished job 97.
+3 of 7 steps (43%) done
+[Fri Feb  7 15:59:08 2025]
+Finished job 71.
+4 of 7 steps (57%) done
+[Fri Feb  7 15:59:15 2025]
+Finished job 98.
+5 of 7 steps (71%) done
+[Fri Feb  7 15:59:16 2025]
+Finished job 96.
+6 of 7 steps (86%) done
+Complete log: .snakemake/log/2025-02-07T155843.826132.snakemake.log
