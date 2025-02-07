@@ -53,11 +53,12 @@ with open(args.background_file, "w") as f:
 # 定义批量计算 p 值的函数（使用列表推导，避免逐行 lambda 调用）
 def calculate_pval(u: pl.Series, d: pl.Series, p: float) -> pl.Series:
     from scipy.stats import binomtest
-    return pl.Series([
-        1.0 if (u_val == 0 or d_val == 0)
-        else binomtest(u_val, d_val, p, alternative="greater").pvalue
-        for u_val, d_val in zip(u, d)
-    ])
+    # 使用Polars的apply函数计算p值
+    return pl.zip(u, d).apply(
+        lambda row: binomtest(row[0], row[1], p, alternative="greater").pvalue 
+        if row[0] != 0 and row[1] != 0 else 1.0,
+        return_dtype=pl.Float64
+    )
 
 # 根据 mask 文件与 site 数据进行左连接，并计算 p 值及过滤条件
 df_filter = (
