@@ -37,7 +37,7 @@ df_pre = pl.read_csv(
     separator="\t",
     has_header=False,
     new_columns=["ref", "pos", "strand"],
-    dtypes={"ref": pl.Utf8, "pos": pl.Int64, "strand": pl.Utf8},
+    schema_overrides={"ref": pl.Utf8, "pos": pl.Int64, "strand": pl.Utf8},  # 修改此行
 )
 
 # 计算背景比率：选择不在 mask 中的数据，计算 ur 列均值
@@ -50,14 +50,17 @@ bg_ratio = (
 with open(args.background_file, "w") as f:
     f.write(f"{bg_ratio}\n")
 
-# 定义批量计算 p 值的函数（使用列表推导，避免逐行 lambda 调用）
-def calculate_pval(u: pl.Series, d: pl.Series, p: float) -> pl.Series:
+# 修改calculate_pval函数，使用struct和map_elements
+def calculate_pval(u: pl.Expr, d: pl.Expr, p: float) -> pl.Expr:
     from scipy.stats import binomtest
-    # 使用Polars的apply函数计算p值
-    return pl.zip(u, d).apply(
-        lambda row: binomtest(row[0], row[1], p, alternative="greater").pvalue 
-        if row[0] != 0 and row[1] != 0 else 1.0,
-        return_dtype=pl.Float64
+    return (
+        pl.struct([u, d])
+        .map_elements(
+            lambda x: binomtest(x['u'], x['d'], p, alternative="greater").pvalue
+            if x['u'] != 0 and x['d'] != 0
+            else 1.0,
+            return_dtype=pl.Float64,
+        )
     )
 
 # 根据 mask 文件与 site 数据进行左连接，并计算 p 值及过滤条件
