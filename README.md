@@ -1,7 +1,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
 
 ## branch v0.4 在 v0.25前提下做bin下文件适配
-* v0.4 ：优化 filter_sites 并测试
+* v0.4 ：优化 filter_sites 并测试 快了4s
 
 # m<sup>5</sup>C-UBSseq
 
