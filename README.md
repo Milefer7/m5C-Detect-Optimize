@@ -1,6 +1,6 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
 
-## branch v0.24 在分支 v0.23 基础上进一步测试，针对hisat2_3n_mapping_genome_SE做 thread 适配
+## branch v0.25 结束适配
 修改reference后的基准测试，用rRNA tRNA 作为contamination 和 genes。
 * 再加上两个参考基因，customized_genes
   * NSUN2.fa
