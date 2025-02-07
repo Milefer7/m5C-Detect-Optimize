@@ -10,7 +10,6 @@
 import argparse
 
 import polars as pl
-from scipy.stats import binomtest
 
 arg_parser = argparse.ArgumentParser()
 arg_parser.add_argument("-i", "--input-file", help="Input site file")
@@ -21,16 +20,18 @@ arg_parser.add_argument("-o", "--output-file", help="output file")
 
 args = arg_parser.parse_args()
 
+# 惰性加载数据：使用 scan_ipc 优化大数据加载，并在最后调用 collect() 触发计算
 df_site = (
-    pl.read_ipc(args.input_file)
+    pl.scan_ipc(args.input_file) # 将read_ipc替换为scan_ipc，优化大数据加载
     .with_columns(
         u=pl.col("unconvertedBaseCount_filtered_uniq"),
-        d=pl.col("convertedBaseCount_filtered_uniq")
-        + pl.col("unconvertedBaseCount_filtered_uniq"),
+        d=pl.col("convertedBaseCount_filtered_uniq") + pl.col("unconvertedBaseCount_filtered_uniq"),
     )
     .with_columns(ur=pl.col("u") / pl.col("d"))
+    .collect()  # 触发计算
 )
 
+# 读取 mask 文件
 df_pre = pl.read_csv(
     args.mask_file,
     separator="\t",
@@ -39,6 +40,7 @@ df_pre = pl.read_csv(
     dtypes={"ref": pl.Utf8, "pos": pl.Int64, "strand": pl.Utf8},
 )
 
+# 计算背景比率：选择不在 mask 中的数据，计算 ur 列均值
 bg_ratio = (
     df_site.join(df_pre, on=["ref", "pos", "strand"], how="anti")
     .get_column("ur")
@@ -48,30 +50,34 @@ bg_ratio = (
 with open(args.background_file, "w") as f:
     f.write(f"{bg_ratio}\n")
 
+# 定义批量计算 p 值的函数（使用列表推导，避免逐行 lambda 调用）
+def calculate_pval(u: pl.Series, d: pl.Series, p: float) -> pl.Series:
+    from scipy.stats import binomtest
+    return pl.Series([
+        1.0 if (u_val == 0 or d_val == 0)
+        else binomtest(u_val, d_val, p, alternative="greater").pvalue
+        for u_val, d_val in zip(u, d)
+    ])
 
-def testp(successes, trials, p):
-    if successes == 0 or trials == 0:
-        return 1.0
-    return binomtest(successes, trials, p, alternative="greater").pvalue
-
-
+# 根据 mask 文件与 site 数据进行左连接，并计算 p 值及过滤条件
 df_filter = (
     df_pre.join(df_site, on=["ref", "pos", "strand"], how="left")
-    .with_columns(pl.col("u").fill_null(strategy="zero"))
-    .with_columns(pl.col("d").fill_null(strategy="zero"))
-    .select(["ref", "pos", "strand", "u", "d", "ur"])
     .with_columns(
-        pval=pl.struct(["u", "d"]).map_elements(
-            lambda x: testp(x["u"], x["d"], bg_ratio)
-        )
+        pl.col("u").fill_null(0),
+        pl.col("d").fill_null(0)
     )
     .with_columns(
-        passed=(pl.col("pval") < 0.001)
-        & (pl.col("u") >= 2)
-        & (pl.col("d") >= 10)
-        & (pl.col("ur") > 0.02)
+        pval=calculate_pval(pl.col("u"), pl.col("d"), bg_ratio)
+    )
+    .with_columns(
+        passed=(
+            (pl.col("pval") < 0.001) &
+            (pl.col("u") >= 2) &
+            (pl.col("d") >= 10) &
+            (pl.col("ur") > 0.02)
+        )
     )
 )
 
-
+# 输出结果到文件
 df_filter.write_csv(args.output_file, separator="\t", include_header=True)
