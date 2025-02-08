@@ -318,10 +318,11 @@ rule hisat2_3n_calling_unfiltered_unique:
         samtools_threads=1,     # 减少samtools线程（I/O瓶颈为主）
         hisat_threads=2,       # 最大化计算核心分配
         bgzip_threads=2,        # 减少bgzip线程（压缩可能受限于输入速度）
+        tmpdir="/dev/shm",
     threads: 5
     shell:
         """
-        {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
+        export TMPDIR={params.tmpdir} && {BIN[samtools]} view -@ {params.samtools_threads} -e "rlen<100000" -h {input} | stdbuf -o 1M {BIN[hisat3ntable]} -p {params.hisat_threads} -u --alignments - --ref {params.fa} --output-name /dev/stdout --base-change C,T | cut -f 1,2,3,5,7 | {BIN[bgzip]} -@ {params.bgzip_threads} -c > {output}
         """
 
 

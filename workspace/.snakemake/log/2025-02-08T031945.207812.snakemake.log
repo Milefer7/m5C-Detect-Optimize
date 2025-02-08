@@ -1,0 +1,298 @@
+host: saas-de-qiysss-proj1-d535-5969dc4d5d-hjfxc
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 112
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                    count
+-----------------------------------  -------
+combine_runs                               6
+dedup_mapping                              6
+hisat2_3n_calling_unfiltered_unique        6
+total                                     18
+
+Select jobs to execute...
+Execute 6 jobs...
+
+[Sat Feb  8 03:19:45 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538291_run1.genes.bam
+    output: .tmp/combined_mapping/SRR23538291.genes.bam
+    jobid: 20
+    reason: Updated input files: internal_files/run_sorted/SRR23538291_run1.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 8
+    resources: tmpdir=/tmp
+
+
+[Sat Feb  8 03:19:45 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538290_run1.genome.bam
+    output: .tmp/combined_mapping/SRR23538290.genome.bam
+    jobid: 11
+    reason: Updated input files: internal_files/run_sorted/SRR23538290_run1.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+
+[Sat Feb  8 03:19:46 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538292_run1.genome.bam
+    output: .tmp/combined_mapping/SRR23538292.genome.bam
+    jobid: 37
+    reason: Updated input files: internal_files/run_sorted/SRR23538292_run1.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+
+[Sat Feb  8 03:19:46 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538291_run1.genome.bam
+    output: .tmp/combined_mapping/SRR23538291.genome.bam
+    jobid: 24
+    reason: Updated input files: internal_files/run_sorted/SRR23538291_run1.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 8
+    resources: tmpdir=/tmp
+
+
+[Sat Feb  8 03:19:47 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538290_run1.genes.bam
+    output: .tmp/combined_mapping/SRR23538290.genes.bam
+    jobid: 6
+    reason: Updated input files: internal_files/run_sorted/SRR23538290_run1.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 8
+    resources: tmpdir=/tmp
+
+
+[Sat Feb  8 03:19:47 2025]
+localrule combine_runs:
+    input: internal_files/run_sorted/SRR23538292_run1.genes.bam
+    output: .tmp/combined_mapping/SRR23538292.genes.bam
+    jobid: 33
+    reason: Updated input files: internal_files/run_sorted/SRR23538292_run1.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 8
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:19:47 2025]
+Finished job 20.
+1 of 65 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:19:47 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538291.genes.bam
+    output: internal_files/aligned_bam/SRR23538291.genes.bam, report_reads/dedup/SRR23538291.genes.log
+    jobid: 59
+    reason: Input files updated by another job: .tmp/combined_mapping/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:19:47 2025]
+Finished job 6.
+2 of 65 steps (3%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:19:47 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538290.genes.bam
+    output: internal_files/aligned_bam/SRR23538290.genes.bam, report_reads/dedup/SRR23538290.genes.log
+    jobid: 50
+    reason: Input files updated by another job: .tmp/combined_mapping/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:19:47 2025]
+Finished job 33.
+3 of 65 steps (5%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:19:47 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538292.genes.bam
+    output: internal_files/aligned_bam/SRR23538292.genes.bam, report_reads/dedup/SRR23538292.genes.log
+    jobid: 66
+    reason: Input files updated by another job: .tmp/combined_mapping/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:19:51 2025]
+Finished job 50.
+4 of 65 steps (6%) done
+Removing temporary output .tmp/combined_mapping/SRR23538290.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:19:51 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538290.genes.bam
+    output: .tmp/unfiltered_unique/SRR23538290.genes.tsv.gz
+    jobid: 49
+    reason: Input files updated by another job: internal_files/aligned_bam/SRR23538290.genes.bam
+    wildcards: sample=SRR23538290, ref=genes
+    threads: 5
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:19:52 2025]
+Finished job 66.
+5 of 65 steps (8%) done
+Removing temporary output .tmp/combined_mapping/SRR23538292.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:19:52 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538292.genes.bam
+    output: .tmp/unfiltered_unique/SRR23538292.genes.tsv.gz
+    jobid: 65
+    reason: Input files updated by another job: internal_files/aligned_bam/SRR23538292.genes.bam
+    wildcards: sample=SRR23538292, ref=genes
+    threads: 5
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:19:53 2025]
+Finished job 59.
+6 of 65 steps (9%) done
+Removing temporary output .tmp/combined_mapping/SRR23538291.genes.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:19:53 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538291.genes.bam
+    output: .tmp/unfiltered_unique/SRR23538291.genes.tsv.gz
+    jobid: 58
+    reason: Input files updated by another job: internal_files/aligned_bam/SRR23538291.genes.bam
+    wildcards: sample=SRR23538291, ref=genes
+    threads: 5
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:19:55 2025]
+Finished job 49.
+7 of 65 steps (11%) done
+[Sat Feb  8 03:19:58 2025]
+Finished job 65.
+8 of 65 steps (12%) done
+[Sat Feb  8 03:19:59 2025]
+Finished job 58.
+9 of 65 steps (14%) done
+[Sat Feb  8 03:21:59 2025]
+Finished job 11.
+10 of 65 steps (15%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:21:59 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538290.genome.bam
+    output: internal_files/aligned_bam/SRR23538290.genome.bam, report_reads/dedup/SRR23538290.genome.log
+    jobid: 74
+    reason: Input files updated by another job: .tmp/combined_mapping/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:22:38 2025]
+Finished job 37.
+11 of 65 steps (17%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:22:38 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538292.genome.bam
+    output: internal_files/aligned_bam/SRR23538292.genome.bam, report_reads/dedup/SRR23538292.genome.log
+    jobid: 90
+    reason: Input files updated by another job: .tmp/combined_mapping/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:23:02 2025]
+Finished job 24.
+12 of 65 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:23:02 2025]
+localrule dedup_mapping:
+    input: .tmp/combined_mapping/SRR23538291.genome.bam
+    output: internal_files/aligned_bam/SRR23538291.genome.bam, report_reads/dedup/SRR23538291.genome.log
+    jobid: 83
+    reason: Input files updated by another job: .tmp/combined_mapping/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:44:17 2025]
+Finished job 74.
+13 of 65 steps (20%) done
+Removing temporary output .tmp/combined_mapping/SRR23538290.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:44:18 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538290.genome.bam
+    output: .tmp/unfiltered_unique/SRR23538290.genome.tsv.gz
+    jobid: 73
+    reason: Input files updated by another job: internal_files/aligned_bam/SRR23538290.genome.bam
+    wildcards: sample=SRR23538290, ref=genome
+    threads: 5
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:51:16 2025]
+Finished job 90.
+14 of 65 steps (22%) done
+Removing temporary output .tmp/combined_mapping/SRR23538292.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:51:17 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538292.genome.bam
+    output: .tmp/unfiltered_unique/SRR23538292.genome.tsv.gz
+    jobid: 89
+    reason: Input files updated by another job: internal_files/aligned_bam/SRR23538292.genome.bam
+    wildcards: sample=SRR23538292, ref=genome
+    threads: 5
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 03:55:03 2025]
+Finished job 83.
+15 of 65 steps (23%) done
+Removing temporary output .tmp/combined_mapping/SRR23538291.genome.bam.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Feb  8 03:55:04 2025]
+localrule hisat2_3n_calling_unfiltered_unique:
+    input: internal_files/aligned_bam/SRR23538291.genome.bam
+    output: .tmp/unfiltered_unique/SRR23538291.genome.tsv.gz
+    jobid: 82
+    reason: Input files updated by another job: internal_files/aligned_bam/SRR23538291.genome.bam
+    wildcards: sample=SRR23538291, ref=genome
+    threads: 5
+    resources: tmpdir=/tmp
+
+[Sat Feb  8 04:27:47 2025]
+Finished job 73.
+16 of 65 steps (25%) done
+[Sat Feb  8 04:43:51 2025]
+Finished job 89.
+17 of 65 steps (26%) done
+[Sat Feb  8 04:51:37 2025]
+Finished job 82.
+18 of 65 steps (28%) done
+Complete log: .snakemake/log/2025-02-08T031945.207812.snakemake.log
