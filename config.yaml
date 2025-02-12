@@ -1,8 +1,8 @@
 # tools and scripts
 path:
-  samtools: /home/milefer7/opt/tool_perf/samtools-1.21/samtools
-  hisat3n: /home/milefer7/opt/tool_perf/hisat-3n/hisat-3n
-  hisat3ntable: /home/milefer7/opt/tool_perf/hisat-3n/hisat-3n-table
+  samtools: /home/milefer7/miniconda3/envs/asc04/bin/samtools
+  hisat3n: /home/milefer7/opt/tool_perf/hisat-3n_lessConversion/hisat-3n
+  hisat3ntable: /home/milefer7/opt/tool_perf/hisat-3n_lessConversion/hisat-3n-table
   umicollapse: /home/milefer7/miniconda3/envs/asc04/share/umicollapse-1.1.0-0/umicollapse.jar
   bgzip: /home/milefer7/opt/tool_perf/htslib/bgzip
   join_pileup.py: ../bin/join_pileup.py

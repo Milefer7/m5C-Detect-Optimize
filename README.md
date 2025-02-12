@@ -1,6 +1,6 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11046885.svg)](https://doi.org/10.5281/zenodo.11046885)
 
-## branch v0.51 （fork v0.25）O3配置改为最简单 
+## branch v0.52 （fork v0.25）使用hisat-3n_lessConversion 
 > 使用 o3 优化工具
 修改reference后的基准测试，用rRNA tRNA 作为contamination 和 genes。
 * 再加上两个参考基因，customized_genes
