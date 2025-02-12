@@ -1,4 +1,4 @@
-# m<sup>5</sup>C-UBSseq
+<center><div style="font-family:Latin Modern Roman;font-size:30pt;">m<sup>5</sup>C-UBSseq</div></center>
 
 ## Branch Description
 
