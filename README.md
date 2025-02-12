@@ -64,6 +64,7 @@ graph LR
   - **v0.5x**: Testing **O3** optimization with refined parallelization.  
     - **v0.50**: Aggressive optimization strategy.  
     - **v0.51**: Simplified **O3** optimization strategy.  
+  - **v0.6**: Attempt to optimize hisat2_3n_calling_unfiltered_unique by adding tmpdir="/dev/shm"
 
 ---
 
