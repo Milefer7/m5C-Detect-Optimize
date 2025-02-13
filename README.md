@@ -2,6 +2,8 @@
 
 ## Branch Description
 
+Use git for version management and conda for environment management. The final optimization results are stored in branch v0.25 which is also the final result submission.
+
 ```mermaid
 graph LR
     template((template)) --> I(Intermediate Test)
@@ -55,7 +57,9 @@ graph LR
 ```
 
 ### **Final Test**  
+
 > **v0.25 will be submitted as the final result. **
+
 - **v0.0**: Baseline test **without** `customized_genes`.  
 - **v0.1**: Baseline test **with** `customized_genes`.  
   - **v0.2x**: Parallelization optimization. It should be noted that v0.25 is the result branch of the final optimization and will be submitted as the final result. 
@@ -75,6 +79,20 @@ graph LR
 
 - **v1.x**: Focused on **parallelization testing**.  
 - **v2.x**: Focused on **O3 optimization testing**.  
+
+## Reproduction instructions
+
+* Check if you are on the exact branch
+
+  ```git
+  $ git branch # The * mark should belong to v0.25. If not, switch to that branch
+  ```
+
+* Configure conda environment
+
+  ```conda
+  conda env create -f environment.yml
+  ```
 
 <p align="center">
 <img
