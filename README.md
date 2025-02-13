@@ -57,7 +57,7 @@ graph LR
 ### **Final Test**  
 - **v0.0**: Baseline test **without** `customized_genes`.  
 - **v0.1**: Baseline test **with** `customized_genes`.  
-  - **v0.2x**: Parallelization optimization.  
+  - **v0.2x**: Parallelization optimization. It should be noted that v0.25 is the result branch of the final optimization and will be submitted as the final result. 
   - **v0.3**: Testing **O3** optimization.  
     - Parallelization of this branch is not fully implemented yet.  
   - **v0.4**: Optimizing `filter_sites` and testing its impact.  
