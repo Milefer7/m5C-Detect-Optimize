@@ -84,8 +84,12 @@ graph LR
 
 * Check if you are on the exact branch
 
-  ```git
+  ```shell
   $ git branch # The * mark should belong to v0.25. If not, switch to that branch
+  
+  # You can switch to any branch mentioned above to check the optimization process data
+  $ git switch v0.25 # final result
+  $ git switch v0.1  # Benchmark
   ```
 
 * Configure conda environment
