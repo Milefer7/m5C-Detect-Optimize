@@ -1,5 +1,7 @@
 <h1 align="center">m<sup>5</sup>C-UBSseq</h1>
 
+RNA molecules undergo various chemical modifications that play key roles in regulating gene expression, post-transcriptional processes, and protein synthesis. Among these modifications, 5-methylcytosine (m^5^C) is particularly important, influencing a wide range of RNA species and impacting numerous biological functions. The primary challenge in m^5^C detection lies in balancing the need for accuracy and reliability with the goal of minimizing false positives and increasing processing speed. This repository serves as a comprehensive record of optimization efforts, ensuring the reliable identification of high-confidence m^5^C candidate sites with minimal false-positive rates, while also minimizing overall processing time.
+
 ## Branch Description
 
 Use git for version management and conda for environment management. The final optimization results are stored in branch v0.25 which is also the final result submission.
